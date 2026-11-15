@@ -17,6 +17,12 @@
   --font-d:    "Syne", sans-serif;
   --font-b:    "Space Grotesk", sans-serif;
   --font-h:    "Caveat", cursive;
+  /* living gradient stops (shifted per focus by script.js) */
+  --g1:  #1c2033;
+  --g2:  #0e1118;
+  /* the companies room's own shifting gradient */
+  --bk1: #171b2b;
+  --bk2: #10121c;
 }
 
 *{ margin:0; padding:0; box-sizing:border-box; }
@@ -39,14 +45,15 @@ body{
   background:linear-gradient(90deg,var(--amber),var(--teal));
   transform-origin:0 50%; transform:scaleX(0);
 }
-#chip{
-  position:fixed; top:18px; right:20px; z-index:120;
-  font:600 11px/1 var(--font-b); letter-spacing:.22em; text-transform:uppercase;
-  color:var(--ink-dim); border:1px solid #2c3140; padding:9px 14px; border-radius:100px;
-  background:rgba(13,14,19,.55); backdrop-filter:blur(6px);
-  transition:color .3s, border-color .3s;
+/* the scene's name in giant, dimmed letters — bottom-left ambience */
+#big-label{
+  position:fixed; left:3.5vw; bottom:1.4vh; z-index:3;
+  font:800 10vw/0.92 var(--font-d); text-transform:uppercase; letter-spacing:-.015em;
+  color:var(--ink); opacity:0; white-space:nowrap;
+  pointer-events:none; user-select:none;
+  transition:opacity .5s ease;
 }
-#chip.hot{ color:var(--amber); border-color:#4a3a1c; }
+#big-label.show{ opacity:.4; }
 
 /* ---------- shared ---------- */
 .kicker{
@@ -67,8 +74,15 @@ body{
    ============================================================ */
 #stage{
   height:100vh; height:100svh; position:relative; overflow:hidden;
+  background:var(--bg);
+}
+/* the living gradient: two soft glows whose colors shift with each focus */
+#bg-grad{
+  position:absolute; inset:-1px;
   background:
-    radial-gradient(90% 70% at 50% 0%, #171a23 0%, var(--bg) 60%);
+    radial-gradient(115% 85% at 50% -12%, var(--g1) 0%, transparent 62%),
+    radial-gradient(90% 70% at 50% 112%, var(--g2) 0%, transparent 60%),
+    linear-gradient(180deg, #0e1016, var(--bg));
 }
 #world{ position:absolute; inset:0; width:100%; height:100%; display:block; }
 
@@ -88,16 +102,12 @@ body{
 .w-label-sm{
   font:500 20px var(--font-b); fill:var(--ink-dim); letter-spacing:.14em; text-transform:uppercase;
 }
-.w-caption{
-  font:600 17px var(--font-b); fill:#5d6373; letter-spacing:.3em; text-transform:uppercase;
-}
-.w-tech-label{
-  font:600 22px var(--font-b); fill:var(--ink);
-}
 .w-mini-label{
   font:600 13px var(--font-b); fill:var(--ink);
 }
-.w-mono{
+.w-tech-label{
+  font:600 22px var(--font-b); fill:var(--ink);
+}.w-mono{
   font-family:var(--font-b); font-weight:700; fill:var(--teal);
 }
 .w-stack-title{
@@ -142,7 +152,7 @@ body{
    ============================================================ */
 #companies{
   position:relative; height:100vh; overflow:hidden;
-  background:linear-gradient(180deg,#171208 0%, #120e08 55%, #0d0e13 100%);
+  background:linear-gradient(180deg, var(--bk1) 0%, var(--bk2) 55%, #0d0e13 100%);
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:0 20px;
 }
@@ -410,7 +420,7 @@ body{
 
 /* ---------- small screens ---------- */
 @media (max-width:720px){
-  #chip{ top:12px; right:12px; }
+  #big-label{ left:4vw; bottom:1vh; }
   .frame-matte{ padding:28px 22px 26px; }
   .f-label{ min-width:70px; }
   .book{ width:94vw; height:min(82vh, 780px); }

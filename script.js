@@ -101,16 +101,16 @@
   const decorG = document.getElementById("decor");
   const burstG = document.getElementById("burst-layer");
 
-  // backdrop
-  svgEl("rect", { x: -600, y: -900, width: 5200, height: 4600, fill: "url(#dots)", opacity: .55 }, decorG);
+  // backdrop — soft color glows only; the dot grid is gone (a living
+  // gradient in #bg-grad sits beneath the canvas and shifts per focus)
   const blob = (x, y, r, fill, op) =>
     svgEl("circle", { cx: x, cy: y, r, fill, "fill-opacity": op }, decorG);
-  blob(300, 700, 420, "url(#softViolet)", .5);
-  blob(2950, 620, 500, "url(#softTeal)", .45);
-  blob(1050, 1950, 480, "url(#softAmber)", .38);
-  blob(2450, 1050, 330, "url(#softAmber)", .45);
-  blob(1600, 2560, 520, "url(#softTeal)", .32);
-  blob(350, -80, 380, "url(#softTeal)", .25);
+  blob(300, 700, 420, "url(#softViolet)", .3);
+  blob(2950, 620, 500, "url(#softTeal)", .26);
+  blob(1050, 1950, 480, "url(#softAmber)", .22);
+  blob(2450, 1050, 330, "url(#softAmber)", .26);
+  blob(1600, 2560, 520, "url(#softTeal)", .19);
+  blob(350, -80, 380, "url(#softTeal)", .15);
 
   // trunk + branches
   const trunkPath = svgEl("path", { d: WORLD.trunk, class: "line" }, treeG);
@@ -137,7 +137,6 @@
     d: `M ${i === 0 ? 850 : laneStops[i - 1] + 60} ${WORLD.laneY} L ${sx - (i === TECHS.length ? 14 : 60)} ${WORLD.laneY}`,
     class: "line",
   }, toolkitG));
-  svgEl("text", { x: 880, y: 1092, class: "w-caption" }, toolkitG).textContent = "The daily toolkit";
   const laneGem = svgEl("g", { "data-x": WORLD.laneEnd, "data-y": WORLD.laneY }, toolkitG);
   svgEl("rect", {
     x: WORLD.laneEnd - 8, y: WORLD.laneY - 8, width: 16, height: 16, rx: 3,
@@ -395,21 +394,34 @@
     child3End:{ cx: 2000, cy: 2210, w: 1900 },
   };
 
-  const chip = document.getElementById("chip");
-  const setChip = t => { chip.textContent = t; };
+  /* the giant dimmed scene label — bottom-left ambience that follows
+     whatever the camera is currently looking at (replaces the old chip) */
+  const bigLabel = document.getElementById("big-label");
+  let bigText = "";
+  const setBig = (text, color = "#ece7db") => {
+    if (text === bigText) { if (text) bigLabel.classList.add("show"); return; }
+    bigText = text;
+    if (!text) { bigLabel.classList.remove("show"); return; }
+    bigLabel.textContent = text;
+    bigLabel.style.color = color;
+    bigLabel.style.fontSize = `clamp(30px, ${Math.min(10, 88 / text.length).toFixed(2)}vw, 190px)`;
+    bigLabel.classList.add("show");
+  };
   let hintHidden = false;
 
   /* one big scrubbed journey; the ScrollTrigger (pin + scroll length) is
      attached after the acts are built so the pin distance scales with the
      choreography */
-  const marks = {};
   const tl = gsap.timeline({ defaults: { ease: "none" } });
-
   const draw = (p, at, dur, ease = "none") => {
     const L = p.getTotalLength();
     p.style.strokeDasharray = L;
     p.style.strokeDashoffset = L;
+    /* hidden until drawn — an un-drawn dash with round caps would
+       otherwise show its endpoints as stray dots at rest */
+    p.style.opacity = 0;
     tl.to(p, { strokeDashoffset: 0, duration: dur, ease }, at);
+    tl.fromTo(p, { opacity: 0 }, { opacity: .85, duration: Math.min(.14, dur * .4) }, at);
   };
   const pop = (g, at, rot = -24, ease = "back.out(1.8)") => {
     const o = `${g.dataset.x} ${g.dataset.y}`;
@@ -427,30 +439,72 @@
     }, at);
   };
 
+  /* scene ambience — per-focus gradient hues + label colors:
+     [top glow, bottom glow, label ink] */
+  const HUE = {
+    child1:   ["#14343c", "#0a1c20", "#6fd3c7"],
+    react:    ["#173e4a", "#0b2129", "#61dafb"],
+    next:     ["#26304a", "#101523", "#ece7db"],
+    ts:       ["#173a5e", "#0b1c30", "#5ea3e0"],
+    tailwind: ["#144257", "#0a2130", "#38bdf8"],
+    node:     ["#173d26", "#0a1f12", "#8bd450"],
+    graphql:  ["#45173f", "#200a1c", "#ea6ec0"],
+    three:    ["#332059", "#180d2b", "#b7a5f7"],
+    test:     ["#471d16", "#200d09", "#ef6f8e"],
+    gem:      ["#43300a", "#201603", "#f5a524"],
+    stack:    ["#1b2140", "#0d1020", "#8f7bf5"],
+    frontend: ["#232c58", "#101327", "#8f7bf5"],
+    backend:  ["#173d26", "#0a1f12", "#8bd450"],
+    db:       ["#43300a", "#201603", "#f5a524"],
+    testing:  ["#471d2a", "#200d12", "#ef6f8e"],
+    devops:   ["#472a12", "#20140a", "#f0883c"],
+    perf:     ["#332059", "#180d2b", "#b7a5f7"],
+    drop:     ["#4a1520", "#210a0e", "#e0883c"],
+  };
+  const hue = (at, h) =>
+    tl.to("html", { "--g1": h[0], "--g2": h[1], duration: .48, ease: "power1.inOut" }, at);
+  const call = (at, text, color) => tl.call(setBig, [text, color], at);
+  /* label ink for every technology (lane circles + spine badges) */
+  const TECH_INK = {
+    react: "#61dafb", next: "#ece7db", ts: "#5ea3e0", tailwind: "#38bdf8",
+    node: "#8bd450", graphql: "#ea6ec0", vercel: "#ece7db",
+    rest: "#5ea3e0", rsc: "#ece7db", sql: "#f5a524", nosql: "#8bd450",
+    orm: "#38bdf8", tune: "#f5a524", jest: "#b7a5f7", vitest: "#6fd3c7",
+    rtl: "#ea6ec0", playwright: "#ef6f8e", docker: "#38bdf8", cicd: "#8bd450",
+    git: "#f0883c", cwv: "#b7a5f7", wcag: "#6fd3c7", aria: "#f5a524", lazy: "#ece7db",
+  };
+
   // — act 1: the tree grows —
   draw(trunkPath, 0, .45);
   branchPaths.forEach((b, i) => draw(b, .3 + i * .08, .8, "power1.inOut"));
   nodes.forEach((n, i) => pop(n, .95 + i * .07, -90, "back.out(2)"));
-  childLabels.flat().forEach((t, i) =>
-    tl.fromTo(t, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .4 }, 1.0 + i * .05));
+  /* each child's name only surfaces as the camera travels to it */
+  const showChild = (i, at) => childLabels[i].forEach((t, k) =>
+    tl.fromTo(t, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, at + k * .07));
   camTo(tl, .2, 1.1, KF.overview);
 
   // — act 2: focus child 1 —
   camTo(tl, 1.35, 1.15, KF.child1);
+  hue(1.35, HUE.child1);
+  showChild(0, 1.5);
   ping(halos[0], 1.45); ping(halos[0], 2.2);
 
   // — act 3: the toolkit lane, drawn tech by tech —
   // the line runs up to each circle, the circle pops, then the line moves on
-  const laneStart = 2.55; marks.lane = laneStart;
+  const laneStart = 2.55;
+  call(laneStart, "");                           // no tech is focused yet
   draw(laneDrop, laneStart, .3);
   let laneT = laneStart + .3;
-  TECHS.forEach((_, i) => {
+  TECHS.forEach((t, i) => {
     draw(laneSegs[i], laneT, .26);
     pop(techGroups[i], laneT + .26, 0, "back.out(1.9)");
+    hue(2.89 + i * .5, HUE[t.id]);
+    call(2.89 + i * .5, t.label, HUE[t.id][2]);
     laneT += .5;
   });
   draw(laneSegs[TECHS.length], laneT, .26);      // into the end gem
   pop(laneGem, laneT + .26, 45, "back.out(3)");
+  hue(6.93, HUE.gem);                            // the gem warms the room gold
   /* the camera rides the lane: it slides in close on each tech as it pops */
   TECHS.forEach((_, i) =>
     camTo(tl, 2.89 + i * .5, .46, { cx: WORLD.techX[i], cy: WORLD.laneY, w: 820 }));
@@ -458,11 +512,13 @@
 
   // — act 4: the full-stack spine — one node at a time, each unrolling
   // its own mini-lane while the camera visits it, then back to the trunk
-  const stackStart = 7.7; marks.stack = stackStart;
+  const stackStart = 7.7;
   camTo(tl, 7.55, .75, KF.stackTop);
+  hue(7.55, HUE.stack);  call(7.7, "");          // between technologies
+  showChild(1, 7.7);
   ping(halos[1], 7.75);
   // the toolkit recedes to a background layer as the spine rises over it
-  tl.to("#toolkit-layer", { opacity: .26, duration: .5, ease: "power1.inOut" }, stackStart + .2);
+  tl.to("#toolkit-layer", { opacity: .38, duration: .5, ease: "power1.inOut" }, stackStart + .2);
   draw(stackConnector, stackStart + .25, .55, "power1.inOut");
   const nodeKF  = (y, sg) => ({ cx: WORLD.stackX + sg * 90, cy: y + 10, w: 1150 });
   const spineKF = (y)     => ({ cx: 1720, cy: y + 200, w: 1300 });
@@ -471,45 +527,45 @@
     if (i > 0) draw(stackInSegs[i - 1], s0, .2);
     pop(N.g, s0 + .22, sg * 8, "back.out(1.8)");
     camTo(tl, s0 + .15, .55, nodeKF(y, sg));
+    hue(s0 + .15, HUE[s.icon]);
     N.segs.forEach((sp, j) => draw(sp, s0 + .66 + j * .34, .2));
     N.badges.forEach((bg, j) => {
       const bx = WORLD.stackX + sg * (150 + j * 105);
       pop(bg, s0 + .86 + j * .34, sg * 30, "back.out(2)");
-      /* the camera leans into each badge right as it pops */
+      /* the camera leans into each badge right as it pops — the label
+         names exactly the technology in focus */
       camTo(tl, s0 + .72 + j * .34, .3, { cx: bx, cy: y, w: 640 });
+      const bid = s.techs[j];
+      call(s0 + .72 + j * .34, MINI_LABEL[bid], TECH_INK[bid]);
     });
     camTo(tl, s0 + 2.08, .3, spineKF(y), "power1.inOut");
+    call(s0 + 2.08, "");
   });
 
   // — act 5: child 3 just keeps drawing to the bottom of the world —
   // the line lands with a small burst, then the book slides over everything
-  const dropStart = 23.1; marks.drop = dropStart;
+  const dropStart = 23.1;
   camTo(tl, 22.95, .8, KF.child3);
+  hue(22.95, HUE.drop);
+  showChild(2, 23.1);
   ping(halos[2], dropStart + .1);
   draw(dropConnector, dropStart + .25, 1.25, "power1.inOut");
   pop(dropDot, dropStart + 1.7, 0, "back.out(2)");
   ping(dropHalo, dropStart + 1.65);
   camTo(tl, dropStart + 1.15, .95, KF.child3End);
   /* the earlier acts recede to a backdrop; the companies scene arrives next */
-  tl.to(["#toolkit-layer", "#spine-layer"], { opacity: .18, duration: .6, ease: "power1.inOut" }, dropStart + .05);
+  tl.to(["#toolkit-layer", "#spine-layer"], { opacity: .3, duration: .6, ease: "power1.inOut" }, dropStart + .05);
   tl.to({}, { duration: .3 }); // hold so the burst lands before the handoff
 
   /* the stage pin is sized from the finished timeline: one tl unit ≈ 818px */
   const stageTotal = tl.duration();
-  const TH = { lane: marks.lane / stageTotal, stack: marks.stack / stageTotal, drop: marks.drop / stageTotal };
   ScrollTrigger.create({
     trigger: "#stage", start: "top top",
     end: () => "+=" + Math.round(stageTotal * 818),
     pin: true, scrub: 1, anticipatePin: 1,
     animation: tl,
     onUpdate: self => {
-      const p = self.progress;
-      if (!hintHidden && p > .03) { hintHidden = true; gsap.to("#hint-scroll", { opacity: 0, duration: .4 }); }
-      if (self.isActive) setChip(
-        p < .04 ? "01 · Hello" :
-        p < TH.lane ? "01 · The Tree" :
-        p < TH.stack ? "02 · The Toolkit" :
-        p < TH.drop ? "03 · Full-Stack" : "04 · The Drop");
+      if (!hintHidden && self.progress > .03) { hintHidden = true; gsap.to("#hint-scroll", { opacity: 0, duration: .4 }); }
     },
   });
 
@@ -602,6 +658,15 @@
   COMPANIES.forEach(() => dotsWrap.appendChild(document.createElement("i")));
   const dots = [...dotsWrap.children];
 
+  /* each company stains the room its own color as it takes the stage */
+  const BOOK_HUES = [
+    ["#171b2b", "#10121c"],   // TRUEY INC
+    ["#10282e", "#0a181c"],   // USTAFF360
+    ["#2e2010", "#170f05"],   // CARE
+    ["#251741", "#120a20"],   // Embrace-It
+    ["#102b1c", "#08170e"],   // CARE · ERP
+  ];
+
   const FLIP_AT = .95, FLIP_DUR = .85, FLIP_STEP = .95;
   /* page stacking + dots live on the timeline's own onUpdate: it fires on
      every animation tick (including scrub catch-up), not just scroll events */
@@ -619,10 +684,14 @@
     scrollTrigger: {
       trigger: "#companies", start: "top top", end: "+=6200",
       pin: true, scrub: 1, anticipatePin: 1,
-      onUpdate: self => { if (self.isActive) setChip("05 · Companies"); },
-      onLeaveBack: () => setChip("04 · The Drop"),
     },
   });
+  /* the room's color turns with each page (defaults already wear company 1) */
+  BOOK_HUES.slice(1).forEach((h, k) =>
+    bookTl.to("html", { "--bk1": h[0], "--bk2": h[1], duration: .55, ease: "power1.inOut" },
+      FLIP_AT + k * FLIP_STEP + .35));
+  bookTl.to("html", { "--bk1": "#1f1808", "--bk2": "#140f05", duration: .55, ease: "power1.inOut" },
+    FLIP_AT + 4 * FLIP_STEP + .4);
   bookTl.from("#book", { y: 130, rotationX: 9, opacity: 0, duration: .7, ease: "power2.out", transformOrigin: "50% 100%" }, 0)
         .from(".book-dots", { opacity: 0, duration: .4 }, .45);
   /* pages don't fold flat to -180°: the held cover tilts toward the reader,
@@ -667,12 +736,6 @@
   /* ------------------------------------------------------------
      chrome
      ------------------------------------------------------------ */
-  ScrollTrigger.create({
-    trigger: "#contact", start: "top 60%", end: "bottom bottom",
-    onEnter: () => setChip("06 · Contact"),
-    onEnterBack: () => setChip("06 · Contact"),
-    onLeaveBack: () => setChip("05 · Companies"),
-  });
   gsap.to("#progress", {
     scaleX: 1, ease: "none",
     scrollTrigger: { trigger: document.body, start: "top top", end: "max", scrub: .3 },

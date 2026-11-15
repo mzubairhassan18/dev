@@ -14,15 +14,13 @@
 <body>
 
 <div id="progress" aria-hidden="true"></div>
-<div id="chip" aria-hidden="true">00 · Hello</div>
+<div id="big-label" aria-hidden="true"></div>
 
 <!-- ============ SCENE 1 · INTRO + THE TREE (SVG camera world) ============ -->
 <section id="stage" aria-label="Intro and experience tree">
+  <div id="bg-grad" aria-hidden="true"></div>
   <svg id="world" viewBox="800 30 1700 956" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <pattern id="dots" width="56" height="56" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="1.6" fill="#3a3f4d"/>
-      </pattern>
       <radialGradient id="softAmber"><stop offset="0%" stop-color="#f5a524" stop-opacity=".55"/><stop offset="100%" stop-color="#f5a524" stop-opacity="0"/></radialGradient>
       <radialGradient id="softTeal"><stop offset="0%" stop-color="#6fd3c7" stop-opacity=".4"/><stop offset="100%" stop-color="#6fd3c7" stop-opacity="0"/></radialGradient>
       <radialGradient id="softViolet"><stop offset="0%" stop-color="#8f7bf5" stop-opacity=".35"/><stop offset="100%" stop-color="#8f7bf5" stop-opacity="0"/></radialGradient>
