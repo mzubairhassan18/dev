@@ -699,6 +699,7 @@
       : `<span class="t-tile"><i class="t-ico"><b class="t-dot"></b></i><em>${t.t}</em></span>`).join("");
     p.innerHTML = `
       <div class="front" style="--co:${c.accent};--co2:${c.co2}">
+        <span class="p-holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
         <div class="p-logo"><img class="${c.tile ? "tile" : ""}" src="${c.logo}" alt="${c.co} logo" style="max-width:${c.lw}px"></div>
         <div class="p-head" style="padding-right:${c.lw + 44}px"><span class="p-index">0${i + 1} / 05</span><span class="p-dates">${c.dates}</span></div>
         <h3 class="p-company">${c.co}</h3>
@@ -710,6 +711,7 @@
         <span class="initial">${c.co[0]}</span>
         <span class="bignum">${i < 4 ? "0" + (i + 2) : "MZ"}</span>
         <span class="flip-note">page turned</span>
+        <span class="p-holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </div>`;
     book.insertBefore(p, baseEl);
     return p;
@@ -804,16 +806,16 @@
     book.offsetWidth * .16,
     (document.documentElement.clientWidth - book.offsetWidth) / 2 - 12
   ));
-  bookTl.fromTo("#book", { x: 0 },
+  bookTl.fromTo("#book, .binding-overlay", { x: 0 },
     { x: spreadShift, duration: .8, ease: "power2.inOut", immediateRender: false }, .75);
-  bookTl.to("#book", { x: 0, duration: .65, ease: "power2.inOut" }, 8.55);
+  bookTl.to("#book, .binding-overlay", { x: 0, duration: .65, ease: "power2.inOut" }, 8.55);
   /* the room's color turns with each page (defaults already wear company 1) */
   BOOK_HUES.slice(1).forEach((h, k) =>
     bookTl.to("html", { "--bk1": h[0], "--bk2": h[1], duration: .55, ease: "power1.inOut" },
       FLIP_AT + k * FLIP_STEP + .35));
   bookTl.to("html", { "--bk1": "#1f1808", "--bk2": "#140f05", duration: .55, ease: "power1.inOut" },
     FLIP_AT + 4 * FLIP_STEP + .4);
-  bookTl.from("#book", { y: 130, rotationX: 9, opacity: 0, duration: .7, ease: "power2.out", transformOrigin: "50% 100%" }, 0)
+  bookTl.from("#book, .binding-overlay", { y: 130, rotationX: 9, opacity: 0, duration: .7, ease: "power2.out", transformOrigin: "50% 100%" }, 0)
         .from(".book-dots", { opacity: 0, duration: .4 }, .45);
   /* the shut book shows only its cover: the held left cover stays dark
      until the front cover swings open around the spine to reveal chapter one */
