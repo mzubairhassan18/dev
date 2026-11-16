@@ -163,7 +163,12 @@ body{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:0 20px;
 }
-.companies-bg{ position:absolute; inset:0; pointer-events:none; }
+.companies-bg{ position:absolute; inset:0; pointer-events:none;
+  /* the room's glow and grain dissolve before the section's bottom edge,
+     so the handoff into #contact (same base color) carries no seam */
+  -webkit-mask-image:linear-gradient(180deg, #000 70%, transparent 98%);
+          mask-image:linear-gradient(180deg, #000 70%, transparent 98%);
+}
 .bg-blob{ position:absolute; border-radius:50%; filter:blur(10px); }
 .bb-1{ width:60vmax; height:60vmax; left:-18vmax; top:-20vmax;
   background:radial-gradient(circle, rgba(245,165,36,.13) 0%, transparent 65%); }
@@ -472,8 +477,14 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
   background:linear-gradient(180deg, #0d0e13 0%, #0b0c12 45%, #0e1017 100%);
   padding:12vh 20px 380px;
 }
-/* animated backdrop — slow drifting glow, fine grid, film grain */
-.contact-bg{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+/* animated backdrop — slow drifting glow, fine grid, film grain.
+   A top mask eases the whole decor layer in over the first quarter of
+   the section: the book room above ends on the same base color with its
+   own decor already dissolved, so the two scenes meet with no hard edge */
+.contact-bg{ position:absolute; inset:0; overflow:hidden; pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 26%);
+          mask-image:linear-gradient(180deg, transparent 0%, #000 26%);
+}
 .contact-glow{
   position:absolute; left:50%; top:-32vmax; width:150vmax; height:150vmax;
   transform:translateX(-50%);

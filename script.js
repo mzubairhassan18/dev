@@ -831,7 +831,7 @@
       FLIP_AT + k * FLIP_STEP + .35));
   bookTl.to("html", { "--bk1": "#1f1808", "--bk2": "#140f05", duration: .55, ease: "power1.inOut" },
     FLIP_AT + 4 * FLIP_STEP + .4);
-  bookTl.from("#book, .binding-overlay", { y: 130, rotationX: 9, opacity: 0, duration: .7, ease: "power2.out", transformOrigin: "50% 100%" }, 0)
+  bookTl.from("#book, .binding-overlay", { y: 130, scale: .5, rotationX: 9, opacity: 0, duration: .7, ease: "power2.out", transformOrigin: "50% 100%" }, 0)
         .from(".book-dots", { opacity: 0, duration: .4 }, .45);
   /* the shut book shows only its cover: the held left cover stays dark
      until the front cover swings open around the spine to reveal chapter one */
@@ -861,6 +861,10 @@
   bookTl.to(".left-cover", { opacity: 0, duration: .6, ease: "power1.inOut" }, 7.95);
   bookTl.to("#book-cover", { rotationY: 0, opacity: 1, duration: .65, ease: "power2.inOut" }, 8.55);
   bookTl.to({}, { duration: .25 }); // settle before the handoff
+  /* the book recedes as the scene hands off to contact: it withdraws to
+     half size — the same distance it entered from — so the closed volume
+     pulls back into the room instead of sitting at full scale at the seam */
+  bookTl.to("#book, .binding-overlay", { scale: .5, duration: .55, ease: "power2.inOut" });
 
   /* ------------------------------------------------------------
      SCENE 3 — contact
