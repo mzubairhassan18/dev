@@ -855,6 +855,10 @@
   pages.forEach((p, i) =>
     bookTl.to(p, { rotationY: 0, z: 0, duration: .75, ease: "power2.inOut" }, 7.55 + i * .045));
   bookTl.to(".book-dots", { opacity: 0, duration: .4 }, 7.75);
+  /* the held left cover withdraws with the closing pages, so the shut
+     book ends as a single closed volume — no half-open left half beside it
+     (same dark left side the shut book wears at t 0) */
+  bookTl.to(".left-cover", { opacity: 0, duration: .6, ease: "power1.inOut" }, 7.95);
   bookTl.to("#book-cover", { rotationY: 0, opacity: 1, duration: .65, ease: "power2.inOut" }, 8.55);
   bookTl.to({}, { duration: .25 }); // settle before the handoff
 
