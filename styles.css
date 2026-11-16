@@ -196,12 +196,44 @@ body{
   content:""; position:absolute; left:0; top:0; bottom:0; width:30%;
   background:linear-gradient(90deg, rgba(0,0,0,.5), transparent);
 }
-.left-cover::before{ /* blind-embossed monogram — we see the cover's back
-   face, so the glyphs are pre-mirrored to read correctly */
-  content:"MZ"; position:absolute; left:13%; top:10%;
-  font:800 clamp(44px,6vw,76px)/1 var(--font-d);
+.left-cover::before{ /* blind-embossed chapter label — we see the cover's
+   back face, so the glyphs are pre-mirrored to read correctly; sized to
+   fit the narrow sliver of cover visible beside the spine */
+  content:"01 · EXPERIENCE"; position:absolute; left:4%; top:8%;
+  font:800 clamp(12px,1.55vw,20px)/1 var(--font-d);
+  letter-spacing:.12em; white-space:nowrap;
   color:rgba(245,165,36,.15); transform:rotate(-4deg) scaleX(-1);
 }
+/* the shut cover — faces the reader until the scroll swings it open */
+.book-cover{
+  position:absolute; inset:0; z-index:40;
+  transform:translateZ(24px); transform-origin:left center;
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  border-radius:14px 6px 6px 14px;
+  background:
+    radial-gradient(120% 90% at 25% 8%, rgba(255,236,205,.14), transparent 55%),
+    linear-gradient(100deg, #54402a 0%, #3a2c1e 55%, #241a11 100%);
+  box-shadow:
+    0 34px 70px rgba(0,0,0,.6),
+    inset 0 0 0 2px rgba(245,165,36,.16),
+    inset -20px 0 40px rgba(0,0,0,.5);
+  display:flex; align-items:center; justify-content:center;
+}
+.bc-inner{
+  border:1.5px solid rgba(245,165,36,.35);
+  box-shadow:inset 0 0 0 5px #3a2c1e, inset 0 0 0 6.5px rgba(245,165,36,.22);
+  padding:38px 52px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+}
+.bc-kicker{ font:700 11px var(--font-b); letter-spacing:.34em; color:rgba(240,200,140,.6); }
+.bc-title{
+  font:800 clamp(30px,3.8vw,48px)/1 var(--font-d);
+  letter-spacing:.12em; text-transform:uppercase; text-indent:.12em;
+  color:#e6c284;
+  text-shadow:0 1px 0 rgba(0,0,0,.4), 0 -1px 0 rgba(255,240,200,.12);
+}
+.bc-rule{ width:64px; height:1px; background:rgba(245,165,36,.45); }
+.bc-sub{ font:600 12px var(--font-b); letter-spacing:.22em; text-transform:uppercase; color:rgba(240,200,140,.55); }
 .page{
   position:absolute; inset:0; transform-style:preserve-3d;
   transform-origin:left center; will-change:transform;
@@ -246,13 +278,23 @@ body{
 .p-index{ font:700 14px var(--font-b); letter-spacing:.24em; color:#a3936f; }
 .p-dates{ font:600 14px var(--font-b); letter-spacing:.05em; color:#7b6f57; }
 .p-company{ font:800 clamp(34px,4.4vw,52px)/1.05 var(--font-d); letter-spacing:.01em; }
-.p-role{ font:600 17px var(--font-b); color:var(--co, #8c6d1f); margin:8px 0 20px; letter-spacing:.04em; }
+.p-role{
+  font:600 17px var(--font-b); margin:8px 0 20px; letter-spacing:.04em;
+  /* minimal brand gradient — the page wears the company logo's colors */
+  background:linear-gradient(92deg, var(--co, #8c6d1f) 15%, var(--co2, var(--co, #8c6d1f)) 90%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+}
 /* each page wears its company's real logo top-right, like a letterhead crest */
 .p-logo{
   position:absolute; top:24px; right:24px; height:60px;
   display:flex; align-items:center; justify-content:flex-end;
 }
 .p-logo img{ max-width:200px; max-height:60px; object-fit:contain; }
+.p-logo img.tile{ /* square brand tiles get a soft stamp treatment */
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(58,42,24,.16), 0 0 0 1px rgba(58,42,24,.07);
+}
 .p-list{ list-style:none; flex:1; }
 .p-list li{
   position:relative; padding-left:24px; margin-bottom:14px;
@@ -260,13 +302,21 @@ body{
 }
 .p-list li::before{
   content:""; position:absolute; left:0; top:9px; width:9px; height:9px;
-  border-radius:2px; background:var(--co, var(--amber)); transform:rotate(45deg);
+  border-radius:2px; transform:rotate(45deg);
+  background:linear-gradient(135deg, var(--co, var(--amber)), var(--co2, var(--co, var(--amber))));
 }
-.p-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
-.p-tags span{
-  font:600 12px var(--font-b); letter-spacing:.08em; text-transform:uppercase;
-  border:1px solid color-mix(in srgb, var(--co, #6d5c3a) 42%, transparent);
-  color:var(--co, #6d5c3a); border-radius:100px; padding:7px 13px;
+/* technologies wear their real logos, names listed underneath */
+.p-tags{ display:flex; flex-wrap:wrap; gap:16px 18px; margin-top:20px; align-items:flex-end; }
+.t-tile{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+.t-ico{ height:24px; display:flex; align-items:center; justify-content:center; }
+.t-ico svg{ display:block; }
+.t-dot{
+  width:9px; height:9px; border-radius:2px; transform:rotate(45deg);
+  background:linear-gradient(135deg, var(--co, #a3853f), var(--co2, var(--co, #a3853f)));
+}
+.t-tile em{
+  font:600 9.5px var(--font-b); font-style:normal; letter-spacing:.09em;
+  text-transform:uppercase; color:#6b5c40; white-space:nowrap;
 }
 .p-stamp{
   position:absolute; top:22px; right:22px; width:84px; height:84px; border-radius:50%;
@@ -419,7 +469,7 @@ body{
    fallback when GSAP can't load
    ============================================================ */
 .no-anim #hint-scroll, .no-anim #lock-note{ display:none; }
-.no-anim .left-cover{ display:none; }
+.no-anim .left-cover, .no-anim .book-cover{ display:none; }
 .no-anim #name::after{ content:"Muhammad Zubair ul Hassan"; }
 .no-anim .page{ position:relative; margin-bottom:14px; transform:none !important; }
 .no-anim .page .back{ display:none; }
@@ -436,12 +486,21 @@ body{
   .p-index, .p-dates{ font-size:11.5px; }
   .p-logo{ top:14px; right:14px; height:40px; }
   .p-logo img{ max-width:44vw !important; max-height:40px; }
+  .p-logo img.tile{ border-radius:9px; }
   .p-company{ font-size:clamp(27px,7.5vw,40px); }
   .p-role{ font-size:14px; margin:5px 0 12px; }
   .p-list li{ font-size:13.5px; line-height:1.5; margin-bottom:10px; padding-left:19px; }
   .p-list li::before{ width:8px; height:8px; top:7px; }
-  .p-tags{ gap:6px; margin-top:12px; }
-  .p-tags span{ font-size:9.5px; padding:5px 9px; }
+  .p-tags{ gap:10px 13px; margin-top:14px; }
+  .t-ico{ height:20px; }
+  .t-ico svg{ width:19px; height:19px; }
+  .t-dot{ width:8px; height:8px; }
+  .t-tile em{ font-size:8px; }
+  .book-cover{ border-radius:10px 4px 4px 10px; }
+  .bc-inner{ padding:22px 26px; gap:10px; }
+  .bc-kicker{ font-size:8.5px; letter-spacing:.26em; }
+  .bc-title{ font-size:clamp(22px,6.4vw,34px); }
+  .bc-sub{ font-size:9.5px; }
   .p-stamp{ width:62px; height:62px; font-size:14px; top:14px; right:14px; }
   .p-stamp.big{ font-size:30px; }
   .back .bignum{ font-size:140px; }

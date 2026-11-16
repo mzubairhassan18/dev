@@ -175,11 +175,19 @@
     playwright: ["#2EAD33", "M23.996 7.462c-.056.837-.257 2.135-.716 3.85-.995 3.715-4.27 10.874-10.42 9.227-6.15-1.65-5.407-9.487-4.412-13.201.46-1.716.934-2.94 1.305-3.694.42-.853.846-.289 1.815.523.684.573 2.41 1.791 5.011 2.488 2.601.697 4.706.506 5.583.352 1.245-.219 1.897-.494 1.834.455Zm-9.807 3.863s-.127-1.819-1.773-2.286c-1.644-.467-2.613 1.04-2.613 1.04Zm4.058 4.539-7.769-2.172s.446 2.306 3.338 3.153c2.862.836 4.43-.98 4.43-.981Zm2.701-2.51s-.13-1.818-1.773-2.286c-1.644-.469-2.612 1.038-2.612 1.038ZM8.57 18.23c-4.749 1.279-7.261-4.224-8.021-7.08C.197 9.831.044 8.832.003 8.188c-.047-.73.455-.52 1.415-.354.677.118 2.3.261 4.308-.28a11.28 11.28 0 0 0 2.41-.956c-.058.197-.114.4-.17.61-.433 1.618-.827 4.055-.632 6.426-1.976.732-2.267 2.423-2.267 2.423l2.524-.715c.227 1.002.6 1.987 1.15 2.838a5.914 5.914 0 0 1-.171.049Zm-4.188-6.298c1.265-.333 1.363-1.631 1.363-1.631l-3.374.888s.745 1.076 2.01.743Z"],
     docker:     ["#2496ED", "M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"],
     git:        ["#F05032", "M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z"],
+    storybook:  ["#FF4785", "M16.71.243l-.12 2.71a.18.18 0 00.29.15l1.06-.8.9.7a.18.18 0 00.28-.14l-.1-2.76 1.33-.1a1.2 1.2 0 011.279 1.2v21.596a1.2 1.2 0 01-1.26 1.2l-16.096-.72a1.2 1.2 0 01-1.15-1.16l-.75-19.797a1.2 1.2 0 011.13-1.27L16.7.222zM13.64 9.3c0 .47 3.16.24 3.59-.08 0-3.2-1.72-4.89-4.859-4.89-3.15 0-4.899 1.72-4.899 4.29 0 4.45 5.999 4.53 5.999 6.959 0 .7-.32 1.1-1.05 1.1-.96 0-1.35-.49-1.3-2.16 0-.36-3.649-.48-3.769 0-.27 4.03 2.23 5.2 5.099 5.2 2.79 0 4.969-1.49 4.969-4.18 0-4.77-6.099-4.64-6.099-6.999 0-.97.72-1.1 1.13-1.1.45 0 1.25.07 1.19 1.87z"],
+    strapi:     ["#4945FF", "M8.32 0c-3.922 0-5.882 0-7.1 1.219C0 2.438 0 4.399 0 8.32v7.36c0 3.922 0 5.882 1.219 7.101C2.438 24 4.399 24 8.32 24h7.36c3.922 0 5.882 0 7.101-1.219C24 21.562 24 19.601 24 15.68V8.32c0-3.922 0-5.882-1.219-7.101C21.562 0 19.601 0 15.68 0H8.32zm.41 7.28h7.83a.16.16 0 0 1 .16.16v7.83h-3.87v-3.71a.41.41 0 0 0-.313-.398l-.086-.012h-3.72V7.28zm-.5.25v3.87H4.553a.08.08 0 0 1-.057-.136L8.23 7.529zm.25 4.12h3.87v3.87H8.64a.16.16 0 0 1-.16-.16v-3.71zm4.12 4.12h3.87l-3.734 3.734a.08.08 0 0 1-.136-.057V15.77z"],
+    pnpm:       ["#F9AD00", "M0 0v7.5h7.5V0zm8.25 0v7.5h7.498V0zm8.25 0v7.5H24V0zM8.25 8.25v7.5h7.498v-7.5zm8.25 0v7.5H24v-7.5zM0 16.5V24h7.5v-7.5zm8.25 0V24h7.498v-7.5zm8.25 0V24H24v-7.5z"],
+    recoil:     ["#35799B", "M17.09 8.862a3.017 3.018 0 00-2.615-2.43l-.245-.03a1.662 1.662 0 01-1.453-1.645v-.856a2.028 2.028 0 10-1.602-.02v.874a3.263 3.264 0 002.855 3.236l.245.032c.764.096 1.144.66 1.246 1.155.1.495-.03 1.163-.698 1.55a2.569 2.569 0 01-1.055.337l-3.68.346a4.212 4.212 0 00-1.71.546 3.02 3.02 0 00-1.468 3.257 3.017 3.018 0 002.615 2.43l.245.032a1.662 1.662 0 011.453 1.644v.777a2.03 2.03 0 101.602.016v-.793a3.263 3.264 0 00-2.856-3.236l-.244-.032c-.764-.096-1.145-.66-1.246-1.155-.1-.495.03-1.163.697-1.55a2.569 2.569 0 011.057-.337l3.68-.345a4.212 4.212 0 001.71-.546 3.023 3.024 0 001.467-3.258zm-2.653 4.708a5.71 5.71 0 01-.436.06l-1.543.147 1.93 2.119a3.47 3.47 0 01.906 2.34H16.9a5.07 5.07 0 00-1.325-3.42zm-5.003-3.11a4.65 4.65 0 01.546-.08l1.427-.136L9.469 8.12a3.47 3.47 0 01-.905-2.34H6.963c0 1.267.47 2.483 1.324 3.42z"],
+    shadcnui:   ["#111318", "M22.219 11.784 11.784 22.219c-.407.407-.407 1.068 0 1.476.407.407 1.068.407 1.476 0L23.695 13.26c.407-.408.407-1.069 0-1.476-.408-.407-1.069-.407-1.476 0ZM20.132.305.305 20.132c-.407.407-.407 1.068 0 1.476.408.407 1.069.407 1.476 0L21.608 1.781c.407-.407.407-1.068 0-1.476-.408-.407-1.069-.407-1.476 0Z"],
+    jquery:     ["#0769AD", "M1.525 5.87c-2.126 3.054-1.862 7.026-.237 10.269.037.079.078.154.118.229.023.052.049.1.077.15.013.027.031.056.047.082.026.052.054.102.081.152l.157.266c.03.049.057.097.09.146.056.094.12.187.178.281.026.04.05.078.079.117a6.368 6.368 0 00.31.445c.078.107.156.211.24.315.027.038.058.076.086.115l.22.269c.028.03.055.067.084.099.098.118.202.233.306.35l.005.006a3.134 3.134 0 00.425.44c.08.083.16.165.245.245l.101.097c.111.105.223.209.34.309.002 0 .003.002.005.003l.057.05c.102.089.205.178.31.26l.125.105c.085.068.174.133.26.2l.137.105c.093.07.192.139.287.207.035.025.07.05.106.073l.03.023.28.185.12.08c.148.094.294.184.44.272.041.02.084.044.123.068.108.062.22.125.329.183.06.034.122.063.184.094.075.042.153.083.234.125a.324.324 0 01.056.023c.033.015.064.031.096.047.12.06.245.118.375.175.024.01.05.02.076.034.144.063.289.123.438.182.034.01.07.027.105.04.135.051.274.103.411.152l.05.018c.154.052.305.102.46.15.036.01.073.023.111.033.16.048.314.105.474.137 10.273 1.872 13.258-6.177 13.258-6.177-2.508 3.266-6.958 4.127-11.174 3.169-.156-.036-.312-.086-.47-.132a13.539 13.539 0 01-.567-.182l-.062-.024c-.136-.046-.267-.097-.4-.148a1.615 1.615 0 00-.11-.04c-.148-.06-.29-.121-.433-.184-.031-.01-.057-.024-.088-.036a23.44 23.44 0 01-.362-.17 1.485 1.485 0 01-.106-.052c-.094-.044-.188-.095-.28-.143a3.947 3.947 0 01-.187-.096c-.114-.06-.227-.125-.34-.187-.034-.024-.073-.044-.112-.066a15.922 15.922 0 01-.439-.27 2.107 2.107 0 01-.118-.078 6.01 6.01 0 01-.312-.207c-.035-.023-.067-.048-.103-.073a9.553 9.553 0 01-.295-.212c-.042-.034-.087-.066-.132-.1-.088-.07-.177-.135-.265-.208l-.118-.095a10.593 10.593 0 01-.335-.28.258.258 0 00-.037-.031l-.347-.316-.1-.094c-.082-.084-.166-.164-.25-.246l-.098-.1a9.081 9.081 0 01-.309-.323l-.015-.016c-.106-.116-.21-.235-.313-.355-.027-.03-.053-.064-.08-.097l-.227-.277a21.275 21.275 0 01-.34-.449C2.152 11.79 1.306 7.384 3.177 3.771m4.943-.473c-1.54 2.211-1.454 5.169-.254 7.508a9.111 9.111 0 00.678 1.133c.23.33.484.721.793.988.107.122.223.24.344.36l.09.09c.114.11.232.217.35.325l.016.013a9.867 9.867 0 00.414.342c.034.023.063.05.096.073.14.108.282.212.428.316l.015.009c.062.045.128.086.198.13.028.018.06.042.09.06.106.068.21.132.318.197.017.007.032.016.048.023.09.055.188.108.282.157.033.02.065.035.1.054.066.033.132.068.197.102l.032.014c.135.067.273.129.408.19.034.014.063.025.092.039.111.048.224.094.336.137.05.017.097.037.144.052.102.038.21.073.31.108l.14.045c.147.045.295.104.449.13C22.164 17.206 24 11.098 24 11.098c-1.653 2.38-4.852 3.513-8.261 2.628a8.04 8.04 0 01-.449-.13c-.048-.014-.09-.029-.136-.043-.104-.036-.211-.07-.312-.109l-.144-.054c-.113-.045-.227-.087-.336-.135-.034-.015-.065-.025-.091-.04-.14-.063-.281-.125-.418-.192l-.206-.107-.119-.06a5.673 5.673 0 01-.265-.15.62.62 0 01-.062-.035c-.106-.066-.217-.13-.318-.198-.034-.019-.065-.042-.097-.062l-.208-.136c-.144-.1-.285-.208-.428-.313-.032-.029-.063-.053-.094-.079-1.499-1.178-2.681-2.79-3.242-4.613-.59-1.897-.46-4.023.56-5.75m4.292-.147c-.909 1.334-.996 2.99-.37 4.46.665 1.563 2.024 2.79 3.608 3.37.065.025.128.046.196.07l.088.027c.092.03.185.063.28.084 4.381.845 5.567-2.25 5.886-2.704-1.043 1.498-2.792 1.857-4.938 1.335a4.85 4.85 0 01-.516-.16 6.352 6.352 0 01-.618-.254 6.53 6.53 0 01-1.082-.66c-1.922-1.457-3.113-4.236-1.859-6.5"],
+    less:       ["#3D5A96", "M3.598 7.15a7.961 7.961 0 0 0-1.054.068c-.281.041-.52.124-.717.249a1.19 1.19 0 0 0-.45.497c-.098.208-.14.47-.14.802V10.3c0 .428-.084.732-.253.884-.169.166-.492.25-.984.25v1.16c.478 0 .815.083.984.249.169.166.253.47.253.912v1.548c0 .594.183 1.009.548 1.23.38.207.984.318 1.813.318v-1.078c-.393 0-.646-.07-.773-.194-.126-.124-.183-.373-.183-.746v-1.465c0-.373-.098-.663-.28-.87-.184-.208-.479-.374-.886-.484.393-.125.688-.29.871-.512.183-.22.281-.511.281-.87V9.167c0-.36.057-.608.183-.733.122-.12.412-.195.787-.2v4.547c0 .416.03.764.09 1.044.059.28.164.52.314.724.15.203.356.35.616.443.26.093.589.14.984.14.098 0 .205-.007.32-.02a5.336 5.336 0 0 0 .65-.107l-.036-.98c-.27.038-.492.057-.667.057-.353 0-.59-.092-.713-.276-.122-.183-.183-.534-.183-1.051V7.149H3.598zm16.818-.001v1.092c.393 0 .647.069.773.193.127.125.183.373.183.733v1.465c0 .359.098.65.28.87.184.222.479.387.872.512-.407.11-.702.276-.885.483-.183.208-.281.498-.281.871v1.465c0 .373-.057.622-.183.746-.126.125-.38.194-.773.194v1.078c.83 0 1.434-.11 1.813-.318.365-.221.548-.636.548-1.23v-1.548c0-.442.085-.746.253-.912.169-.166.506-.249.984-.249v-1.16c-.492 0-.815-.084-.984-.25-.168-.151-.253-.456-.253-.884V8.766c0-.332-.042-.594-.14-.801a1.19 1.19 0 0 0-.45-.498 1.828 1.828 0 0 0-.717-.249 7.252 7.252 0 0 0-1.04-.069zm-6.479 1.975c-.675 0-1.209.14-1.588.421-.38.281-.576.689-.576 1.209 0 .422.112.773.351 1.026s.618.478 1.152.688c.043.015.14.057.296.113.45.183.758.31.913.436a.592.592 0 0 1 .239.478c0 .224-.084.393-.253.506-.169.112-.408.168-.717.168-.295 0-.632-.056-.984-.155a3.901 3.901 0 0 1-.885-.337l-.14 1.04c.505.296 1.18.436 2.037.436.717 0 1.265-.155 1.659-.464.393-.309.59-.759.59-1.335 0-.436-.126-.787-.38-1.054-.252-.267-.632-.492-1.166-.689-.382-.15-.84-.277-1.209-.506a.465.465 0 0 1-.224-.421c0-.183.084-.324.239-.422.154-.098.365-.14.646-.14.506 0 1.026.126 1.574.379l.365-.956c-.562-.28-1.208-.421-1.939-.421zm4.512 0c-.675 0-1.21.14-1.589.421-.38.281-.576.689-.576 1.209 0 .422.112.773.351 1.026.24.253.619.478 1.153.688.042.015.14.057.295.113.45.183.759.31.914.436a.592.592 0 0 1 .238.478c0 .224-.084.393-.253.506-.168.112-.407.168-.716.168a3.72 3.72 0 0 1-.984-.155 3.904 3.904 0 0 1-.886-.337l-.14 1.04c.506.296 1.18.436 2.038.436.702 0 1.265-.155 1.686-.464.394-.309.59-.759.59-1.335 0-.436-.126-.787-.379-1.054s-.632-.492-1.166-.689c-.392-.153-.842-.277-1.209-.506a.465.465 0 0 1-.225-.421c0-.183.085-.324.24-.422.154-.098.364-.14.646-.14.506 0 1.026.126 1.574.379l.337-.956c-.562-.28-1.209-.421-1.94-.421zm-9.46.014c-.842 0-1.503.267-1.995.815-.492.548-.73 1.279-.73 2.192 0 .956.252 1.687.772 2.22.52.535 1.237.802 2.165.802.8 0 1.49-.183 2.08-.52l-.197-.984a3.66 3.66 0 0 1-1.813.492c-.492 0-.886-.155-1.167-.45-.28-.295-.435-.716-.45-1.25h3.852v-.591c0-.829-.225-1.49-.661-1.982-.45-.491-1.054-.744-1.855-.744zm-.013.983c.38 0 .674.127.885.38.211.253.323.618.323 1.082H7.67c.042-.492.182-.857.407-1.096.253-.239.548-.366.9-.366Z"],
     vercel:     ["#ece7db", "m12 1.608 12 20.784H0Z"],
   };
-  /* wrap a brand glyph: scale 24-unit path to `size`, centered on origin */
-  const brandIcon = (id, size) =>
-    `<g transform="scale(${(size / 24).toFixed(3)})"><path transform="translate(-12 -12)" d="${BRAND[id][1]}" fill="${BRAND[id][0]}" stroke="none"/></g>`;
+  /* wrap a brand glyph: scale 24-unit path to `size`, centered on origin;
+     `color` overrides the brand hex (used for paper-background tag tiles) */
+  const brandIcon = (id, size, color) =>
+    `<g transform="scale(${(size / 24).toFixed(3)})"><path transform="translate(-12 -12)" d="${BRAND[id][1]}" fill="${color || BRAND[id][0]}" stroke="none"/></g>`;
   /* the toolkit lane wears real logos at 50px inside its 60px circles */
   Object.assign(ICONS, {
     react: brandIcon("react", 50),
@@ -419,8 +427,8 @@
     overview: { cx: 1600, cy: 800, w: 2100 },
     child1:   { cx: 900,  cy: 1080, w: 1200 },
     stackTop: { cx: 1700, cy: 1350, w: 1250 },
-    child3:   { cx: 2350, cy: 1420, w: 1250 },
-    child3End:{ cx: 2000, cy: 2210, w: 1900 },
+    child3:   { cx: 2470, cy: 1075, w: 1180 },
+    child3End:{ cx: 2140, cy: 2230, w: 1750 },
   };
 
   /* the giant dimmed scene label — bottom-left ambience that follows
@@ -571,17 +579,20 @@
     call(s0 + 2.08, "");
   });
 
-  // — act 5: child 3 just keeps drawing to the bottom of the world —
-  // the line lands with a small burst, then the book slides over everything
+  // — act 5: child 3 gets its close-up — the camera rises to frame the
+  // node and its label exactly, the text reveals, then the camera rides
+  // the drawn line down, below and below, to the bottom of the world
   const dropStart = 23.1;
-  camTo(tl, 22.95, .8, KF.child3);
+  camTo(tl, 22.95, .85, KF.child3);
   hue(22.95, HUE.drop);
-  showChild(2, 23.1);
-  ping(halos[2], dropStart + .1);
-  draw(dropConnector, dropStart + .25, 1.25, "power1.inOut");
+  showChild(2, 23.05);
+  ping(halos[2], dropStart + .05);
+  draw(dropConnector, dropStart + .3, 1.25, "power1.inOut");
+  /* the camera follows the line down as it draws toward the burst */
+  camTo(tl, dropStart + .5, 1.15, { cx: 2310, cy: 1880, w: 1520 }, "power1.inOut");
   pop(dropDot, dropStart + 1.7, 0, "back.out(2)");
   ping(dropHalo, dropStart + 1.65);
-  camTo(tl, dropStart + 1.15, .95, KF.child3End);
+  camTo(tl, dropStart + 1.7, .8, KF.child3End);
   /* the earlier acts recede to a backdrop; the companies scene arrives next */
   tl.to(["#toolkit-layer", "#spine-layer"], { opacity: .3, duration: .6, ease: "power1.inOut" }, dropStart + .05);
   tl.to({}, { duration: .3 }); // hold so the burst lands before the handoff
@@ -604,55 +615,71 @@
   const COMPANIES = [
     {
       co: "TRUEY INC", role: "Senior Frontend Engineer", dates: "Oct 2025 — Nov 2026",
-      logo: "assets/truey-mark.svg", lw: 52, accent: "#0052F5",
+      logo: "assets/truey-logo.jpg", lw: 52, tile: true, accent: "#53349B", co2: "#B14E7E",
       pts: [
         "Built the Next.js frontend — complex carousels, component layouts and pure-CSS responsive structure.",
         "Delivered ~30% faster with AI-assisted workflows (Claude, Codex): skills, agents, context engineering.",
         "Shipped Inneractive & AuraPhoto on Strapi CMS — Figma pixel-perfect, Tailwind token mapping, automation scripts.",
         "Storybook components with full variants & theming; GSAP + Lenis motion and design-token fixes.",
       ],
-      tags: ["Next.js", "Storybook", "GSAP", "Lenis", "Strapi", "Tailwind"],
+      tags: [
+        { t: "Next.js", b: "next", c: "#111318" }, { t: "Storybook", b: "storybook", c: "#FF4785" },
+        { t: "GSAP" }, { t: "Lenis" }, { t: "Strapi", b: "strapi", c: "#4945FF" },
+        { t: "Tailwind", b: "tailwind", c: "#06B6D4" },
+      ],
     },
     {
       co: "USTAFF360", role: "Senior Frontend Developer", dates: "Sep 2024 — Mar 2025",
-      logo: "assets/ustaff360-icon.svg", lw: 92, accent: "#133B7A",
+      logo: "assets/ustaff360-icon.svg", lw: 92, accent: "#133B7A", co2: "#29B6E6",
       pts: [
         "Architected the initial Next.js + TypeScript app (server components, API routes) for the TIBERBU healthcare suite.",
         "Converted it into a pnpm monorepo: AFYALINK, TEEDU, HEALTHPRO.",
         "Recoil + Base UI + shadcn/ui; facility-certification and consent-approval workflows.",
         "RSC container patterns and custom hooks cut component complexity by 40%.",
       ],
-      tags: ["Next.js", "TypeScript", "pnpm", "Recoil", "shadcn/ui"],
+      tags: [
+        { t: "Next.js", b: "next", c: "#111318" }, { t: "TypeScript", b: "ts", c: "#3178C6" },
+        { t: "pnpm", b: "pnpm", c: "#E08700" }, { t: "Recoil", b: "recoil", c: "#35799B" },
+        { t: "shadcn/ui", b: "shadcnui", c: "#111318" },
+      ],
     },
     {
       co: "CARE", role: "Senior Design Engineer", dates: "Sep 2023 — Jul 2024",
-      logo: "assets/care-logo.svg", lw: 208, accent: "#2D7F8A",
+      logo: "assets/care-logo.jpg", lw: 52, tile: true, accent: "#2D7F8A", co2: "#5E9FAB",
       pts: [
         "Greenfield renovation of the JOGET low-code platform — decoupled its Java Spring MVC logic from the UI layer.",
         "Fresh custom React theme: vertical & horizontal sidebars, RTL support, new layout patterns.",
         "Rebuilt forms, list views, fonts and color schemes; large-scale refactoring with backend teams.",
       ],
-      tags: ["React", "JOGET", "RTL", "Design Systems"],
+      tags: [
+        { t: "React", b: "react", c: "#087EA4" }, { t: "JOGET" }, { t: "RTL" }, { t: "Design Systems" },
+      ],
     },
     {
       co: "Embrace-It", role: "Frontend Engineer", dates: "Jan 2022 — Mar 2023",
-      logo: "assets/embrace-logo.svg", lw: 148, accent: "#19374B",
+      logo: "assets/embrace-logo.svg", lw: 148, accent: "#19374B", co2: "#44ADB3",
       pts: [
         "Migrated the Geniebelt codebase from AngularJS 1.x to React + TypeScript with Recoil state management.",
         "Built test suites and data factories with Fishery; introduced the master-plan copy feature.",
         "Fixed critical PWA layout & state issues; polished icon animations and transitions.",
       ],
-      tags: ["React", "TypeScript", "Recoil", "PWA", "Fishery"],
+      tags: [
+        { t: "React", b: "react", c: "#087EA4" }, { t: "TypeScript", b: "ts", c: "#3178C6" },
+        { t: "Recoil", b: "recoil", c: "#35799B" }, { t: "PWA" }, { t: "Fishery" },
+      ],
     },
     {
       co: "CARE", role: "Design Engineer", dates: "Sep 2018 — Dec 2022",
-      logo: "assets/care-logo.svg", lw: 208, accent: "#2D7F8A",
+      logo: "assets/care-logo.jpg", lw: 52, tile: true, accent: "#1E5E66", co2: "#4E9AA5",
       pts: [
         "Built JOGET no-code ERP themes (Blueberry, Classic) — user configs, colors, fonts, icons, carousels.",
         "Kendo UI-based themed form elements (inputs, selects, editors) and list-view components.",
         "Onboarded 20+ departments from manual processes to full ERP automation; residential on-premise engineer.",
       ],
-      tags: ["Kendo UI", "jQuery", "LESS", "ERP"],
+      tags: [
+        { t: "Kendo UI" }, { t: "jQuery", b: "jquery", c: "#0769AD" },
+        { t: "LESS", b: "less", c: "#3D5A96" }, { t: "ERP" },
+      ],
     },
   ];
 
@@ -661,18 +688,23 @@
   const pages = COMPANIES.map((c, i) => {
     const p = document.createElement("div");
     p.className = "page";
+    /* tags wear their technology's real logo with the name underneath;
+       concepts that have no logo carry the page's brand diamond instead */
+    const tags = c.tags.map(t => t.b
+      ? `<span class="t-tile"><i class="t-ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">${brandIcon(t.b, 24, t.c)}</svg></i><em>${t.t}</em></span>`
+      : `<span class="t-tile"><i class="t-ico"><b class="t-dot"></b></i><em>${t.t}</em></span>`).join("");
     p.innerHTML = `
-      <div class="front" style="--co:${c.accent}">
-        <div class="p-logo"><img src="${c.logo}" alt="${c.co} logo" style="max-width:${c.lw}px"></div>
+      <div class="front" style="--co:${c.accent};--co2:${c.co2}">
+        <div class="p-logo"><img class="${c.tile ? "tile" : ""}" src="${c.logo}" alt="${c.co} logo" style="max-width:${c.lw}px"></div>
         <div class="p-head" style="padding-right:${c.lw + 44}px"><span class="p-index">0${i + 1} / 05</span><span class="p-dates">${c.dates}</span></div>
         <h3 class="p-company">${c.co}</h3>
         <p class="p-role">${c.role}</p>
         <ul class="p-list">${c.pts.map(pt => `<li>${pt}</li>`).join("")}</ul>
-        <div class="p-tags">${c.tags.map(t => `<span>${t}</span>`).join("")}</div>
+        <div class="p-tags">${tags}</div>
       </div>
       <div class="back">
         <span class="initial">${c.co[0]}</span>
-        <span class="bignum">0${i + 1}</span>
+        <span class="bignum">${i < 4 ? "0" + (i + 2) : "MZ"}</span>
         <span class="flip-note">page turned</span>
       </div>`;
     book.insertBefore(p, baseEl);
@@ -701,7 +733,7 @@
     ["#0d272b", "#06151a"],   // CARE · ERP — deeper teal
   ];
 
-  const FLIP_AT = .95, FLIP_DUR = .85, FLIP_STEP = .95;
+  const FLIP_AT = 1.6, FLIP_DUR = .85, FLIP_STEP = .95;
   /* page stacking + dots live on the timeline's own onUpdate: it fires on
      every animation tick (including scrub catch-up), not just scroll events */
   const bookTl = gsap.timeline({
@@ -716,7 +748,7 @@
       dots.forEach((d, i) => d.classList.toggle("on", i < flipped));
     },
     scrollTrigger: {
-      trigger: "#companies", start: "top top", end: "+=6200",
+      trigger: "#companies", start: "top top", end: "+=8700",
       pin: true, scrub: 1, anticipatePin: 1,
     },
   });
@@ -728,6 +760,12 @@
     FLIP_AT + 4 * FLIP_STEP + .4);
   bookTl.from("#book", { y: 130, rotationX: 9, opacity: 0, duration: .7, ease: "power2.out", transformOrigin: "50% 100%" }, 0)
         .from(".book-dots", { opacity: 0, duration: .4 }, .45);
+  /* the shut book shows only its cover: the held left cover stays dark
+     until the front cover swings open around the spine to reveal chapter one */
+  bookTl.set(".left-cover", { opacity: 0 }, 0);
+  bookTl.to("#book-cover", { rotationY: -138, duration: .8, ease: "power2.inOut", transformOrigin: "left center" }, .75);
+  bookTl.to(".left-cover", { opacity: 1, duration: .5, ease: "power1.inOut" }, .95);
+  bookTl.to("#book-cover", { opacity: 0, duration: .25, ease: "power1.in" }, 1.3);
   /* pages don't fold flat to -180°: the held cover tilts toward the reader,
      so a flat page would slide behind it. Instead each page rests fanned
      against the cover — a touch steeper than the cover and lifted toward
@@ -739,6 +777,13 @@
       duration: FLIP_DUR, ease: "power2.inOut",
     }, FLIP_AT + i * FLIP_STEP));
   bookTl.to({}, { duration: .55 }); // hold on the summary page
+  /* — the book closes: pages fold back flat, the dots let go, and the
+     cover returns with its title before the scene hands off to contact — */
+  pages.forEach((p, i) =>
+    bookTl.to(p, { rotationY: 0, z: 0, duration: .75, ease: "power2.inOut" }, 6.8 + i * .045));
+  bookTl.to(".book-dots", { opacity: 0, duration: .4 }, 7.0);
+  bookTl.to("#book-cover", { rotationY: 0, opacity: 1, duration: .65, ease: "power2.inOut" }, 7.8);
+  bookTl.to({}, { duration: .25 }); // settle before the handoff
 
   /* ------------------------------------------------------------
      SCENE 3 — contact
