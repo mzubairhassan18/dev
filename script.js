@@ -690,8 +690,12 @@
     p.className = "page";
     /* tags wear their technology's real logo with the name underneath;
        concepts that have no logo carry the page's brand diamond instead */
+    /* the tag svg speaks the glyph's own 0→24 coordinate space: the raw
+       Simple-Icons path fills the viewBox edge-to-edge, so the logo is
+       never scaled past — or clipped by — its own tile (the origin-centred
+       brandIcon() wrapper is only for the translate-placed world canvas) */
     const tags = c.tags.map(t => t.b
-      ? `<span class="t-tile"><i class="t-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">${brandIcon(t.b, 34, t.c)}</svg></i><em>${t.t}</em></span>`
+      ? `<span class="t-tile"><i class="t-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="${BRAND[t.b][1]}" fill="${t.c || BRAND[t.b][0]}" stroke="none"/></svg></i><em>${t.t}</em></span>`
       : `<span class="t-tile"><i class="t-ico"><b class="t-dot"></b></i><em>${t.t}</em></span>`).join("");
     p.innerHTML = `
       <div class="front" style="--co:${c.accent};--co2:${c.co2}">
