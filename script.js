@@ -867,7 +867,87 @@
   bookTl.to("#book, .binding-overlay", { scale: .5, duration: .55, ease: "power2.inOut" });
 
   /* ------------------------------------------------------------
-     SCENE 3 — contact
+     SCENE 3 — how I work
+     five sticky cards; each step's visual draws itself in as the
+     card lands, one bespoke mini-timeline per habit
+     ------------------------------------------------------------ */
+  if (document.getElementById("how")) {
+    gsap.from("#how .how-head > *", {
+      y: 46, opacity: 0, stagger: .1, duration: .7, ease: "power3.out",
+      scrollTrigger: { trigger: "#how", start: "top 74%" },
+    });
+    /* every card rises the last stretch with a soft settle as it lands */
+    if (!REDUCED) document.querySelectorAll(".how-card").forEach((card) => {
+      gsap.from(card, {
+        y: 74, scale: .975, rotation: .5, transformOrigin: "50% 0%",
+        duration: .55, ease: "power2.out",
+        scrollTrigger: { trigger: card, start: "top 92%" },
+      });
+    });
+
+    /* helper: draw an SVG stroke like a pen line */
+    const ink = (path, tl, at, dur) => {
+      const len = path.getTotalLength();
+      gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+      tl.to(path, { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" }, at);
+    };
+
+    if (!REDUCED) {
+      /* 01 — the three scoping notes slide in, arrows ink themselves
+         across, and the PRD sheet types its first line */
+      const tl1 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-1", start: "top 62%" } });
+      tl1.from(".v1-note", { x: -26, opacity: 0, stagger: .14, duration: .45, ease: "power2.out" }, 0)
+         .from(".v1-doc", { y: 20, opacity: 0, duration: .5, ease: "power2.out" }, .3)
+         .from(".v1-docname", { opacity: 0, duration: .3 }, .55);
+      document.querySelectorAll(".v1-arrow").forEach((p, i) => ink(p, tl1, .2 + i * .14, .55));
+      document.querySelectorAll(".v1-head").forEach((p) => ink(p, tl1, .9, .3));
+      tl1.from(".v1-docline", { width: 0, duration: .7, ease: "power1.inOut" }, .75);
+
+      /* 02 — tasks surface, the oversized one gets struck, review
+         stamps slam on like ink on paper */
+      const tl2 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-2", start: "top 62%" } });
+      tl2.from(".v2-src", { opacity: 0, duration: .3 }, 0)
+         .from(".v2-task", { y: 16, opacity: 0, stagger: .16, duration: .4, ease: "power2.out" }, .08)
+         .to(".v2-strike", { scaleX: 1, duration: .45, ease: "power2.inOut" }, .85)
+         .from(".v2-no", { scale: 1.7, opacity: 0, rotation: -14, duration: .4, ease: "back.out(2)" }, 1.0)
+         .from(".v2-ok", { scale: 1.7, opacity: 0, rotation: 10, duration: .4, ease: "back.out(2)" }, 1.25);
+
+      /* 03 — the editor fades up and the boilerplate lines drop in;
+         the chips I own stamp down and get their pen stroke */
+      const tl3 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-3", start: "top 62%" } });
+      tl3.from(".v3-editor", { y: 24, opacity: 0, duration: .5, ease: "power2.out" }, 0)
+         .from(".v3-cl", { opacity: 0, x: -10, stagger: .16, duration: .35 }, .3)
+         .from(".v3-own-label", { opacity: 0, duration: .3 }, .75)
+         .from(".v3-chip", {
+           y: 14, opacity: 0, stagger: .13, duration: .4, ease: "back.out(1.6)",
+           rotation: (i) => (i % 2 ? 2.4 : -2.4),
+         }, .85);
+      tl3.call(() => document.querySelectorAll(".v3-chip").forEach((c) => c.classList.add("on")), [], 1.5);
+
+      /* 04 — the gates pop and check themselves, the line connects
+         them, meters fill, then the rehearsed fault flashes red and
+         the eval catches it */
+      const tl4 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-4", start: "top 62%" } });
+      tl4.from(".v4-gate", { scale: .55, opacity: 0, stagger: .15, duration: .38, ease: "back.out(1.8)" }, 0)
+         .to(".v4-dash", { scaleX: 1, stagger: .14, duration: .25, ease: "power1.inOut" }, .3)
+         .from(".v4-fill", { scaleX: 0, duration: .8, stagger: .15, ease: "power1.inOut" }, .95)
+         .from(".v4-inject", { opacity: 0, scale: 1.3, duration: .3, ease: "power2.out" }, 1.45)
+         .from(".v4-inject", { x: 5, duration: .06, repeat: 5, yoyo: true, ease: "none" }, 1.78)
+         .from(".v4-caught", { scale: 1.8, opacity: 0, rotation: 9, duration: .38, ease: "back.out(2.2)" }, 2.1);
+      document.querySelectorAll(".v4-gate").forEach((g, i) =>
+        tl4.call(() => g.classList.add("on"), [], .15 + i * .16));
+
+      /* 05 — the deploy console streams its log, then the usage
+         sparkline inks itself upward */
+      const tl5 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-5", start: "top 62%" } });
+      tl5.from(".v5-term", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, 0)
+         .from(".v5-l", { opacity: 0, y: 8, stagger: .42, duration: .25, ease: "none" }, .35);
+      document.querySelectorAll(".v5-sparkline").forEach((p) => ink(p, tl5, 2.1, .9));
+    }
+  }
+
+  /* ------------------------------------------------------------
+     SCENE 4 — contact
      ------------------------------------------------------------ */
   gsap.from("#contact .contact-inner > *", {
     y: 50, opacity: 0, stagger: .12, duration: .8, ease: "power3.out",

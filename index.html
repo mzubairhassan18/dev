@@ -105,7 +105,178 @@
   <div class="book-dots" id="book-dots" aria-hidden="true"></div>
 </section>
 
-<!-- ============ SCENE 3 · CONTACT ============ -->
+<!-- ============ SCENE 3 · HOW I WORK ============
+     five habits as a sticky stack: each new step slides up and covers
+     the previous one, whose heading bar alone stays visible at the top
+     of the pile. Every step carries its own little inked visual that
+     draws itself as the card arrives. -->
+<section id="how" aria-label="How I work">
+  <div class="how-bg" aria-hidden="true">
+    <div class="bg-blob bb-3"></div>
+    <div class="bg-blob bb-4"></div>
+    <div class="bg-grain"></div>
+  </div>
+
+  <div class="how-head">
+    <p class="kicker">Working method</p>
+    <h2 class="how-title">How I <em>Work</em></h2>
+    <p class="how-sub">Five habits that keep AI-assisted shipping fast — and safe.</p>
+  </div>
+
+  <div class="how-stack">
+    <article class="how-card" id="how-card-1">
+      <header class="how-bar">
+        <span class="how-num">01</span>
+        <h3 class="how-h">Clarify before coding</h3>
+        <span class="how-tag">scope first</span>
+      </header>
+      <div class="how-body">
+        <p class="how-line">I start from the user problem, edge cases and success metric — not from a prompt. I write a short plan or PRD first.</p>
+        <div class="how-viz viz-1" aria-hidden="true">
+          <div class="v1-notes">
+            <span class="v1-note">User problem</span>
+            <span class="v1-note">Edge cases</span>
+            <span class="v1-note">Success metric</span>
+          </div>
+          <svg class="v1-arrows" viewBox="0 0 150 128">
+            <path class="v1-arrow" d="M6 22 C 62 22 58 64 118 64"/>
+            <path class="v1-arrow" d="M10 106 C 66 106 62 64 118 64"/>
+            <path class="v1-head" d="M108 55 L121 64 L108 73"/>
+          </svg>
+          <div class="v1-doc">
+            <span class="v1-docname">plan.md · the PRD</span>
+            <span class="v1-docline">1. The problem, in the user's own words</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="how-gap" aria-hidden="true"></div>
+
+    <article class="how-card" id="how-card-2">
+      <header class="how-bar">
+        <span class="how-num">02</span>
+        <h3 class="how-h">Plan with AI, review like a senior</h3>
+        <span class="how-tag">no code yet</span>
+      </header>
+      <div class="how-body">
+        <p class="how-line">I break work into small, testable tasks, get a plan from the agent, then challenge it before any code is written.</p>
+        <div class="how-viz viz-2" aria-hidden="true">
+          <div class="v2-plan">
+            <span class="v2-src">agent · task plan</span>
+            <ul>
+              <li class="v2-task"><i></i>Split auth out of the monolith</li>
+              <li class="v2-task v2-big"><i></i>Rewrite the whole API layer<i class="v2-strike"></i></li>
+              <li class="v2-task"><i></i>Ship a feature-flagged slice</li>
+            </ul>
+          </div>
+          <div class="v2-marks">
+            <span class="v2-stamp v2-ok">keep — testable</span>
+            <span class="v2-stamp v2-no">too big — challenge it</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="how-gap" aria-hidden="true"></div>
+
+    <article class="how-card" id="how-card-3">
+      <header class="how-bar">
+        <span class="how-num">03</span>
+        <h3 class="how-h">Build with agents</h3>
+        <span class="how-tag">AI types · I decide</span>
+      </header>
+      <div class="how-body">
+        <p class="how-line">I use Cursor / Claude Code for implementation, but I keep the architecture, data model and API contracts in my head. AI writes the boilerplate, I own the decisions.</p>
+        <div class="how-viz viz-3" aria-hidden="true">
+          <div class="v3-editor">
+            <div class="v3-tabs">
+              <img src="assets/icon-cursor.svg" alt="Cursor" class="v3-ico">
+              <img src="assets/icon-claude.svg" alt="Claude Code" class="v3-ico">
+              <span class="v3-file">bookings.ts</span>
+            </div>
+            <code class="v3-code">
+              <span class="v3-cl">export async function createBooking(req) {</span>
+              <span class="v3-cl">&nbsp;&nbsp;const seat = await seats.hold(req)</span>
+              <span class="v3-cl">&nbsp;&nbsp;return toApiResponse(seat, err)</span>
+              <span class="v3-cl">}</span>
+            </code>
+          </div>
+          <div class="v3-owns">
+            <span class="v3-own-label">I own —</span>
+            <span class="v3-chip">data model</span>
+            <span class="v3-chip">API contract</span>
+            <span class="v3-chip">architecture</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="how-gap" aria-hidden="true"></div>
+
+    <article class="how-card" id="how-card-4">
+      <header class="how-bar">
+        <span class="how-num">04</span>
+        <h3 class="how-h">Verify everything</h3>
+        <span class="how-tag">trust, then ship</span>
+      </header>
+      <div class="how-body">
+        <p class="how-line">Every AI change gets tests, manual checks, type checks and a review pass. For AI features I add evals — retrieval quality, latency, cost — and rehearse failures like bad tool output or empty retrieval.</p>
+        <div class="how-viz viz-4" aria-hidden="true">
+          <div class="v4-pipe">
+            <span class="v4-gate">tests</span><i class="v4-dash"></i>
+            <span class="v4-gate">types</span><i class="v4-dash"></i>
+            <span class="v4-gate">review</span><i class="v4-dash"></i>
+            <span class="v4-gate">evals</span>
+          </div>
+          <div class="v4-meters">
+            <span class="v4-meter">retrieval <i class="v4-track"><b class="v4-fill" style="--v:.92"></b></i></span>
+            <span class="v4-meter">latency&nbsp; <i class="v4-track"><b class="v4-fill" style="--v:.78"></b></i></span>
+            <span class="v4-meter">cost&nbsp;&nbsp;&nbsp;&nbsp; <i class="v4-track"><b class="v4-fill" style="--v:.64"></b></i></span>
+          </div>
+          <div class="v4-fault">
+            <span class="v4-inject">fault · empty retrieval</span>
+            <span class="v4-caught">caught by eval #3 ✓</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="how-gap" aria-hidden="true"></div>
+
+    <article class="how-card" id="how-card-5">
+      <header class="how-bar">
+        <span class="how-num">05</span>
+        <h3 class="how-h">Ship and measure</h3>
+        <span class="how-tag">flags · logs · feedback</span>
+      </header>
+      <div class="how-body">
+        <p class="how-line">I ship behind feature flags with CI/CD, logging and monitoring. I watch real usage, cost per request and user feedback, then iterate.</p>
+        <div class="how-viz viz-5" aria-hidden="true">
+          <div class="v5-term">
+            <div class="v5-top"><i></i><i></i><i></i><span>deploy · canary</span></div>
+            <div class="v5-stream">
+              <span class="v5-l v5-cmd">$ ship --flag=bookings-v2</span>
+              <span class="v5-l">▸ ci&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 214 checks green · 1.2s</span>
+              <span class="v5-l">▸ flags&nbsp;&nbsp;&nbsp; canary 5% → 25% → 100%</span>
+              <span class="v5-l">▸ monitor&nbsp; p95 182ms · errors 0.0%</span>
+              <span class="v5-l">▸ cost&nbsp;&nbsp;&nbsp;&nbsp; $0.0031 / request ▂▃▂▁▂</span>
+              <span class="v5-l">▸ feedback “finally, one flow” ★★★★★</span>
+              <span class="v5-caret"></span>
+            </div>
+          </div>
+          <svg class="v5-spark" viewBox="0 0 200 46">
+            <path class="v5-sparkline" d="M2 41 L30 37 L58 30 L86 31 L114 21 L142 15 L170 11 L198 6"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+
+    <div class="how-gap how-gap-end" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============ SCENE 4 · CONTACT ============ -->
 <section id="contact" aria-label="Contact">
   <div class="contact-bg" aria-hidden="true">
     <div class="contact-glow"></div>
