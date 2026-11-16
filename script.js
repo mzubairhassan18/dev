@@ -772,6 +772,9 @@
           budget -= n;
           if (n !== line.shown) { line.shown = n; line.text.textContent = line.full.slice(0, n); }
           line.holder.classList.toggle("typing", el > 0 && el < 1 && n > 0 && n < line.full.length);
+          /* the diamond marker lights up the moment its line's first
+             character lands — never before (class persists once lit) */
+          line.holder.classList.toggle("lit", n > 0);
         });
       });
       const bEl = gsap.utils.clamp(0, 1, (t - 6.7) / .8);
@@ -783,8 +786,27 @@
       trigger: "#companies", start: "top top",
       end: () => "+=" + Math.round(bookTl.duration() * 1000),
       pin: true, scrub: 1, anticipatePin: 1,
+      invalidateOnRefresh: true,
     },
   });
+  /* — the open spread glides right to stay optically centered: the held
+     left cover and the fanned pages project LEFT of the spine, so an open
+     book sits left-heavy in the room with a void on the right. The book
+     slides right while the cover swings open and slides back as the cover
+     returns; a fixed fraction of the page width keeps the balance at any
+     viewport (the 3D projections can't be measured — their bounding boxes
+     include huge invisible regions) — */
+  /* a fraction of the page width keeps the balance at any viewport, capped
+     to the room's free right gap so narrow windows never clip the sheet
+     (the 3D projections can't be measured — their bounding boxes include
+     huge invisible regions) */
+  const spreadShift = () => Math.max(0, Math.min(
+    book.offsetWidth * .16,
+    (document.documentElement.clientWidth - book.offsetWidth) / 2 - 12
+  ));
+  bookTl.fromTo("#book", { x: 0 },
+    { x: spreadShift, duration: .8, ease: "power2.inOut", immediateRender: false }, .75);
+  bookTl.to("#book", { x: 0, duration: .65, ease: "power2.inOut" }, 8.55);
   /* the room's color turns with each page (defaults already wear company 1) */
   BOOK_HUES.slice(1).forEach((h, k) =>
     bookTl.to("html", { "--bk1": h[0], "--bk2": h[1], duration: .55, ease: "power1.inOut" },

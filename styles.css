@@ -317,6 +317,12 @@ body{
   border-radius:2px; transform:rotate(45deg);
   background:linear-gradient(135deg, var(--co, var(--amber)), var(--co2, var(--co, var(--amber))));
 }
+/* in the animated runtime the diamond waits for its line: it lights up the
+   moment the typewriter lands the first character (script toggles .lit),
+   and never shows for text that hasn't been typed yet. The no-GSAP
+   fallback keeps the markers — nothing types there. */
+html:not(.no-anim) .p-list li::before{ opacity:0; transition:opacity .35s ease; }
+html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 /* technologies wear their real logos, names listed underneath — icons large
    enough to read at a glance, never clipped by their row */
 .p-tags{ display:flex; flex-wrap:wrap; gap:20px 26px; margin-top:24px; align-items:flex-end; }
