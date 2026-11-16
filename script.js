@@ -691,7 +691,7 @@
     /* tags wear their technology's real logo with the name underneath;
        concepts that have no logo carry the page's brand diamond instead */
     const tags = c.tags.map(t => t.b
-      ? `<span class="t-tile"><i class="t-ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">${brandIcon(t.b, 24, t.c)}</svg></i><em>${t.t}</em></span>`
+      ? `<span class="t-tile"><i class="t-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">${brandIcon(t.b, 34, t.c)}</svg></i><em>${t.t}</em></span>`
       : `<span class="t-tile"><i class="t-ico"><b class="t-dot"></b></i><em>${t.t}</em></span>`).join("");
     p.innerHTML = `
       <div class="front" style="--co:${c.accent};--co2:${c.co2}">
@@ -699,7 +699,7 @@
         <div class="p-head" style="padding-right:${c.lw + 44}px"><span class="p-index">0${i + 1} / 05</span><span class="p-dates">${c.dates}</span></div>
         <h3 class="p-company">${c.co}</h3>
         <p class="p-role">${c.role}</p>
-        <ul class="p-list">${c.pts.map(pt => `<li>${pt}</li>`).join("")}</ul>
+        <ul class="p-list">${c.pts.map(pt => `<li><span class="li-ghost" aria-hidden="true">${pt}</span><span class="li-text">${pt}</span></li>`).join("")}</ul>
         <div class="p-tags">${tags}</div>
       </div>
       <div class="back">
@@ -712,6 +712,17 @@
   });
   pages.forEach((p, i) => { p.style.zIndex = 10 - i; });
   baseEl.style.zIndex = 0;
+
+  /* typewriter registry — each chapter's bullets (and the sign-off line)
+     type out, scroll-scrubbed, while their page holds the stage; the ghost
+     span keeps the final line height so nothing reflows while typing */
+  const typeLine = holder => {
+    const ghost = holder.querySelector(".li-ghost");
+    return { holder, text: holder.querySelector(".li-text"), ghost, full: ghost.textContent, shown: -1 };
+  };
+  const typedLines = pages.map(p => [...p.querySelectorAll(".p-list li")].map(typeLine));
+  const baseTyped = typeLine(baseEl.querySelector(".base-line"));
+  const typeTotals = typedLines.map(lines => lines.reduce((s, l) => s + l.full.length, 0));
 
   /* the companies scene arrives like a parallax layer: its glow blobs
      drift slower than the section itself while it slides over the tree */
@@ -733,7 +744,7 @@
     ["#0d272b", "#06151a"],   // CARE · ERP — deeper teal
   ];
 
-  const FLIP_AT = 1.6, FLIP_DUR = .85, FLIP_STEP = .95;
+  const FLIP_AT = 2.35, FLIP_DUR = .85, FLIP_STEP = .95;
   /* page stacking + dots live on the timeline's own onUpdate: it fires on
      every animation tick (including scrub catch-up), not just scroll events */
   const bookTl = gsap.timeline({
@@ -746,9 +757,27 @@
         if (pr >= 1) flipped++;
       });
       dots.forEach((d, i) => d.classList.toggle("on", i < flipped));
+      /* — typewriter: each chapter's bullets type out across its stage
+         window; the sign-off line types during the hold before the close — */
+      pages.forEach((p, i) => {
+        const t0 = i === 0 ? 1.6 : FLIP_AT + (i - 1) * FLIP_STEP + .42;
+        const el = gsap.utils.clamp(0, 1, (t - t0) / (FLIP_AT + i * FLIP_STEP - t0));
+        let budget = Math.round(el * typeTotals[i]);
+        typedLines[i].forEach(line => {
+          const n = Math.min(budget, line.full.length);
+          budget -= n;
+          if (n !== line.shown) { line.shown = n; line.text.textContent = line.full.slice(0, n); }
+          line.holder.classList.toggle("typing", el > 0 && el < 1 && n > 0 && n < line.full.length);
+        });
+      });
+      const bEl = gsap.utils.clamp(0, 1, (t - 6.7) / .8);
+      const bN = Math.round(bEl * baseTyped.full.length);
+      if (bN !== baseTyped.shown) { baseTyped.shown = bN; baseTyped.text.textContent = baseTyped.full.slice(0, bN); }
+      baseTyped.holder.classList.toggle("typing", bEl > 0 && bEl < 1);
     },
     scrollTrigger: {
-      trigger: "#companies", start: "top top", end: "+=8700",
+      trigger: "#companies", start: "top top",
+      end: () => "+=" + Math.round(bookTl.duration() * 1000),
       pin: true, scrub: 1, anticipatePin: 1,
     },
   });
@@ -780,9 +809,9 @@
   /* — the book closes: pages fold back flat, the dots let go, and the
      cover returns with its title before the scene hands off to contact — */
   pages.forEach((p, i) =>
-    bookTl.to(p, { rotationY: 0, z: 0, duration: .75, ease: "power2.inOut" }, 6.8 + i * .045));
-  bookTl.to(".book-dots", { opacity: 0, duration: .4 }, 7.0);
-  bookTl.to("#book-cover", { rotationY: 0, opacity: 1, duration: .65, ease: "power2.inOut" }, 7.8);
+    bookTl.to(p, { rotationY: 0, z: 0, duration: .75, ease: "power2.inOut" }, 7.55 + i * .045));
+  bookTl.to(".book-dots", { opacity: 0, duration: .4 }, 7.75);
+  bookTl.to("#book-cover", { rotationY: 0, opacity: 1, duration: .65, ease: "power2.inOut" }, 8.55);
   bookTl.to({}, { duration: .25 }); // settle before the handoff
 
   /* ------------------------------------------------------------

@@ -185,11 +185,11 @@ body{
   transform:rotateY(-135deg); /* held half-open, 45° past vertical */
   border-radius:14px 6px 6px 14px;
   background:
-    radial-gradient(120% 90% at 25% 8%, rgba(255,236,205,.10), transparent 55%),
-    linear-gradient(100deg, #4a3823 0%, #35281b 55%, #211810 100%);
+    radial-gradient(120% 90% at 25% 8%, rgba(245,165,36,.07), transparent 55%),
+    linear-gradient(100deg, #1b1e2b 0%, #13151f 55%, #0b0d13 100%);
   box-shadow:
     0 34px 70px rgba(0,0,0,.6),
-    inset 0 0 0 2px rgba(245,165,36,.13),
+    inset 0 0 0 1px rgba(245,165,36,.2),
     inset -20px 0 40px rgba(0,0,0,.5);
 }
 .left-cover::after{ /* hinge shading near the spine */
@@ -202,38 +202,46 @@ body{
   content:"01 · EXPERIENCE"; position:absolute; left:4%; top:8%;
   font:800 clamp(12px,1.55vw,20px)/1 var(--font-d);
   letter-spacing:.12em; white-space:nowrap;
-  color:rgba(245,165,36,.15); transform:rotate(-4deg) scaleX(-1);
+  color:rgba(245,165,36,.18); transform:rotate(-4deg) scaleX(-1);
 }
-/* the shut cover — faces the reader until the scroll swings it open */
+/* the shut cover — faces the reader until the scroll swings it open;
+   ink-navy boards with amber foil, matching the site's dark scene */
 .book-cover{
   position:absolute; inset:0; z-index:40;
   transform:translateZ(24px); transform-origin:left center;
   backface-visibility:hidden; -webkit-backface-visibility:hidden;
   border-radius:14px 6px 6px 14px;
   background:
-    radial-gradient(120% 90% at 25% 8%, rgba(255,236,205,.14), transparent 55%),
-    linear-gradient(100deg, #54402a 0%, #3a2c1e 55%, #241a11 100%);
+    radial-gradient(130% 100% at 22% 0%, rgba(245,165,36,.09), transparent 55%),
+    linear-gradient(112deg, #1d2030 0%, #13151f 52%, #0b0d13 100%);
   box-shadow:
     0 34px 70px rgba(0,0,0,.6),
-    inset 0 0 0 2px rgba(245,165,36,.16),
-    inset -20px 0 40px rgba(0,0,0,.5);
+    inset 0 0 0 1px rgba(245,165,36,.32),
+    inset 0 0 70px rgba(0,0,0,.5),
+    inset -26px 0 44px rgba(0,0,0,.55);
   display:flex; align-items:center; justify-content:center;
 }
 .bc-inner{
-  border:1.5px solid rgba(245,165,36,.35);
-  box-shadow:inset 0 0 0 5px #3a2c1e, inset 0 0 0 6.5px rgba(245,165,36,.22);
-  padding:38px 52px; text-align:center;
-  display:flex; flex-direction:column; align-items:center; gap:14px;
+  position:relative;
+  border-top:1px solid rgba(245,165,36,.38);
+  border-bottom:1px solid rgba(245,165,36,.38);
+  padding:42px 54px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:15px;
 }
-.bc-kicker{ font:700 11px var(--font-b); letter-spacing:.34em; color:rgba(240,200,140,.6); }
+.bc-gem{
+  width:11px; height:11px; transform:rotate(45deg);
+  background:linear-gradient(135deg, #f5b02e, #b9770f);
+  box-shadow:0 0 16px rgba(245,165,36,.5);
+}
+.bc-kicker{ font:700 11px var(--font-b); letter-spacing:.34em; color:rgba(245,165,36,.72); }
 .bc-title{
   font:800 clamp(30px,3.8vw,48px)/1 var(--font-d);
-  letter-spacing:.12em; text-transform:uppercase; text-indent:.12em;
-  color:#e6c284;
-  text-shadow:0 1px 0 rgba(0,0,0,.4), 0 -1px 0 rgba(255,240,200,.12);
+  letter-spacing:.13em; text-transform:uppercase; text-indent:.13em;
+  color:#efe6d0;
+  text-shadow:0 1px 0 rgba(0,0,0,.55), 0 0 30px rgba(245,165,36,.16);
 }
-.bc-rule{ width:64px; height:1px; background:rgba(245,165,36,.45); }
-.bc-sub{ font:600 12px var(--font-b); letter-spacing:.22em; text-transform:uppercase; color:rgba(240,200,140,.55); }
+.bc-rule{ width:78px; height:2px; background:linear-gradient(90deg, transparent, rgba(245,165,36,.75), transparent); }
+.bc-sub{ font:600 12px var(--font-b); letter-spacing:.22em; text-transform:uppercase; color:rgba(236,228,206,.5); }
 .page{
   position:absolute; inset:0; transform-style:preserve-3d;
   transform-origin:left center; will-change:transform;
@@ -243,7 +251,11 @@ body{
   border-radius:6px 14px 14px 6px; overflow:hidden;
 }
 .page .front{
+  /* the paper wears the company's own colors — a faint wash of the logo's
+     two tones over the cream stock */
   background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--co2, var(--co, #8c6d1f)) 13%, transparent) 0%, transparent 52%),
+    linear-gradient(155deg, color-mix(in srgb, var(--co, #8c6d1f) 10%, transparent) 0%, transparent 44%),
     linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,.05) 100%),
     repeating-linear-gradient(180deg, transparent 0 34px, rgba(42,38,32,.05) 34px 35px),
     var(--paper);
@@ -305,19 +317,32 @@ body{
   border-radius:2px; transform:rotate(45deg);
   background:linear-gradient(135deg, var(--co, var(--amber)), var(--co2, var(--co, var(--amber))));
 }
-/* technologies wear their real logos, names listed underneath */
-.p-tags{ display:flex; flex-wrap:wrap; gap:16px 18px; margin-top:20px; align-items:flex-end; }
-.t-tile{ display:flex; flex-direction:column; align-items:center; gap:6px; }
-.t-ico{ height:24px; display:flex; align-items:center; justify-content:center; }
-.t-ico svg{ display:block; }
+/* technologies wear their real logos, names listed underneath — icons large
+   enough to read at a glance, never clipped by their row */
+.p-tags{ display:flex; flex-wrap:wrap; gap:20px 26px; margin-top:24px; align-items:flex-end; }
+.t-tile{ display:flex; flex-direction:column; align-items:center; gap:8px; }
+.t-ico{ height:38px; display:flex; align-items:center; justify-content:center; overflow:visible; }
+.t-ico svg{ display:block; width:34px; height:34px; }
 .t-dot{
-  width:9px; height:9px; border-radius:2px; transform:rotate(45deg);
+  width:12px; height:12px; border-radius:2.5px; transform:rotate(45deg);
   background:linear-gradient(135deg, var(--co, #a3853f), var(--co2, var(--co, #a3853f)));
 }
 .t-tile em{
-  font:600 9.5px var(--font-b); font-style:normal; letter-spacing:.09em;
-  text-transform:uppercase; color:#6b5c40; white-space:nowrap;
+  font:600 10.5px var(--font-b); font-style:normal; letter-spacing:.1em;
+  text-transform:uppercase; color:#5f5138; white-space:nowrap;
 }
+/* typewriter — a hidden ghost reserves the final line height so nothing
+   reflows while the characters land; the caret rides the last glyph */
+.p-list li{ display:grid; }
+.base-line{ display:grid; }
+.li-ghost{ grid-area:1/1; visibility:hidden; user-select:none; }
+.li-text{ grid-area:1/1; }
+.li-text::after{
+  content:""; display:inline-block; width:2px; height:.92em; margin-left:3px;
+  vertical-align:-2px; background:var(--co, #8c6d1f); opacity:0;
+}
+.typing .li-text::after{ opacity:1; animation:caret-blink 1s linear infinite; }
+@keyframes caret-blink{ 0%,45%{ opacity:1; } 50%,100%{ opacity:0; } }
 .p-stamp{
   position:absolute; top:22px; right:22px; width:84px; height:84px; border-radius:50%;
   border:2px dashed rgba(140,109,31,.55); color:rgba(140,109,31,.75);
@@ -489,13 +514,13 @@ body{
   .p-logo img.tile{ border-radius:9px; }
   .p-company{ font-size:clamp(27px,7.5vw,40px); }
   .p-role{ font-size:14px; margin:5px 0 12px; }
-  .p-list li{ font-size:13.5px; line-height:1.5; margin-bottom:10px; padding-left:19px; }
+  .p-list li{ font-size:12.5px; line-height:1.45; margin-bottom:9px; padding-left:18px; }
   .p-list li::before{ width:8px; height:8px; top:7px; }
-  .p-tags{ gap:10px 13px; margin-top:14px; }
-  .t-ico{ height:20px; }
-  .t-ico svg{ width:19px; height:19px; }
-  .t-dot{ width:8px; height:8px; }
-  .t-tile em{ font-size:8px; }
+  .p-tags{ gap:13px 16px; margin-top:15px; }
+  .t-ico{ height:28px; }
+  .t-ico svg{ width:25px; height:25px; }
+  .t-dot{ width:10px; height:10px; }
+  .t-tile em{ font-size:8.5px; }
   .book-cover{ border-radius:10px 4px 4px 10px; }
   .bc-inner{ padding:22px 26px; gap:10px; }
   .bc-kicker{ font-size:8.5px; letter-spacing:.26em; }
