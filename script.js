@@ -865,15 +865,15 @@
     y: 50, opacity: 0, stagger: .12, duration: .8, ease: "power3.out",
     scrollTrigger: { trigger: "#contact", start: "top 68%" },
   });
-  gsap.from(".wall", {
+  gsap.from(".tree-scene", {
     y: 150, opacity: 0, duration: 1, ease: "power3.out",
-    scrollTrigger: { trigger: ".wall", start: "top 88%" },
+    scrollTrigger: { trigger: ".tree-scene", start: "top 88%" },
   });
   gsap.set("#hang", { rotation: -1.4, transformOrigin: "50% 8px" });
   const hangIn = gsap.from("#hang", {
     y: -170, opacity: 0, rotation: 3.5, duration: 1.15, ease: "back.out(1.3)",
     transformOrigin: "50% 8px",
-    scrollTrigger: { trigger: ".wall", start: "top 58%" },
+    scrollTrigger: { trigger: ".tree-scene", start: "top 58%" },
     onComplete: () => {
       if (!REDUCED) gsap.to("#hang", { rotation: 1.6, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: -1, transformOrigin: "50% 8px" });
     },

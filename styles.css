@@ -470,7 +470,7 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 #contact{
   position:relative; min-height:115vh; overflow:hidden;
   background:linear-gradient(180deg, #0d0e13 0%, #0b0c12 45%, #0e1017 100%);
-  padding:12vh 20px 30vh;
+  padding:12vh 20px 380px;
 }
 /* animated backdrop — slow drifting glow, fine grid, film grain */
 .contact-bg{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
@@ -508,32 +508,34 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 .contact-title em{ font-style:normal; color:var(--amber); }
 .contact-sub{ color:var(--ink-dim); margin-top:16px; font-size:15.5px; }
 
-/* stone wall — shaded stones on dark mortar, with a film-grain pass */
-.wall{
-  position:relative; z-index:2; max-width:980px; margin:7vh auto 0; padding:12vh 6vw 13vh;
-  border-radius:26px 26px 0 0;
-  background-color:#96938c;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='176' viewBox='0 0 280 176'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23bab7b0'/%3E%3Cstop offset='1' stop-color='%238e8b84'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23aca9a2'/%3E%3Cstop offset='1' stop-color='%23828079'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%239e9b94'/%3E%3Cstop offset='1' stop-color='%2375726c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='280' height='176' fill='%23514e49'/%3E%3Crect x='2' y='6' width='100' height='64' rx='9' fill='url(%23a)'/%3E%3Crect x='2' y='8' width='100' height='5' rx='2.5' fill='%23ffffff' opacity='.09'/%3E%3Crect x='2' y='65' width='100' height='5' rx='2.5' fill='%23000000' opacity='.13'/%3E%3Crect x='106' y='6' width='74' height='64' rx='9' fill='url(%23b)'/%3E%3Crect x='106' y='8' width='74' height='5' rx='2.5' fill='%23ffffff' opacity='.08'/%3E%3Crect x='106' y='65' width='74' height='5' rx='2.5' fill='%23000000' opacity='.12'/%3E%3Crect x='184' y='6' width='94' height='64' rx='9' fill='url(%23c)'/%3E%3Crect x='184' y='8' width='94' height='5' rx='2.5' fill='%23ffffff' opacity='.07'/%3E%3Crect x='184' y='65' width='94' height='5' rx='2.5' fill='%23000000' opacity='.14'/%3E%3Crect x='2' y='74' width='58' height='64' rx='9' fill='url(%23c)'/%3E%3Crect x='2' y='76' width='58' height='5' rx='2.5' fill='%23ffffff' opacity='.07'/%3E%3Crect x='2' y='133' width='58' height='5' rx='2.5' fill='%23000000' opacity='.14'/%3E%3Crect x='64' y='74' width='110' height='64' rx='9' fill='url(%23a)'/%3E%3Crect x='64' y='76' width='110' height='5' rx='2.5' fill='%23ffffff' opacity='.09'/%3E%3Crect x='64' y='133' width='110' height='5' rx='2.5' fill='%23000000' opacity='.12'/%3E%3Crect x='178' y='74' width='100' height='64' rx='9' fill='url(%23b)'/%3E%3Crect x='178' y='76' width='100' height='5' rx='2.5' fill='%23ffffff' opacity='.08'/%3E%3Crect x='178' y='133' width='100' height='5' rx='2.5' fill='%23000000' opacity='.13'/%3E%3Crect x='2' y='142' width='132' height='30' rx='9' fill='url(%23b)'/%3E%3Crect x='2' y='144' width='132' height='5' rx='2.5' fill='%23ffffff' opacity='.08'/%3E%3Crect x='138' y='142' width='140' height='30' rx='9' fill='url(%23a)'/%3E%3Crect x='138' y='144' width='140' height='5' rx='2.5' fill='%23ffffff' opacity='.09'/%3E%3Crect width='280' height='176' fill='%23808080' opacity='.14' style='mix-blend-mode:overlay'/%3E%3C/svg%3E");
-  box-shadow:
-    inset 0 22px 60px rgba(0,0,0,.42),
-    inset 0 -30px 80px rgba(0,0,0,.38),
-    0 -30px 80px rgba(0,0,0,.25);
+/* ============================================================
+   the old oak — a real photographic cutout; the frame hangs from it
+   ============================================================ */
+/* the scene box is locked to the cutout's 1175×1280 aspect, so the
+   hang (top: 80.39% − 8px, centred on the bough at x 71.49%) drops its
+   wire nail exactly onto the bare limb at (840, 1029) of the image,
+   at every viewport width. The card is capped at 55% so it can never
+   clip against the right edge at that offset. The trunk sinks into the
+   ground through a mask fade along the image's bottom edge. Photo:
+   pixabay.com (oak-3587772), Pixabay Content License. */
+.tree-scene{
+  position:relative; z-index:2; max-width:1200px;
+  aspect-ratio:1175/1280; margin:6vh auto 0;
 }
-.wall::before{ /* spotlight + noise */
-  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-  background:
-    radial-gradient(70% 55% at 50% 22%, rgba(255,246,224,.28) 0%, transparent 70%),
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.8'%20numOctaves='2'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='240'%20height='240'%20filter='url(%23n)'%20opacity='0.16'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;
-}
-.wall::after{ /* bottom floor fade */
-  content:""; position:absolute; left:0; right:0; bottom:0; height:70px;
-  background:linear-gradient(180deg, transparent, rgba(10,10,12,.55));
-  border-radius:inherit; pointer-events:none;
+.tree-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  display:block; object-fit:fill; pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg, #000 80%, transparent 99%);
+  mask-image:linear-gradient(180deg, #000 80%, transparent 99%);
 }
 
-/* hanging frame */
-.hang{ position:relative; width:min(620px, 92%); margin:0 auto; }
+/* hanging frame — absolutely placed so its centre rides the bough;
+   GSAP owns the transform (drop-in + swing), so centring uses left plus
+   a negative margin, never a translate */
+.hang{
+  position:absolute; left:71.49%; top:calc(80.39% - 8px);
+  width:min(620px, 55%); margin-left:max(-310px, -27.5%);
+}
 .wire{ display:block; width:100%; height:74px; }
 .frame{
   position:relative; background:#fdfcf7; border-radius:4px;
@@ -644,7 +646,20 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
   .base-line{ font-size:13.5px; }
   .base-front .cta{ font-size:12.5px; padding:12px 20px; }
   .p-list li{ font-size:12.5px; }
+  /* stacked rows give the long email / URL the card's full width, so
+     they never break mid-word */
+  .frame-list li{ display:block; }
+  .frame-list .f-label{ display:block; min-width:0; margin-bottom:2px; }
   .frame-list a{ word-break:break-all; }
+  .frame-list a, .f-value{ font-size:17px; }
+  /* the oak enlarged and re-centred so the branch (71.49% of the image)
+     sits at the scene's midpoint: nail x = −0.3436 + 0.7149×1.18 = 50%,
+     nail y = 0.8039×1.286 = 94.86% of scene height; the hang re-centres
+     on 50% and the card clears both edges */
+  .tree-scene{ max-width:none; }
+  .tree-img{ width:118%; height:auto; left:-34.36%; }
+  .hang{ left:50%; top:calc(94.86% - 8px); width:74%; margin-left:max(-310px, -37%); }
+  #contact{ padding-bottom:460px; }
 }
 
 /* ---------- short desktop windows (zoomed UI, small windowed browsers) ----------
