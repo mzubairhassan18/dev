@@ -14,7 +14,11 @@
 <body>
 
 <div id="progress" aria-hidden="true"></div>
-<div id="big-label" aria-hidden="true"></div>
+<!-- the giant scene label renders as SVG text so its outline can be a real
+     dashed stroke with an empty (transparent) fill — hollow letters -->
+<div id="big-label" aria-hidden="true">
+  <svg class="bl-svg"><text class="bl-text"></text></svg>
+</div>
 
 <!-- ============ SCENE 1 · INTRO + THE TREE (SVG camera world) ============ -->
 <section id="stage" aria-label="Intro and experience tree">

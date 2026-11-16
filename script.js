@@ -434,14 +434,30 @@
   /* the giant dimmed scene label — bottom-left ambience that follows
      whatever the camera is currently looking at (replaces the old chip) */
   const bigLabel = document.getElementById("big-label");
+  const blText = bigLabel.querySelector(".bl-text");
   let bigText = "";
+  /* the label is SVG text: fill none, dashed stroke — hollow letters. The
+     svg has no line box of its own, so the baseline is fitted from the
+     font's real metrics to land exactly where the old solid text sat */
+  const blMeter = document.createElement("canvas").getContext("2d");
+  const fitBaseline = () => {
+    const cs = getComputedStyle(blText);
+    blMeter.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const m = blMeter.measureText("MZ");
+    const lh = .92 * parseFloat(cs.fontSize);
+    const y = (lh - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + m.fontBoundingBoxAscent;
+    blText.setAttribute("y", Math.max(1, y).toFixed(2));
+  };
+  addEventListener("resize", fitBaseline);
+  document.fonts && document.fonts.ready.then(fitBaseline);
   const setBig = (text, color = "#ece7db") => {
     if (text === bigText) { if (text) bigLabel.classList.add("show"); return; }
     bigText = text;
     if (!text) { bigLabel.classList.remove("show"); return; }
-    bigLabel.textContent = text;
+    blText.textContent = text;
     bigLabel.style.color = color;
     bigLabel.style.fontSize = `clamp(30px, ${Math.min(10, 88 / text.length).toFixed(2)}vw, 190px)`;
+    fitBaseline();
     bigLabel.classList.add("show");
   };
   let hintHidden = false;
