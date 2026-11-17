@@ -106,46 +106,50 @@
 </section>
 
 <!-- ============ SCENE 3 · HOW I WORK ============
-     five habits as a sticky stack: each new step slides up and covers
-     the previous one, whose heading bar alone stays visible at the top
-     of the pile. Every step carries its own little inked visual that
-     draws itself as the card arrives. -->
+     a light "sunny day" sheet pinned over the dark room: a sticky
+     masthead keeps the title in view while five darker step-cards
+     stack beneath it, and the right-hand rail tracks the drill —
+     node, line, node — one word per node, the hand-off written on
+     each edge. -->
 <section id="how" aria-label="How I work">
-  <div class="how-bg" aria-hidden="true">
-    <div class="bg-blob bb-3"></div>
-    <div class="bg-blob bb-4"></div>
-    <div class="bg-grain"></div>
-  </div>
+  <div class="how-sky">
+    <div class="how-skybg" aria-hidden="true">
+      <div class="how-sun"></div>
+      <div class="how-haze"></div>
+    </div>
 
-  <div class="how-head">
-    <p class="kicker">Working method</p>
-    <h2 class="how-title">How I <em>Work</em></h2>
-    <p class="how-sub">Five habits that keep AI-assisted shipping fast — and safe.</p>
-  </div>
+    <header class="how-head">
+      <div class="how-head-in">
+        <p class="kicker">The drill</p>
+        <h2 class="how-title">How I <em>Work</em></h2>
+        <p class="how-tagline">user problem&nbsp;&rarr;&nbsp;production traffic</p>
+      </div>
+    </header>
 
-  <div class="how-stack">
+    <div class="how-columns">
+      <div class="how-stack">
     <article class="how-card" id="how-card-1">
       <header class="how-bar">
         <span class="how-num">01</span>
         <h3 class="how-h">Clarify before coding</h3>
-        <span class="how-tag">scope first</span>
+        <span class="how-tag">RFC before code</span>
       </header>
       <div class="how-body">
-        <p class="how-line">I start from the user problem, edge cases and success metric — not from a prompt. I write a short plan or PRD first.</p>
+        <p class="how-line">I start from the user problem, the edge cases and one measurable success metric — then write a one-page RFC so scope, non-goals and risks are agreed before code exists.</p>
         <div class="how-viz viz-1" aria-hidden="true">
-          <div class="v1-notes">
-            <span class="v1-note">User problem</span>
-            <span class="v1-note">Edge cases</span>
-            <span class="v1-note">Success metric</span>
-          </div>
-          <svg class="v1-arrows" viewBox="0 0 150 128">
-            <path class="v1-arrow" d="M6 22 C 62 22 58 64 118 64"/>
-            <path class="v1-arrow" d="M10 106 C 66 106 62 64 118 64"/>
-            <path class="v1-head" d="M108 55 L121 64 L108 73"/>
-          </svg>
-          <div class="v1-doc">
-            <span class="v1-docname">plan.md · the PRD</span>
-            <span class="v1-docline">1. The problem, in the user's own words</span>
+          <div class="v1-rfc">
+            <div class="v1-rfc-top">
+              <span class="v1-id">RFC-014</span>
+              <span class="v1-name">seat holds</span>
+              <span class="v1-state">draft &rarr; review</span>
+            </div>
+            <ul class="v1-rows">
+              <li class="v1-row"><b>Problem</b><span>teams overbook the same seats</span><i class="v1-tick"></i></li>
+              <li class="v1-row"><b>Users</b><span>front desk &middot; members&rsquo; app</span><i class="v1-tick"></i></li>
+              <li class="v1-row"><b>Non-goals</b><span>no billing changes in v1</span><i class="v1-tick"></i></li>
+              <li class="v1-row"><b>Success</b><span>double-books &rarr; 0 &middot; p95 &lt; 200ms</span><i class="v1-tick"></i></li>
+            </ul>
+            <div class="v1-agreed"><i>&check;</i>agreed &mdash; safe to slice</div>
           </div>
         </div>
       </div>
@@ -156,23 +160,23 @@
     <article class="how-card" id="how-card-2">
       <header class="how-bar">
         <span class="how-num">02</span>
-        <h3 class="how-h">Plan with AI, review like a senior</h3>
-        <span class="how-tag">no code yet</span>
+        <h3 class="how-h">Slice the work</h3>
+        <span class="how-tag">smallest testable slice</span>
       </header>
       <div class="how-body">
-        <p class="how-line">I break work into small, testable tasks, get a plan from the agent, then challenge it before any code is written.</p>
+        <p class="how-line">One agreed RFC becomes tickets sized to land in a day — riskiest first. Anything that smells like two features in one gets split before it touches the board.</p>
         <div class="how-viz viz-2" aria-hidden="true">
-          <div class="v2-plan">
-            <span class="v2-src">agent · task plan</span>
-            <ul>
-              <li class="v2-task"><i></i>Split auth out of the monolith</li>
-              <li class="v2-task v2-big"><i></i>Rewrite the whole API layer<i class="v2-strike"></i></li>
-              <li class="v2-task"><i></i>Ship a feature-flagged slice</li>
+          <div class="v2-board">
+            <span class="v2-sprint">sprint 41 &middot; bookings</span>
+            <ul class="v2-tickets">
+              <li class="v2-tk v2-risk"><b>BK-104</b><span>hold idempotency key</span><i class="v2-flag">risky first</i></li>
+              <li class="v2-tk v2-xl"><b>BK-105</b><span>seats + billing + emails</span><i class="v2-size">XL</i><i class="v2-strike"></i></li>
+              <li class="v2-tk"><b>BK-106</b><span>hold UI + empty state</span><i class="v2-size ok">M</i></li>
             </ul>
-          </div>
-          <div class="v2-marks">
-            <span class="v2-stamp v2-ok">keep — testable</span>
-            <span class="v2-stamp v2-no">too big — challenge it</span>
+            <div class="v2-review">
+              <span>&ldquo;BK-105 is two features in a trench coat &mdash; split it.&rdquo;</span>
+              <i>&mdash; me, in review</i>
+            </div>
           </div>
         </div>
       </div>
@@ -184,29 +188,35 @@
       <header class="how-bar">
         <span class="how-num">03</span>
         <h3 class="how-h">Build with agents</h3>
-        <span class="how-tag">AI types · I decide</span>
+        <span class="how-tag">agents type &middot; I decide</span>
       </header>
       <div class="how-body">
-        <p class="how-line">I use Cursor / Claude Code for implementation, but I keep the architecture, data model and API contracts in my head. AI writes the boilerplate, I own the decisions.</p>
+        <p class="how-line">Cursor and Claude Code type the boilerplate; the data model, API contract and access rules stay mine. Every PR lands small, reviewed and behind a named contract.</p>
         <div class="how-viz viz-3" aria-hidden="true">
           <div class="v3-editor">
             <div class="v3-tabs">
               <img src="assets/icon-cursor.svg" alt="Cursor" class="v3-ico">
               <img src="assets/icon-claude.svg" alt="Claude Code" class="v3-ico">
-              <span class="v3-file">bookings.ts</span>
+              <span class="v3-file">holds.ts</span>
             </div>
             <code class="v3-code">
-              <span class="v3-cl">export async function createBooking(req) {</span>
-              <span class="v3-cl">&nbsp;&nbsp;const seat = await seats.hold(req)</span>
-              <span class="v3-cl">&nbsp;&nbsp;return toApiResponse(seat, err)</span>
+              <span class="v3-cl v3-me">+ // mine: the contract</span>
+              <span class="v3-cl">export async function holdSeat(req) {</span>
+              <span class="v3-cl">&nbsp;&nbsp;const key = req.header(&quot;idempotency-key&quot;)</span>
+              <span class="v3-cl">&nbsp;&nbsp;return seats.hold(req, { key })</span>
               <span class="v3-cl">}</span>
             </code>
+          </div>
+          <div class="v3-pr">
+            <span class="v3-pr-id">PR #482</span>
+            <span class="v3-pr-meta"><em>+</em>64 <i>&minus;</i>18</span>
+            <span class="v3-pr-state">reviewed &check;</span>
           </div>
           <div class="v3-owns">
             <span class="v3-own-label">I own —</span>
             <span class="v3-chip">data model</span>
             <span class="v3-chip">API contract</span>
-            <span class="v3-chip">architecture</span>
+            <span class="v3-chip">access rules</span>
           </div>
         </div>
       </div>
@@ -217,26 +227,26 @@
     <article class="how-card" id="how-card-4">
       <header class="how-bar">
         <span class="how-num">04</span>
-        <h3 class="how-h">Verify everything</h3>
-        <span class="how-tag">trust, then ship</span>
+        <h3 class="how-h">Verify like it&rsquo;s live</h3>
+        <span class="how-tag">tests &middot; evals &middot; drills</span>
       </header>
       <div class="how-body">
-        <p class="how-line">Every AI change gets tests, manual checks, type checks and a review pass. For AI features I add evals — retrieval quality, latency, cost — and rehearse failures like bad tool output or empty retrieval.</p>
+        <p class="how-line">&ldquo;Done&rdquo; means the code showed me it works: CI gates green, evals for anything a model decides, and a fault drill — kill a dependency on purpose, watch it fail safely.</p>
         <div class="how-viz viz-4" aria-hidden="true">
           <div class="v4-pipe">
-            <span class="v4-gate">tests</span><i class="v4-dash"></i>
-            <span class="v4-gate">types</span><i class="v4-dash"></i>
-            <span class="v4-gate">review</span><i class="v4-dash"></i>
-            <span class="v4-gate">evals</span>
+            <span class="v4-gate"><b>lint</b><i>0.9s</i></span><i class="v4-dash"></i>
+            <span class="v4-gate"><b>typecheck</b><i>2.1s</i></span><i class="v4-dash"></i>
+            <span class="v4-gate"><b>tests</b><i>148 &check;</i></span><i class="v4-dash"></i>
+            <span class="v4-gate"><b>evals</b><i>96 &check;</i></span>
           </div>
           <div class="v4-meters">
-            <span class="v4-meter">retrieval <i class="v4-track"><b class="v4-fill" style="--v:.92"></b></i></span>
-            <span class="v4-meter">latency&nbsp; <i class="v4-track"><b class="v4-fill" style="--v:.78"></b></i></span>
-            <span class="v4-meter">cost&nbsp;&nbsp;&nbsp;&nbsp; <i class="v4-track"><b class="v4-fill" style="--v:.64"></b></i></span>
+            <span class="v4-meter">retrieval <i class="v4-track"><b class="v4-fill" style="--v:.92"></b></i><em>.92</em></span>
+            <span class="v4-meter">latency&nbsp;&nbsp; <i class="v4-track"><b class="v4-fill" style="--v:.78"></b></i><em>.78</em></span>
+            <span class="v4-meter">cost&nbsp;&nbsp;&nbsp;&nbsp; <i class="v4-track"><b class="v4-fill" style="--v:.64"></b></i><em>.64</em></span>
           </div>
           <div class="v4-fault">
-            <span class="v4-inject">fault · empty retrieval</span>
-            <span class="v4-caught">caught by eval #3 ✓</span>
+            <span class="v4-inject">fault drill &middot; kill the vector store</span>
+            <span class="v4-caught">fallback serves cached index &middot; zero user-visible errors &check;</span>
           </div>
         </div>
       </div>
@@ -247,21 +257,21 @@
     <article class="how-card" id="how-card-5">
       <header class="how-bar">
         <span class="how-num">05</span>
-        <h3 class="how-h">Ship and measure</h3>
-        <span class="how-tag">flags · logs · feedback</span>
+        <h3 class="how-h">Ship behind flags</h3>
+        <span class="how-tag">canary &middot; SLO &middot; rollback</span>
       </header>
       <div class="how-body">
-        <p class="how-line">I ship behind feature flags with CI/CD, logging and monitoring. I watch real usage, cost per request and user feedback, then iterate.</p>
+        <p class="how-line">Rollout is part of the work: canary traffic first, SLOs and error budget on the dashboard, rollback rehearsed — so shipping stays boring on purpose.</p>
         <div class="how-viz viz-5" aria-hidden="true">
           <div class="v5-term">
-            <div class="v5-top"><i></i><i></i><i></i><span>deploy · canary</span></div>
+            <div class="v5-top"><i></i><i></i><i></i><span>deploy &middot; canary</span></div>
             <div class="v5-stream">
-              <span class="v5-l v5-cmd">$ ship --flag=bookings-v2</span>
-              <span class="v5-l">▸ ci&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 214 checks green · 1.2s</span>
-              <span class="v5-l">▸ flags&nbsp;&nbsp;&nbsp; canary 5% → 25% → 100%</span>
-              <span class="v5-l">▸ monitor&nbsp; p95 182ms · errors 0.0%</span>
-              <span class="v5-l">▸ cost&nbsp;&nbsp;&nbsp;&nbsp; $0.0031 / request ▂▃▂▁▂</span>
-              <span class="v5-l">▸ feedback “finally, one flow” ★★★★★</span>
+              <span class="v5-l v5-cmd">$ flag on bookings-v2 --canary=5%</span>
+              <span class="v5-l">▸ ramp&nbsp;&nbsp;&nbsp;&nbsp; 5 → 25 → 100% &middot; rollback armed</span>
+              <span class="v5-l">▸ slo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 99.4% &middot; budget burn 0.2x</span>
+              <span class="v5-l">▸ p95&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 182ms &middot; errors 0.0%</span>
+              <span class="v5-l">▸ cost&nbsp;&nbsp;&nbsp;&nbsp; $0.0031/req &middot; cap $400/mo</span>
+              <span class="v5-l">▸ users&nbsp;&nbsp;&nbsp;&nbsp; &ldquo;finally, one flow&rdquo; ★★★★★</span>
               <span class="v5-caret"></span>
             </div>
           </div>
@@ -273,7 +283,23 @@
     </article>
 
     <div class="how-gap how-gap-end" aria-hidden="true"></div>
-  </div>
+      </div><!-- /.how-stack -->
+
+      <aside class="how-rail" aria-hidden="true">
+        <div class="rail-track">
+          <div class="rail-node" id="rail-node-1"><i></i><b>Scope</b></div>
+          <div class="rail-edge" id="rail-edge-1"><span>RFC agreed</span><i></i></div>
+          <div class="rail-node" id="rail-node-2"><i></i><b>Plan</b></div>
+          <div class="rail-edge" id="rail-edge-2"><span>tickets sliced</span><i></i></div>
+          <div class="rail-node" id="rail-node-3"><i></i><b>Build</b></div>
+          <div class="rail-edge" id="rail-edge-3"><span>diffs reviewed</span><i></i></div>
+          <div class="rail-node" id="rail-node-4"><i></i><b>Verify</b></div>
+          <div class="rail-edge" id="rail-edge-4"><span>all green</span><i></i></div>
+          <div class="rail-node" id="rail-node-5"><i></i><b>Ship</b></div>
+        </div>
+      </aside>
+    </div><!-- /.how-columns -->
+  </div><!-- /.how-sky -->
 </section>
 
 <!-- ============ SCENE 4 · CONTACT ============ -->

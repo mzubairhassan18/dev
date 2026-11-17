@@ -868,81 +868,109 @@
 
   /* ------------------------------------------------------------
      SCENE 3 — how I work
-     five sticky cards; each step's visual draws itself in as the
-     card lands, one bespoke mini-timeline per habit
+     a sunny sheet with a sticky masthead; five darker step-cards
+     stack beneath it and the right-hand rail lights node by node —
+     Scope → Plan → Build → Verify → Ship — each hand-off written
+     on the edge between two nodes
      ------------------------------------------------------------ */
   if (document.getElementById("how")) {
-    gsap.from("#how .how-head > *", {
-      y: 46, opacity: 0, stagger: .1, duration: .7, ease: "power3.out",
-      scrollTrigger: { trigger: "#how", start: "top 74%" },
-    });
-    /* every card rises the last stretch with a soft settle as it lands */
-    if (!REDUCED) document.querySelectorAll(".how-card").forEach((card) => {
-      gsap.from(card, {
-        y: 74, scale: .975, rotation: .5, transformOrigin: "50% 0%",
-        duration: .55, ease: "power2.out",
-        scrollTrigger: { trigger: card, start: "top 92%" },
-      });
-    });
-
-    /* helper: draw an SVG stroke like a pen line */
-    const ink = (path, tl, at, dur) => {
-      const len = path.getTotalLength();
-      gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-      tl.to(path, { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" }, at);
+    /* rail(k): node k pops amber as card k lands */
+    const rail = (k) => {
+      const n = document.getElementById(`rail-node-${k}`);
+      if (!n) return;
+      n.classList.add("on");
+      gsap.fromTo(n.querySelector("i"), { scale: .4 }, { scale: 1, duration: .38, ease: "back.out(2.2)" });
+    };
+    /* railEdge(k): the edge before node k fills — the hand-off is done */
+    const railEdge = (k) => {
+      const e = document.getElementById(`rail-edge-${k - 1}`);
+      if (e) e.classList.add("on");
     };
 
-    if (!REDUCED) {
-      /* 01 — the three scoping notes slide in, arrows ink themselves
-         across, and the PRD sheet types its first line */
+    if (REDUCED) {
+      /* no motion: every node, edge, tick, chip and gate sits in its
+         final state immediately */
+      gsap.utils.toArray("#how .rail-node").forEach((n) => n.classList.add("on"));
+      gsap.utils.toArray("#how .rail-edge").forEach((e) => e.classList.add("on"));
+      gsap.utils.toArray("#how .v1-row").forEach((r) => r.classList.add("on"));
+      gsap.utils.toArray("#how .v4-gate").forEach((g) => g.classList.add("on"));
+      gsap.utils.toArray("#how .v3-chip").forEach((c) => c.classList.add("on"));
+      gsap.set("#how .v2-strike, #how .v4-dash", { scaleX: 1 });
+    } else {
+      gsap.from("#how .how-head-in > *", {
+        y: 30, opacity: 0, stagger: .09, duration: .65, ease: "power3.out",
+        scrollTrigger: { trigger: "#how", start: "top 74%" },
+      });
+      /* every card rises the last stretch with a soft settle as it lands */
+      document.querySelectorAll(".how-card").forEach((card) => {
+        gsap.from(card, {
+          y: 74, scale: .975, rotation: .5, transformOrigin: "50% 0%",
+          duration: .55, ease: "power2.out",
+          scrollTrigger: { trigger: card, start: "top 92%" },
+        });
+      });
+
+      /* helper: draw an SVG stroke like a pen line */
+      const ink = (path, tl, at, dur) => {
+        const len = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+        tl.to(path, { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" }, at);
+      };
+      /* 01 — the RFC sheet signs itself: four rows tick off, then the
+         "agreed" pill pops; the rail's first node lights */
       const tl1 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-1", start: "top 62%" } });
-      tl1.from(".v1-note", { x: -26, opacity: 0, stagger: .14, duration: .45, ease: "power2.out" }, 0)
-         .from(".v1-doc", { y: 20, opacity: 0, duration: .5, ease: "power2.out" }, .3)
-         .from(".v1-docname", { opacity: 0, duration: .3 }, .55);
-      document.querySelectorAll(".v1-arrow").forEach((p, i) => ink(p, tl1, .2 + i * .14, .55));
-      document.querySelectorAll(".v1-head").forEach((p) => ink(p, tl1, .9, .3));
-      tl1.from(".v1-docline", { width: 0, duration: .7, ease: "power1.inOut" }, .75);
+      tl1.call(() => rail(1), [], 0)
+         .from(".v1-rfc", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, .05)
+         .from(".v1-row", { x: -18, opacity: 0, stagger: .18, duration: .4, ease: "power2.out" }, .4)
+         .from(".v1-agreed", { y: 10, opacity: 0, duration: .4, ease: "back.out(1.7)" }, 1.45);
+      document.querySelectorAll(".v1-row").forEach((r, i) =>
+        tl1.call(() => r.classList.add("on"), [], .55 + i * .18));
 
-      /* 02 — tasks surface, the oversized one gets struck, review
-         stamps slam on like ink on paper */
+      /* 02 — the sprint board: tickets land riskiest-first, the XL
+         gets struck and the review bubble says why; node 2, edge 1 */
       const tl2 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-2", start: "top 62%" } });
-      tl2.from(".v2-src", { opacity: 0, duration: .3 }, 0)
-         .from(".v2-task", { y: 16, opacity: 0, stagger: .16, duration: .4, ease: "power2.out" }, .08)
-         .to(".v2-strike", { scaleX: 1, duration: .45, ease: "power2.inOut" }, .85)
-         .from(".v2-no", { scale: 1.7, opacity: 0, rotation: -14, duration: .4, ease: "back.out(2)" }, 1.0)
-         .from(".v2-ok", { scale: 1.7, opacity: 0, rotation: 10, duration: .4, ease: "back.out(2)" }, 1.25);
+      tl2.call(() => { rail(2); railEdge(2); }, [], 0)
+         .from(".v2-board", { y: 24, opacity: 0, duration: .45, ease: "power2.out" }, .05)
+         .from(".v2-tk", { y: 14, opacity: 0, stagger: .16, duration: .38, ease: "power2.out" }, .3)
+         .to(".v2-strike", { scaleX: 1, duration: .4, ease: "power2.inOut" }, 1.05)
+         .from(".v2-review", { x: -12, opacity: 0, duration: .4, ease: "power2.out" }, 1.35);
 
-      /* 03 — the editor fades up and the boilerplate lines drop in;
-         the chips I own stamp down and get their pen stroke */
+      /* 03 — the editor lines drop in, the PR bar pops, the chips
+         I own get their pen stroke; node 3 lights, edge 2 fills */
       const tl3 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-3", start: "top 62%" } });
-      tl3.from(".v3-editor", { y: 24, opacity: 0, duration: .5, ease: "power2.out" }, 0)
-         .from(".v3-cl", { opacity: 0, x: -10, stagger: .16, duration: .35 }, .3)
-         .from(".v3-own-label", { opacity: 0, duration: .3 }, .75)
+      tl3.call(() => { rail(3); railEdge(3); }, [], 0)
+         .from(".v3-editor", { y: 24, opacity: 0, duration: .5, ease: "power2.out" }, .05)
+         .from(".v3-cl", { opacity: 0, x: -10, stagger: .14, duration: .35 }, .35)
+         .from(".v3-pr", { y: 14, opacity: 0, duration: .42, ease: "back.out(1.6)" }, 1.1)
+         .from(".v3-own-label", { opacity: 0, duration: .3 }, 1.25)
          .from(".v3-chip", {
            y: 14, opacity: 0, stagger: .13, duration: .4, ease: "back.out(1.6)",
            rotation: (i) => (i % 2 ? 2.4 : -2.4),
-         }, .85);
-      tl3.call(() => document.querySelectorAll(".v3-chip").forEach((c) => c.classList.add("on")), [], 1.5);
+         }, 1.35);
+      tl3.call(() => document.querySelectorAll(".v3-chip").forEach((c) => c.classList.add("on")), [], 1.95);
 
-      /* 04 — the gates pop and check themselves, the line connects
-         them, meters fill, then the rehearsed fault flashes red and
-         the eval catches it */
+      /* 04 — the gates pop green in sequence, the meters fill, then
+         the rehearsed fault flashes and the fallback answers; node 4
+         lights, edge 3 fills */
       const tl4 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-4", start: "top 62%" } });
-      tl4.from(".v4-gate", { scale: .55, opacity: 0, stagger: .15, duration: .38, ease: "back.out(1.8)" }, 0)
-         .to(".v4-dash", { scaleX: 1, stagger: .14, duration: .25, ease: "power1.inOut" }, .3)
+      tl4.call(() => { rail(4); railEdge(4); }, [], 0)
+         .from(".v4-gate", { scale: .55, opacity: 0, stagger: .15, duration: .38, ease: "back.out(1.8)" }, .05)
+         .to(".v4-dash", { scaleX: 1, stagger: .14, duration: .25, ease: "power1.inOut" }, .35)
+         .from(".v4-meter", { opacity: 0, y: 10, stagger: .12, duration: .35, ease: "power2.out" }, .75)
          .from(".v4-fill", { scaleX: 0, duration: .8, stagger: .15, ease: "power1.inOut" }, .95)
-         .from(".v4-inject", { opacity: 0, scale: 1.3, duration: .3, ease: "power2.out" }, 1.45)
-         .from(".v4-inject", { x: 5, duration: .06, repeat: 5, yoyo: true, ease: "none" }, 1.78)
-         .from(".v4-caught", { scale: 1.8, opacity: 0, rotation: 9, duration: .38, ease: "back.out(2.2)" }, 2.1);
+         .from(".v4-inject", { opacity: 0, scale: 1.3, duration: .3, ease: "power2.out" }, 1.75)
+         .from(".v4-inject", { x: 5, duration: .06, repeat: 5, yoyo: true, ease: "none" }, 2.08)
+         .from(".v4-caught", { scale: 1.8, opacity: 0, rotation: 9, duration: .38, ease: "back.out(2.2)" }, 2.4);
       document.querySelectorAll(".v4-gate").forEach((g, i) =>
         tl4.call(() => g.classList.add("on"), [], .15 + i * .16));
 
-      /* 05 — the deploy console streams its log, then the usage
-         sparkline inks itself upward */
+      /* 05 — the deploy console streams its rollout log, the usage
+         sparkline inks upward; the rail completes — all green */
       const tl5 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-5", start: "top 62%" } });
-      tl5.from(".v5-term", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, 0)
-         .from(".v5-l", { opacity: 0, y: 8, stagger: .42, duration: .25, ease: "none" }, .35);
-      document.querySelectorAll(".v5-sparkline").forEach((p) => ink(p, tl5, 2.1, .9));
+      tl5.call(() => { rail(5); railEdge(5); }, [], 0)
+         .from(".v5-term", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, .05)
+         .from(".v5-l", { opacity: 0, y: 8, stagger: .38, duration: .25, ease: "none" }, .35);
+      document.querySelectorAll(".v5-sparkline").forEach((p) => ink(p, tl5, 2.4, .9));
     }
   }
 
