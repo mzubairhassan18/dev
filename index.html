@@ -116,7 +116,6 @@
   <div class="how-sky">
     <div class="how-skybg" aria-hidden="true">
       <div class="how-sun"></div>
-      <div class="how-haze"></div>
     </div>
 
     <header class="how-head">
@@ -221,36 +220,25 @@
               <b>plan</b>
               <span>the slice, the order, the guardrails</span>
             </div>
-            <div class="fork v3-fork-out">
-              <i class="fk-v" style="left:50%; top:0; height:24px;"></i>
-              <i class="fk-h" style="left:25%; right:25%; top:24px;"></i>
-              <i class="fk-ah" style="left:25%; top:24px; height:28px;"></i>
-              <i class="fk-ah" style="left:75%; top:24px; height:28px;"></i>
-            </div>
-            <div class="v3-agents">
-              <div class="v3-agent">
-                <div class="a-card">
-                  <img src="assets/icon-cursor.svg" alt="">
-                  <b>Cursor</b>
-                  <span>types the boilerplate</span>
-                </div>
-              </div>
-              <div class="v3-agent">
-                <div class="a-card">
-                  <img src="assets/icon-claude.svg" alt="">
-                  <b>Claude</b>
-                  <span>drafts the tricky parts</span>
-                </div>
+            <i class="v3-link"></i>
+            <div class="v3-agent">
+              <div class="a-card">
+                <img src="assets/icon-cursor.svg" alt="">
+                <b>Cursor</b>
+                <span>types the boilerplate</span>
               </div>
             </div>
-            <div class="fork v3-fork-in">
-              <i class="fk-v" style="left:25%; top:0; height:22px;"></i>
-              <i class="fk-v" style="left:75%; top:0; height:22px;"></i>
-              <i class="fk-h" style="left:25%; right:25%; top:22px;"></i>
-              <i class="fk-ah" style="left:50%; top:22px; height:26px;"></i>
+            <i class="v3-link"></i>
+            <div class="v3-agent">
+              <div class="a-card">
+                <img src="assets/icon-claude.svg" alt="">
+                <b>Claude</b>
+                <span>drafts the tricky parts</span>
+              </div>
             </div>
+            <i class="v3-link"></i>
             <div class="v3-proc"><i class="v3-spin"></i></div>
-            <div class="v3-tail"><i class="fk-ah"></i></div>
+            <i class="v3-link"></i>
             <div class="v3-prs">
               <div class="v3-pr"><b>PR 1</b><em class="v3-ok">reviewed</em></div>
               <div class="v3-pr"><b>PR 2</b><em class="v3-wait">in review</em></div>
@@ -280,7 +268,7 @@
             <span class="v4-gate"><b>lint</b><i>0.9s</i></span><i class="v4-dash"></i>
             <span class="v4-gate"><b>typecheck</b><i>2.1s</i></span><i class="v4-dash"></i>
             <span class="v4-gate"><b>tests</b><i>148 &check;</i></span><i class="v4-dash"></i>
-            <span class="v4-gate"><b>evals</b><i>96 &check;</i></span>
+            <span class="v4-gate"><b>evals</b><i>96 &check;</i><em class="v4-note">model decides</em></span>
           </div>
           <div class="v4-meters">
             <span class="v4-meter">retrieval <i class="v4-track"><b class="v4-fill" style="--v:.92"></b></i><em>.92</em></span>
@@ -300,7 +288,7 @@
     <article class="how-card" id="how-card-5">
       <header class="how-bar">
         <span class="how-num">05</span>
-        <h3 class="how-h">Ship behind flags</h3>
+        <h3 class="how-h">Just ship it</h3>
         <span class="how-tag">canary &middot; SLO &middot; rollback</span>
       </header>
       <div class="how-body">

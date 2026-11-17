@@ -894,6 +894,10 @@
       spinEl = n.querySelector("i");
       spinAngle = Number(gsap.getProperty(spinEl, "rotation")) || 0;
       gsap.fromTo(spinEl, { scale: .4 }, { scale: 1, duration: .38, ease: "back.out(2.2)" });
+      /* the run AHEAD of this stop shows itself in plain gray — the
+         route is hinted one step at a time */
+      const ahead = document.getElementById(`rail-edge-${k}`);
+      if (ahead) ahead.classList.add("seen");
     };
     /* railEdge(k): the edge before node k fills — the hand-off is done */
     const railEdge = (k) => {
@@ -905,6 +909,8 @@
     const unrail = (k) => {
       const n = document.getElementById(`rail-node-${k}`);
       if (n) n.classList.remove("on", "cur", "done");
+      const ahead = document.getElementById(`rail-edge-${k}`);
+      if (ahead) ahead.classList.remove("seen");
       if (k > 1) {
         const e = document.getElementById(`rail-edge-${k - 1}`);
         if (e) e.classList.remove("on");
@@ -942,16 +948,19 @@
       const intro = gsap.timeline({
         scrollTrigger: {
           trigger: ".how-intro", start: "top top",
-          end: () => "+=" + window.innerHeight * 2.5,
+          /* a tighter pin: the assembly runs faster so the first card
+             rises while the docked bar is still settling — the mark and
+             the cards read as one continuous arrival */
+          end: () => "+=" + window.innerHeight * 1.9,
           pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
         },
       });
       intro.from(".how-intro .mk-how", { x: -140, autoAlpha: 0, duration: .8, ease: "power3.out" }, 0)
            .from(".how-intro .mk-work", { x: 140, autoAlpha: 0, duration: .8, ease: "power3.out" }, .1)
-           .from(".how-intro .mk-stem", { y: -120, autoAlpha: 0, duration: .55, ease: "power2.in" }, 1.15)
-           .to(".how-intro .mk-how", { x: -14, duration: .5, ease: "power2.inOut" }, 1.5)
-           .to(".how-intro .mk-work", { x: 14, duration: .5, ease: "power2.inOut" }, 1.5)
-           .from(".how-intro .mk-dot", { y: -80, autoAlpha: 0, duration: .55, ease: "bounce.out" }, 2.1)
+           .from(".how-intro .mk-stem", { y: -120, autoAlpha: 0, duration: .55, ease: "power2.in" }, .9)
+           .to(".how-intro .mk-how", { x: -14, duration: .45, ease: "power2.inOut" }, 1.25)
+           .to(".how-intro .mk-work", { x: 14, duration: .45, ease: "power2.inOut" }, 1.25)
+           .from(".how-intro .mk-dot", { y: -80, autoAlpha: 0, duration: .55, ease: "bounce.out" }, 1.6)
            /* the mark docks for real: it glides up and scales to the
               docked bar's exact size while its words close up, the bar
               fades in around it, and the big copy dissolves onto the
@@ -961,13 +970,13 @@
              y: () => document.querySelector(".how-head").offsetHeight / 2 - window.innerHeight / 2,
              scale: () => parseFloat(getComputedStyle(document.querySelector(".how-mark")).fontSize) /
                           parseFloat(getComputedStyle(document.querySelector(".hi-mark")).fontSize),
-             duration: .9, ease: "power2.inOut",
-           }, 2.9)
-           .to(".how-intro .mk-how", { x: 0, duration: .9, ease: "power2.inOut" }, 2.9)
-           .to(".how-intro .mk-work", { x: 0, duration: .9, ease: "power2.inOut" }, 2.9)
-           .from(".how-head", { autoAlpha: 0, duration: .25, ease: "power1.out" }, 3.7)
-           .to(".hi-mark", { autoAlpha: 0, duration: .22, ease: "none" }, 3.95)
-           .to({}, { duration: .25 });
+             duration: .85, ease: "power2.inOut",
+           }, 2.05)
+           .to(".how-intro .mk-how", { x: 0, duration: .85, ease: "power2.inOut" }, 2.05)
+           .to(".how-intro .mk-work", { x: 0, duration: .85, ease: "power2.inOut" }, 2.05)
+           .from(".how-head", { autoAlpha: 0, duration: .25, ease: "power1.out" }, 2.8)
+           .to(".hi-mark", { autoAlpha: 0, duration: .2, ease: "none" }, 3.0)
+           .to({}, { duration: .15 });
 
       /* typewriter setup: the first card's intro line is typed out char
          by char — split it once into per-char spans; the aria-label
@@ -1051,21 +1060,18 @@
          .from(".v2-fork .fk-ah", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .12, ease: "power1.inOut" }, 2.05)
          .from(".v2-cell .v2-tk", { y: 16, opacity: 0, stagger: .15, duration: .4, ease: "power2.out" }, 2.5);
 
-      /* 03 — the plan drops from above, the agents rise to meet it, the
-         forks draw inward, the ring scales in and turns while it works,
-         the tail drops to the PRs, and the contracts punch on one by
-         one; node 3, edge 2 */
+      /* 03 — the pipeline runs left to right: the plan lands first, a
+         connector draws, Cursor arrives, another connector, Claude,
+         then the working ring scales in (its scroll-driven turn lives
+         below), the PR cluster stacks up and the silver contracts
+         punch on one by one */
       const tl3 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-3", start: "top 62%" } });
-      tl3.from(".v3-plan", { y: -40, opacity: 0, duration: .5, ease: "power2.out" }, .1)
-         .from(".v3-fork-out .fk-h", { scaleX: 0, transformOrigin: "center center", duration: .35, ease: "power1.inOut" }, .4)
-         .from(".v3-fork-out i:not(.fk-h)", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .1, ease: "power1.inOut" }, .45)
-         .from(".v3-agent", { y: 40, opacity: 0, stagger: .15, duration: .45, ease: "power2.out" }, .8)
-         .from(".v3-fork-in .fk-h", { scaleX: 0, transformOrigin: "center center", duration: .35, ease: "power1.inOut" }, 1.2)
-         .from(".v3-fork-in i:not(.fk-h)", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .1, ease: "power1.inOut" }, 1.25)
-         .from(".v3-spin", { scale: 0, opacity: 0, duration: .45, ease: "back.out(1.7)" }, 1.6)
-         .from(".v3-tail > i", { scaleY: 0, transformOrigin: "top center", duration: .4, ease: "power1.inOut" }, 2.1)
-         .from(".v3-pr", { y: 16, opacity: 0, stagger: .14, duration: .4, ease: "power2.out" }, 2.45)
-         .from(".v3-star", { scale: 1.7, autoAlpha: 0, duration: .45, ease: "back.out(1.8)", stagger: .4 }, 2.9);
+      tl3.from(".v3-plan", { x: -46, opacity: 0, duration: .5, ease: "power2.out" }, .1)
+         .from(".v3-link", { scaleX: 0, transformOrigin: "left center", duration: .28, ease: "power1.inOut", stagger: .42 }, .55)
+         .from(".v3-agent", { x: 36, opacity: 0, duration: .45, ease: "power2.out", stagger: .42 }, .75)
+         .from(".v3-proc", { scale: 0, opacity: 0, duration: .45, ease: "back.out(1.7)" }, 1.85)
+         .from(".v3-pr", { y: 14, opacity: 0, stagger: .12, duration: .4, ease: "power2.out" }, 2.25)
+         .from(".v3-star", { scale: 1.7, autoAlpha: 0, duration: .45, ease: "back.out(1.8)", stagger: .4 }, 2.7);
       /* the ring keeps working for as long as the card stays stuck: its
          rotation is tied to the scroll itself, not to a clock, and the
          dashed rim warms to amber and cools back on every revolution */
@@ -1078,19 +1084,22 @@
         .to(".v3-spin", { borderColor: "#f5a524", duration: .25, ease: "none" }, .5)
         .to(".v3-spin", { borderColor: "rgba(255,255,255,.35)", duration: .25, ease: "none" }, .75);
 
-      /* 04 — the gates pop green in sequence, the meters fill, then
-         the rehearsed fault flashes and the fallback answers; node 4
-         lights, edge 3 fills */
+      /* 04 — the pipeline tells the copy: lint runs first, then
+         typecheck, then the tests, then the evals that gate whatever a
+         model decides — each gate pops, ticks green and draws its dash
+         before the next one arrives; the meters then prove the
+         numbers, and the rehearsed fault flashes and the fallback
+         answers */
       const tl4 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-4", start: "top 62%" } });
-      tl4.from(".v4-gate", { scale: .55, opacity: 0, stagger: .15, duration: .38, ease: "back.out(1.8)" }, .05)
-         .to(".v4-dash", { scaleX: 1, stagger: .14, duration: .25, ease: "power1.inOut" }, .35)
-         .from(".v4-meter", { opacity: 0, y: 10, stagger: .12, duration: .35, ease: "power2.out" }, .75)
-         .from(".v4-fill", { scaleX: 0, duration: .8, stagger: .15, ease: "power1.inOut" }, .95)
-         .from(".v4-inject", { opacity: 0, scale: 1.3, duration: .3, ease: "power2.out" }, 1.75)
-         .from(".v4-inject", { x: 5, duration: .06, repeat: 5, yoyo: true, ease: "none" }, 2.08)
-         .from(".v4-caught", { scale: 1.8, opacity: 0, rotation: 9, duration: .38, ease: "back.out(2.2)" }, 2.4);
+      tl4.from(".v4-gate", { scale: .55, opacity: 0, stagger: .5, duration: .38, ease: "back.out(1.8)" }, .05)
+         .to(".v4-dash", { scaleX: 1, stagger: .5, duration: .25, ease: "power1.inOut" }, .42)
+         .from(".v4-meter", { opacity: 0, y: 10, stagger: .12, duration: .35, ease: "power2.out" }, 2.35)
+         .from(".v4-fill", { scaleX: 0, duration: .8, stagger: .15, ease: "power1.inOut" }, 2.5)
+         .from(".v4-inject", { opacity: 0, scale: 1.3, duration: .3, ease: "power2.out" }, 3.25)
+         .from(".v4-inject", { x: 5, duration: .06, repeat: 5, yoyo: true, ease: "none" }, 3.55)
+         .from(".v4-caught", { scale: 1.8, opacity: 0, rotation: 9, duration: .38, ease: "back.out(2.2)" }, 3.85);
       document.querySelectorAll(".v4-gate").forEach((g, i) =>
-        tl4.call(() => g.classList.add("on"), [], .15 + i * .16));
+        tl4.call(() => g.classList.add("on"), [], .22 + i * .5));
 
       /* 05 — the deploy console streams its rollout log, the usage
          sparkline inks upward; the rail completes — all green */
