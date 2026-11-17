@@ -473,11 +473,14 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 
 /* ============================================================
    SCENE 3 — how I work
-   a dark slate sheet pinned over the darker room: the sticky glass
-   masthead keeps the title above the whole pile while five stone-white
-   step-cards stack beneath it, and the right-hand rail tracks the
-   drill — the step word inside each node circle, the hand-off written
-   on each edge.
+   a dark slate sheet: the section arrives full-viewport and the
+   scroll itself assembles the wordmark inside a pinned stage — HOW
+   in from the left, WORK from the right, the small i's stem drops
+   between them, the words part, the amber dot lands — then the big
+   mark slides up and docks as the slim sticky bar while five
+   backgroundless step-cards stack beneath it, and the right-hand
+   rail tracks the drill — the step word inside each node circle,
+   the hand-off written on each edge.
    ============================================================ */
 #how{
   position:relative; padding:9vh 20px 8vh;
@@ -521,30 +524,39 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 
 /* sticky masthead — the section title stays pinned above the cards
    while the pile slides beneath it */
-/* the masthead is a static hero now: the wordmark assembles itself on
-   arrival — How flies in from the left, Work from the right, the I's
-   stem drops between them, the words part to make room, and the amber
-   dot lands just above the stem — then the scroll simply carries the
-   whole mark up and away as the first card rises to take its place. */
+/* the masthead: a pinned arrival stage first, a docked bar after.
+   .how-intro holds the big wordmark — the section takes the whole
+   viewport and the scroll itself assembles the mark — then the big
+   mark slides up and hands off to this slim sticky bar, which stays
+   docked above the card pile for the rest of the section. The bar
+   wears a whisper of dark glass only so the rising cards slide
+   under it cleanly instead of colliding with the wordmark. */
 .how-head{
+  position:sticky; top:0; z-index:30; height:74px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(13,15,20,.78);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border-bottom:2px dashed rgba(255,255,255,.10);
+}
+.how-intro{
   position:relative; z-index:5;
-  display:flex; justify-content:center;
-  padding:7vh 20px 5vh;
+  height:100vh; display:flex; align-items:center; justify-content:center;
 }
-.how-mark{
+.how-mark, .hi-mark{
   position:relative; display:flex; align-items:flex-end;
-  margin:0; font:800 clamp(46px,6.4vw,70px)/1 var(--font-d);
-  letter-spacing:-.015em; color:#f2f0ea;
+  margin:0; letter-spacing:-.015em; color:#f2f0ea;
 }
+.how-mark{ font:800 clamp(22px,2.6vw,30px)/1 var(--font-d); }
+.hi-mark{ font:800 clamp(46px,6.4vw,70px)/1 var(--font-d); }
 .mk-how, .mk-work{ display:inline-block; }
 .mk-i{ position:relative; align-self:flex-end; width:.5em; height:1em; }
-.mk-stem{ /* the I's long stem, dropped into the slot between the words */
-  position:absolute; left:50%; bottom:.135em; width:.115em; height:.73em;
+.mk-stem{ /* the small i's stem — x-height, deliberately not a capital I */
+  position:absolute; left:50%; bottom:.135em; width:.115em; height:.5em;
   margin-left:-.0575em; background:#f2f0ea; border-radius:.02em;
 }
-.mk-dot{ /* the I's dot — amber, landing just above the stem */
-  position:absolute; left:50%; bottom:.93em; width:.2em; height:.2em;
-  margin-left:-.1em; border-radius:50%; background:var(--amber);
+.mk-dot{ /* the i's dot — amber, landing just above the stem */
+  position:absolute; left:50%; bottom:.70em; width:.18em; height:.18em;
+  margin-left:-.09em; border-radius:50%; background:var(--amber);
 }
 
 /* the drill rail — the step word written INSIDE each node circle,
@@ -1023,6 +1035,7 @@ a.leaf-page:hover .leaf-value{ color:#8c6d1f; border-bottom-color:#8c6d1f; }
 .no-anim .page{ position:relative; margin-bottom:14px; transform:none !important; }
 .no-anim .page .back{ display:none; }
 .no-anim #subtitle, .no-anim .w-sub{ opacity:1 !important; }
+.no-anim .how-intro{ display:none; }
 .no-anim .v4-dash{ transform:none; }
 .no-anim .v4-gate.on{ border-color:rgba(159,209,143,.6); background:rgba(159,209,143,.10); }
 /* the drill rail and the RFC ticks sign off fully without motion */
@@ -1079,8 +1092,8 @@ a.leaf-page:hover .leaf-value{ color:#8c6d1f; border-bottom-color:#8c6d1f; }
   /* — how I work: tighter wordmark, shallower steps, rail hidden — */
   #how{ padding:8vh 12px 7vh; }
   .how-skybg{ border-radius:18px; }
-  .how-head{ padding:4.5vh 14px 3.5vh; }
-  .how-mark{ font-size:clamp(34px,10.5vw,48px); }
+  .how-head{ height:58px; }
+  .hi-mark{ font-size:clamp(34px,10.5vw,48px); }
   .how-columns{ padding:18px 14px 0; gap:0; }
   .how-rail{ display:none; }
   .how-bar{ padding:12px 15px 10px; gap:10px; }

@@ -868,11 +868,12 @@
 
   /* ------------------------------------------------------------
      SCENE 3 — how I work
-     the wordmark assembles itself on arrival — How flies in from the
-     left, Work from the right, the I's stem drops between them and
-     the amber dot lands just above it — then five backgroundless
-     step-cards stack beneath it while the right-hand rail lights
-     node by node
+     the section arrives full-viewport and the pin hands the scroll to
+     the assembly — HOW flies in from the left, WORK from the right,
+     the small i's stem drops between them and the words part, the
+     amber dot lands on the i, and the big mark slides up to dock as
+     the slim sticky bar — then five backgroundless step-cards stack
+     beneath it while the right-hand rail lights node by node
      ------------------------------------------------------------ */
   if (document.getElementById("how")) {
     /* rail(k): node k pops amber as card k lands */
@@ -889,25 +890,39 @@
     };
 
     if (REDUCED) {
-      /* no motion: the wordmark sits assembled and every node, edge,
-         tick and gate rests in its final state immediately */
+      /* no motion: the pinned stage is skipped, the wordmark sits
+         docked and every node, edge, tick and gate rests in its final
+         state immediately */
+      const introStage = document.querySelector(".how-intro");
+      if (introStage) introStage.style.display = "none";
       gsap.utils.toArray("#how .rail-node").forEach((n) => n.classList.add("on"));
       gsap.utils.toArray("#how .rail-edge").forEach((e) => e.classList.add("on"));
       gsap.utils.toArray("#how .v1-row").forEach((r) => r.classList.add("on"));
       gsap.utils.toArray("#how .v4-gate").forEach((g) => g.classList.add("on"));
       gsap.set("#how .v4-dash", { scaleX: 1 });
     } else {
-      /* the wordmark: How flies in from the left, Work from the right,
-         then the I's stem drops from above and fixes between them, the
-         words part to make room for it, and the amber dot lands just
-         above the stem */
-      const intro = gsap.timeline({ scrollTrigger: { trigger: "#how", start: "top 72%" } });
-      intro.from(".mk-how", { x: -140, autoAlpha: 0, duration: .7, ease: "power3.out" })
-           .from(".mk-work", { x: 140, autoAlpha: 0, duration: .7, ease: "power3.out" }, "<.08")
-           .from(".mk-stem", { y: -110, autoAlpha: 0, duration: .5, ease: "power2.in" }, "+=.12")
-           .to(".mk-how", { x: -14, duration: .4, ease: "power2.inOut" }, "+=.05")
-           .to(".mk-work", { x: 14, duration: .4, ease: "power2.inOut" }, "<")
-           .from(".mk-dot", { y: -70, autoAlpha: 0, duration: .55, ease: "bounce.out" }, "+=.05");
+      /* the arrival: the section takes the whole viewport and the pin
+         hands the scroll to the assembly — HOW flies in from the left,
+         WORK from the right, the small i's stem drops between them and
+         the words part to make room, the amber dot lands on the i, and
+         then the big mark slides up and hands off to the slim sticky
+         bar that stays docked above the card pile */
+      const intro = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".how-intro", start: "top top",
+          end: () => "+=" + window.innerHeight * 2.5,
+          pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
+        },
+      });
+      intro.from(".how-intro .mk-how", { x: -140, autoAlpha: 0, duration: .8, ease: "power3.out" }, 0)
+           .from(".how-intro .mk-work", { x: 140, autoAlpha: 0, duration: .8, ease: "power3.out" }, .1)
+           .from(".how-intro .mk-stem", { y: -120, autoAlpha: 0, duration: .55, ease: "power2.in" }, 1.15)
+           .to(".how-intro .mk-how", { x: -14, duration: .5, ease: "power2.inOut" }, 1.5)
+           .to(".how-intro .mk-work", { x: 14, duration: .5, ease: "power2.inOut" }, 1.5)
+           .from(".how-intro .mk-dot", { y: -80, autoAlpha: 0, duration: .55, ease: "bounce.out" }, 2.1)
+           .to(".hi-mark", { y: () => -window.innerHeight * .5, scale: .55, autoAlpha: 0, duration: .9, ease: "power2.in" }, 2.9)
+           .from(".how-head", { y: -74, autoAlpha: 0, duration: .75, ease: "power2.out" }, 3.15)
+           .to({}, { duration: .3 });
 
       /* typewriter setup: the first card's intro line is typed out char
          by char — split it once into per-char spans; the aria-label
