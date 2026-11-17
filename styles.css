@@ -596,7 +596,15 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
   font:800 10.5px var(--font-b); letter-spacing:.14em; text-transform:uppercase;
   color:#fff; transition:color .25s ease;
 }
-.rail-node.on i{ border-color:var(--amber); }
+.rail-node.cur i{ /* the one stop that is current: it keeps the amber
+   rim while it turns, and only it */
+  border-color:var(--amber);
+}
+.rail-node.done i{ /* a completed stop: cooled to gray so the contrast
+   itself says which step is active */
+  border-color:rgba(255,255,255,.22);
+}
+.rail-node.done b{ color:#8f949c; }
 .rail-edge{ position:relative; display:flex; align-items:center; height:58px; }
 .rail-edge i{ /* the energized segment drawn over the dashes */
   position:absolute; left:50%; margin-left:-2px; top:5px; bottom:5px; width:4px;
@@ -1054,8 +1062,10 @@ a.leaf-page:hover .leaf-value{ color:#8c6d1f; border-bottom-color:#8c6d1f; }
 .no-anim .v4-gate.on{ border-color:rgba(159,209,143,.6); background:rgba(159,209,143,.10); }
 /* the drill rail and the RFC ticks sign off fully without motion */
 .no-anim .rail-node{ opacity:1; transform:none; }
-.no-anim .rail-node i{ border-color:var(--amber); }
-.no-anim .rail-node b{ color:#fff; }
+.no-anim .rail-node i{ border-color:rgba(255,255,255,.22); }
+.no-anim .rail-node b{ color:#8f949c; }
+.no-anim .rail-node:last-child i{ border-color:var(--amber); }
+.no-anim .rail-node:last-child b{ color:#fff; }
 .no-anim .rail-edge::before{ opacity:1; }
 .no-anim .rail-edge i{ transform:none; }
 .no-anim .rail-edge span{ opacity:1; transform:none; }

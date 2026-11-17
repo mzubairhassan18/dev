@@ -876,26 +876,47 @@
      beneath it while the right-hand rail lights node by node
      ------------------------------------------------------------ */
   if (document.getElementById("how")) {
-    /* rail(k): node k pops amber as card k lands */
+    /* the rail's state machine: exactly one stop is current at a time —
+       it holds the amber rim and keeps turning (a slow drift at rest
+       that speeds up with the scroll); every stop before it reads as
+       completed and cools to gray; stops ahead stay hidden until their
+       card's landing line is crossed */
+    let spinEl = null, spinAngle = 0, lastY = null, spinVel = 0;
+    /* rail(k): node k becomes the current stop — it slides in amber,
+       takes over the turning, and the stop before it cools to gray */
     const rail = (k) => {
       const n = document.getElementById(`rail-node-${k}`);
       if (!n) return;
-      n.classList.add("on");
-      gsap.fromTo(n.querySelector("i"), { scale: .4 }, { scale: 1, duration: .38, ease: "back.out(2.2)" });
+      document.querySelectorAll("#how .rail-node.cur").forEach((m) => {
+        if (m !== n) { m.classList.remove("cur"); m.classList.add("done"); }
+      });
+      n.classList.add("on", "cur");
+      spinEl = n.querySelector("i");
+      spinAngle = Number(gsap.getProperty(spinEl, "rotation")) || 0;
+      gsap.fromTo(spinEl, { scale: .4 }, { scale: 1, duration: .38, ease: "back.out(2.2)" });
     };
     /* railEdge(k): the edge before node k fills — the hand-off is done */
     const railEdge = (k) => {
       const e = document.getElementById(`rail-edge-${k - 1}`);
       if (e) e.classList.add("on");
     };
-    /* unrail(k): rewinds node k and the edge that feeds it, so the rail
-       follows the scroll in both directions instead of staying lit */
+    /* unrail(k): rewinds node k and the edge that feeds it — the stop
+       before k warms back up and takes over the turning */
     const unrail = (k) => {
       const n = document.getElementById(`rail-node-${k}`);
-      if (n) n.classList.remove("on");
+      if (n) n.classList.remove("on", "cur", "done");
       if (k > 1) {
         const e = document.getElementById(`rail-edge-${k - 1}`);
         if (e) e.classList.remove("on");
+        const prev = document.getElementById(`rail-node-${k - 1}`);
+        if (prev) {
+          prev.classList.remove("done");
+          prev.classList.add("cur");
+          spinEl = prev.querySelector("i");
+          spinAngle = Number(gsap.getProperty(spinEl, "rotation")) || 0;
+        }
+      } else {
+        spinEl = null; /* back above the first stop: nothing turns */
       }
     };
 
@@ -905,7 +926,8 @@
          state immediately */
       const introStage = document.querySelector(".how-intro");
       if (introStage) introStage.style.display = "none";
-      gsap.utils.toArray("#how .rail-node").forEach((n) => n.classList.add("on"));
+      gsap.utils.toArray("#how .rail-node").forEach((n, i, arr) =>
+        n.classList.add("on", i === arr.length - 1 ? "cur" : "done"));
       gsap.utils.toArray("#how .rail-edge").forEach((e) => e.classList.add("on"));
       gsap.utils.toArray("#how .v1-row").forEach((r) => r.classList.add("on"));
       gsap.utils.toArray("#how .v4-gate").forEach((g) => g.classList.add("on"));
@@ -981,6 +1003,21 @@
           onLeaveBack: () => unrail(k),
         });
       }
+
+      /* the current stop keeps turning the whole time it is current: an
+         idle drift of ~18°/s while the page rests, boosted by the live
+         scroll speed and settling back smoothly once scrolling stops */
+      gsap.ticker.add((time, deltaMS) => {
+        if (!spinEl) return;
+        const dt = Math.max(deltaMS, 1) / 1000;
+        const y = window.scrollY || document.documentElement.scrollTop || 0;
+        if (lastY == null) lastY = y;
+        spinVel += ((y - lastY) / dt - spinVel) * Math.min(1, dt * 9); /* smooth px/s */
+        lastY = y;
+        const speed = 18 + Math.min(Math.abs(spinVel) * .25, 400); /* deg per second */
+        spinAngle = (spinAngle + speed * dt) % 360;
+        gsap.set(spinEl, { rotation: spinAngle });
+      });
 
       /* helper: draw an SVG stroke like a pen line */
       const ink = (path, tl, at, dur) => {
