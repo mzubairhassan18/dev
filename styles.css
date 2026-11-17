@@ -883,13 +883,13 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 /* ============================================================
    the old oak — a real photographic cutout; the frame hangs from it
    ============================================================ */
-/* the scene box is locked to the cutout's 1175×1280 aspect, so the
-   hang (top: 80.39% − 8px, centred on the bough at x 71.49%) drops its
-   wire nail exactly onto the bare limb at (840, 1029) of the image,
-   at every viewport width. The card is capped at 55% so it can never
-   clip against the right edge at that offset. The trunk sinks into the
-   ground through a mask fade along the image's bottom edge. Photo:
-   pixabay.com (oak-3587772), Pixabay Content License. */
+/* the scene box is locked to the cutout's 1175×1280 aspect, so every
+   hanging page's wire nail (--x/--y, a percent of the scene) keeps its
+   place in the canopy at every viewport width. The pages sit high
+   enough to hang from the dense leaves and leave the trunk bare; the
+   trunk itself sinks into the ground through a mask fade along the
+   image's bottom edge. Photo: pixabay.com (oak-3587772), Pixabay
+   Content License. */
 .tree-scene{
   position:relative; z-index:2; max-width:1200px;
   aspect-ratio:1175/1280; margin:-360px auto 0;
@@ -903,7 +903,7 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 
 /* hanging pages — the guestbook is a set of paper pages, one per
    branch. Each .hang is absolutely placed by --x/--y (percent of the
-   scene box, matched to the branches in the photo) and centred with a
+   scene box, matched to the canopy in the photo) and centred with a
    negative margin — GSAP owns the transform (drop-in + sway), so the
    position never uses translate. The page itself carries the tilt. */
 .hang{
