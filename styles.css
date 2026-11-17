@@ -473,10 +473,11 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 
 /* ============================================================
    SCENE 3 — how I work
-   a light "sunny day" sheet pinned over the dark room: the sticky
-   masthead keeps the title above the whole pile while five darker
+   a dark slate sheet pinned over the darker room: the sticky glass
+   masthead keeps the title above the whole pile while five stone-white
    step-cards stack beneath it, and the right-hand rail tracks the
-   drill — node, line, node — the hand-off written on each edge.
+   drill — the step word inside each node circle, the hand-off written
+   on each edge.
    ============================================================ */
 #how{
   position:relative; padding:9vh 20px 8vh;
@@ -490,36 +491,26 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 .how-sky{ position:relative; max-width:1280px; margin:0 auto; }
 .how-skybg{
   position:absolute; inset:0; overflow:hidden; pointer-events:none;
-  border-radius:26px; border:1px solid rgba(74,56,26,.25);
-  background:
-    radial-gradient(56% 42% at 11% 6%, rgba(255,213,106,.45) 0%, rgba(255,213,106,0) 70%),
-    linear-gradient(180deg, #f9f1dd 0%, #f4e8cb 52%, #efdfba 100%);
+  border-radius:26px; border:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(180deg, #171a21 0%, #12141a 52%, #0f1116 100%);
   box-shadow:
-    0 30px 90px rgba(0,0,0,.5),
-    0 2px 0 rgba(255,255,255,.5) inset;
+    0 30px 90px rgba(0,0,0,.62),
+    0 1px 0 rgba(255,255,255,.05) inset;
 }
-.how-sun{
-  position:absolute; left:-86px; top:-86px; width:300px; height:300px;
+.how-sun{ /* the sun becomes a faint ember glow — the wall's only warmth */
+  position:absolute; left:-150px; top:-150px; width:440px; height:440px;
   border-radius:50%;
-  background:radial-gradient(circle, #ffe193 0%, #ffc84d 46%, #f5a51f 70%, rgba(245,165,31,0) 76%);
-  animation:sun-spin 90s linear infinite;
+  background:radial-gradient(circle, rgba(245,165,36,.15) 0%, rgba(245,165,36,.05) 46%, rgba(245,165,36,0) 72%);
+  filter:blur(8px);
 }
-.how-sun::before{ /* soft halo breathing out past the rays */
-  content:""; position:absolute; inset:-30%;
-  background:radial-gradient(circle, rgba(255,213,106,.30) 0%, rgba(255,213,106,0) 62%);
-}
-.how-sun::after{ /* slow inked rays, drawn with a repeating conic */
-  content:""; position:absolute; inset:-26%;
-  background:repeating-conic-gradient(from 0deg, rgba(203,133,20,.32) 0deg 3deg, rgba(203,133,20,0) 3deg 11deg);
-  -webkit-mask-image:radial-gradient(circle, transparent 36%, #000 46%, transparent 80%);
-          mask-image:radial-gradient(circle, transparent 36%, #000 46%, transparent 80%);
-}
-@keyframes sun-spin{ to{ transform:rotate(1turn); } }
-.how-haze{ /* warm wash running the whole height of the sun side */
+.how-haze{ /* a fine drafting grid, faded toward the edges */
   position:absolute; inset:0;
   background:
-    linear-gradient(90deg, rgba(255,204,92,.28) 0%, rgba(255,204,92,.10) 20%, rgba(255,204,92,0) 44%),
-    linear-gradient(180deg, rgba(255,255,255,.32) 0%, rgba(255,255,255,0) 28%);
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(95% 75% at 50% 28%, #000 26%, transparent 88%);
+          mask-image:radial-gradient(95% 75% at 50% 28%, #000 26%, transparent 88%);
 }
 
 /* sticky masthead — the section title stays pinned above the cards
@@ -527,53 +518,59 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 .how-head{
   position:sticky; top:0; z-index:30; height:74px;
   display:flex; align-items:center;
-  background:rgba(246,236,214,.86);
+  background:rgba(13,15,20,.82);
   -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-  border-bottom:2px dashed rgba(74,56,26,.30);
-  box-shadow:0 10px 26px rgba(31,24,10,.10);
+  border-bottom:2px dashed rgba(255,255,255,.10);
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
 }
 .how-head-in{
   width:100%; display:flex; align-items:baseline; justify-content:center;
   gap:18px; padding:0 26px;
 }
-.how-head .kicker{ margin:0; font:800 11px var(--font-b); letter-spacing:.30em; text-transform:uppercase; color:#a3720f; }
-.how-title{ margin:0; font:800 clamp(24px,3vw,34px)/1 var(--font-d); letter-spacing:.01em; color:#3a3020; }
-.how-title em{ font-style:normal; color:#b3841f; }
-.how-tagline{ font:700 11.5px var(--font-b); letter-spacing:.16em; text-transform:uppercase; color:#8a7a5e; }
+.how-head .kicker{ margin:0; font:800 11px var(--font-b); letter-spacing:.30em; text-transform:uppercase; color:var(--amber); }
+.how-title{ margin:0; font:800 clamp(24px,3vw,34px)/1 var(--font-d); letter-spacing:.01em; color:#f2f0ea; }
+.how-title em{ font-style:normal; color:var(--amber); }
+.how-tagline{ font:700 11.5px var(--font-b); letter-spacing:.16em; text-transform:uppercase; color:#8b8f99; }
 
-/* the drill rail — circle, line, circle: one word per node, the
-   hand-off written on the edge between two nodes. It sticks beside
-   the pile and lights from the cards' own timelines. */
+/* the drill rail — the step word written INSIDE each node circle,
+   the hand-off written beside the line between two circles. It sticks
+   beside the pile and lights from the cards' own timelines. */
 .how-columns{ position:relative; z-index:2; display:flex; align-items:flex-start; gap:30px; padding:34px 34px 0; }
 .how-stack{ flex:1; min-width:0; position:relative; }
 .how-gap{ height:90vh; }
 .how-gap-end{ height:30vh; } /* trailing room: the last card rests stuck a beat before the pile exits */
 .how-rail{ flex:none; width:200px; position:sticky; top:96px; z-index:10; padding:8px 0; }
-.rail-track{ position:relative; display:flex; flex-direction:column; padding-left:40px; }
+.rail-track{ position:relative; display:flex; flex-direction:column; }
 .rail-track::before{ /* the dashed base line running node → node */
-  content:""; position:absolute; left:15px; top:16px; bottom:16px;
-  border-left:2px dashed rgba(74,56,26,.38);
+  content:""; position:absolute; left:50%; margin-left:-1px; top:34px; bottom:34px;
+  border-left:2px dashed rgba(255,255,255,.16);
 }
-.rail-node{ position:relative; display:flex; align-items:center; height:40px; }
-.rail-node i{
-  position:absolute; left:-37px; top:50%; margin-top:-12px;
-  width:24px; height:24px; border-radius:50%;
-  background:#f6ecd4; border:2px solid rgba(74,56,26,.45);
+.rail-node{ position:relative; display:flex; align-items:center; justify-content:center; height:76px; }
+.rail-node i{ /* the node disc — the step word lives inside it */
+  width:76px; height:76px; border-radius:50%;
+  background:#1a1d24; border:2px solid rgba(255,255,255,.22);
+  box-shadow:0 10px 22px rgba(0,0,0,.45), 0 1px 0 rgba(255,255,255,.07) inset;
   transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
-.rail-node b{ font:800 13.5px var(--font-b); letter-spacing:.14em; text-transform:uppercase; color:#9b8a67; transition:color .25s ease; }
-.rail-node.on i{ background:#f5a51f; border-color:#5c4313; box-shadow:0 0 0 5px rgba(245,165,31,.22); }
-.rail-node.on b{ color:#3a3020; }
-.rail-edge{ position:relative; display:flex; align-items:center; height:52px; }
+.rail-node b{ /* the word, centred on the disc */
+  position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  text-align:center;
+  font:800 10.5px var(--font-b); letter-spacing:.14em; text-transform:uppercase;
+  color:#a6abb4; transition:color .25s ease;
+}
+.rail-node.on i{ background:var(--amber); border-color:rgba(0,0,0,.28); box-shadow:0 0 0 5px rgba(245,165,36,.16), 0 10px 24px rgba(245,165,36,.28); }
+.rail-node.on b{ color:#231a06; }
+.rail-edge{ position:relative; display:flex; align-items:center; height:58px; }
 .rail-edge i{ /* the energized segment drawn over the dashes */
-  position:absolute; left:-26px; top:3px; bottom:3px; width:4px;
-  background:#b3841f; border-radius:2px;
+  position:absolute; left:50%; margin-left:-2px; top:5px; bottom:5px; width:4px;
+  background:var(--amber); border-radius:2px;
   transform:scaleY(0); transform-origin:top center;
   transition:transform .4s ease;
 }
 .rail-edge.on i{ transform:scaleY(1); }
-.rail-edge span{
-  font:600 10.5px var(--font-b); letter-spacing:.08em; color:#8a7a5e;
+.rail-edge span{ /* the hand-off, just right of the line */
+  position:absolute; left:calc(50% + 15px);
+  font:600 10.5px var(--font-b); letter-spacing:.08em; color:#8b8f99;
   opacity:0; transform:translateX(-6px);
   transition:opacity .35s ease .1s, transform .35s ease .1s;
 }
@@ -589,13 +586,13 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 .how-card{
   position:sticky; top:var(--t); height:calc(100vh - var(--t) - 26px);
   display:flex; flex-direction:column; overflow:hidden;
-  background:linear-gradient(165deg, #eee1c1 0%, #e7d7b2 60%, #dfcda2 100%);
-  border:1px solid rgba(74,56,26,.30); border-radius:16px;
-  color:#3a3020;
+  background:linear-gradient(165deg, #f7f6f3 0%, #efede8 60%, #e6e4de 100%);
+  border:1px solid rgba(31,29,25,.22); border-radius:16px;
+  color:#33302a;
   box-shadow:
-    0 -16px 44px rgba(31,24,10,.26),
-    0 34px 80px rgba(31,24,10,.30),
-    0 2px 0 rgba(255,255,255,.5) inset;
+    0 -16px 44px rgba(0,0,0,.44),
+    0 34px 80px rgba(0,0,0,.42),
+    0 2px 0 rgba(255,255,255,.9) inset;
 }
 #how-card-1{ --t:96px; }
 #how-card-2{ --t:160px; }
@@ -606,24 +603,24 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 .how-bar{
   display:flex; align-items:baseline; gap:16px; flex:none;
   padding:17px 26px 13px;
-  border-bottom:2px dashed rgba(74,56,26,.30);
-  background:linear-gradient(180deg, rgba(58,48,32,.10), rgba(58,48,32,.04));
+  border-bottom:2px dashed rgba(31,29,25,.26);
+  background:linear-gradient(180deg, rgba(31,29,25,.065), rgba(31,29,25,.015));
 }
 .how-num{ font:700 13px var(--font-b); letter-spacing:.22em; color:#a3720f; }
-.how-h{ font:800 clamp(19px,2.2vw,24px)/1.1 var(--font-d); letter-spacing:.01em; margin-right:auto; color:#332a1b; }
+.how-h{ font:800 clamp(19px,2.2vw,24px)/1.1 var(--font-d); letter-spacing:.01em; margin-right:auto; color:#2e2b26; }
 .how-tag{
   font:700 10px var(--font-b); letter-spacing:.18em; text-transform:uppercase;
-  color:#f6eedd; background:#3a3020; padding:6px 11px; border-radius:999px;
+  color:#f2f1ed; background:#2e2b26; padding:6px 11px; border-radius:999px;
   white-space:nowrap; align-self:center;
 }
 .how-body{ flex:1; min-height:0; padding:18px 26px 20px; display:flex; flex-direction:column; gap:12px; }
-.how-line{ font:600 15px/1.55 var(--font-b); color:#574830; max-width:720px; }
+.how-line{ font:600 15px/1.55 var(--font-b); color:#5a564d; max-width:720px; }
 
 /* each card's inked working panel */
 .how-viz{
   flex:1; min-height:0; display:flex; align-items:center; gap:22px;
-  border:1px dashed rgba(74,56,26,.32); border-radius:12px;
-  background:rgba(255,251,240,.42);
+  border:1px dashed rgba(31,29,25,.28); border-radius:12px;
+  background:rgba(31,29,25,.05);
   padding:16px 20px;
 }
 
@@ -973,8 +970,8 @@ a.leaf-page:hover .leaf-value{ color:#8c6d1f; border-bottom-color:#8c6d1f; }
 .no-anim .v3-chip::after{ transform:scaleX(1); }
 .no-anim .v4-gate.on{ border-color:#3f6b3a; background:rgba(63,107,58,.10); }
 /* the drill rail and the RFC ticks sign off fully without motion */
-.no-anim .rail-node i{ background:#f5a51f; border-color:#5c4313; box-shadow:0 0 0 5px rgba(245,165,31,.22); }
-.no-anim .rail-node b{ color:#3a3020; }
+.no-anim .rail-node i{ background:var(--amber); border-color:rgba(0,0,0,.28); box-shadow:0 0 0 5px rgba(245,165,36,.16); }
+.no-anim .rail-node b{ color:#231a06; }
 .no-anim .rail-edge i{ transform:none; }
 .no-anim .rail-edge span{ opacity:1; transform:none; }
 .no-anim .v1-tick{ background:#3f6b3a; border-color:#3f6b3a; }
@@ -1025,7 +1022,6 @@ a.leaf-page:hover .leaf-value{ color:#8c6d1f; border-bottom-color:#8c6d1f; }
   /* — how I work: tighter masthead, shallower steps, rail hidden — */
   #how{ padding:8vh 12px 7vh; }
   .how-skybg{ border-radius:18px; }
-  .how-sun{ width:210px; height:210px; left:-70px; top:-70px; }
   .how-head{ height:58px; }
   .how-head-in{ gap:10px; padding:0 16px; }
   .how-title{ font-size:20px; }
