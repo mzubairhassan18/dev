@@ -920,9 +920,22 @@
            .to(".how-intro .mk-how", { x: -14, duration: .5, ease: "power2.inOut" }, 1.5)
            .to(".how-intro .mk-work", { x: 14, duration: .5, ease: "power2.inOut" }, 1.5)
            .from(".how-intro .mk-dot", { y: -80, autoAlpha: 0, duration: .55, ease: "bounce.out" }, 2.1)
-           .to(".hi-mark", { y: () => -window.innerHeight * .5, scale: .55, autoAlpha: 0, duration: .9, ease: "power2.in" }, 2.9)
-           .from(".how-head", { y: -74, autoAlpha: 0, duration: .75, ease: "power2.out" }, 3.15)
-           .to({}, { duration: .3 });
+           /* the mark docks for real: it glides up and scales to the
+              docked bar's exact size while its words close up, the bar
+              fades in around it, and the big copy dissolves onto the
+              small one — the same wordmark visibly lands in the header */
+           .to(".hi-mark", {
+             x: 0,
+             y: () => document.querySelector(".how-head").offsetHeight / 2 - window.innerHeight / 2,
+             scale: () => parseFloat(getComputedStyle(document.querySelector(".how-mark")).fontSize) /
+                          parseFloat(getComputedStyle(document.querySelector(".hi-mark")).fontSize),
+             duration: .9, ease: "power2.inOut",
+           }, 2.9)
+           .to(".how-intro .mk-how", { x: 0, duration: .9, ease: "power2.inOut" }, 2.9)
+           .to(".how-intro .mk-work", { x: 0, duration: .9, ease: "power2.inOut" }, 2.9)
+           .from(".how-head", { autoAlpha: 0, duration: .25, ease: "power1.out" }, 3.7)
+           .to(".hi-mark", { autoAlpha: 0, duration: .22, ease: "none" }, 3.95)
+           .to({}, { duration: .25 });
 
       /* typewriter setup: the first card's intro line is typed out char
          by char — split it once into per-char spans; the aria-label
