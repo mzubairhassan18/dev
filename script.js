@@ -888,6 +888,16 @@
       const e = document.getElementById(`rail-edge-${k - 1}`);
       if (e) e.classList.add("on");
     };
+    /* unrail(k): rewinds node k and the edge that feeds it, so the rail
+       follows the scroll in both directions instead of staying lit */
+    const unrail = (k) => {
+      const n = document.getElementById(`rail-node-${k}`);
+      if (n) n.classList.remove("on");
+      if (k > 1) {
+        const e = document.getElementById(`rail-edge-${k - 1}`);
+        if (e) e.classList.remove("on");
+      }
+    };
 
     if (REDUCED) {
       /* no motion: the pinned stage is skipped, the wordmark sits
@@ -961,6 +971,17 @@
         });
       });
 
+      /* the rail follows the scroll in both directions: crossing card
+         k's landing line lights its node (and the edge that feeds it);
+         scrolling back above the line rewinds them */
+      for (let k = 1; k <= 5; k++) {
+        ScrollTrigger.create({
+          trigger: `#how-card-${k}`, start: "top 62%",
+          onEnter: () => { rail(k); if (k > 1) railEdge(k); },
+          onLeaveBack: () => unrail(k),
+        });
+      }
+
       /* helper: draw an SVG stroke like a pen line */
       const ink = (path, tl, at, dur) => {
         const len = path.getTotalLength();
@@ -972,8 +993,7 @@
          problem → users → non-goals → success tick off in order and the
          "agreed" pill pops; node 1 lights */
       const tl1 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-1", start: "top 62%" } });
-      tl1.call(() => rail(1), [], 0)
-         .from("#how-card-1 .tw-ch", { opacity: 0, duration: .01, stagger: .011 }, .05)
+      tl1.from("#how-card-1 .tw-ch", { opacity: 0, duration: .01, stagger: .011 }, .05)
          .from(".v1-rfc-top > *", { y: 14, opacity: 0, stagger: .08, duration: .4, ease: "power2.out" }, 2.0)
          .from(".v1-row", { x: -22, opacity: 0, stagger: .3, duration: .45, ease: "power2.out" }, 2.3);
       document.querySelectorAll(".v1-row").forEach((r, i) =>
@@ -984,8 +1004,7 @@
          risky flag and the sizes stamp on, review says why, the fork
          draws and the two split tickets arrive; node 2, edge 1 */
       const tl2 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-2", start: "top 62%" } });
-      tl2.call(() => { rail(2); railEdge(2); }, [], 0)
-         .from(".v2-drop > i", { scaleY: 0, transformOrigin: "top center", duration: .45, ease: "power2.out" }, .1)
+      tl2.from(".v2-drop > i", { scaleY: 0, transformOrigin: "top center", duration: .45, ease: "power2.out" }, .1)
          .from(".v2-drop > b", { x: -12, opacity: 0, duration: .35, ease: "power2.out" }, .45)
          .from(".v2-board", { y: 20, opacity: 0, duration: .45, ease: "power2.out" }, .55)
          .from(".v2-tickets .v2-tk", { y: 16, opacity: 0, stagger: .14, duration: .4, ease: "power2.out" }, .75)
@@ -1000,8 +1019,7 @@
          the tail drops to the PRs, and the contracts punch on one by
          one; node 3, edge 2 */
       const tl3 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-3", start: "top 62%" } });
-      tl3.call(() => { rail(3); railEdge(3); }, [], 0)
-         .from(".v3-plan", { y: -40, opacity: 0, duration: .5, ease: "power2.out" }, .1)
+      tl3.from(".v3-plan", { y: -40, opacity: 0, duration: .5, ease: "power2.out" }, .1)
          .from(".v3-fork-out .fk-h", { scaleX: 0, transformOrigin: "center center", duration: .35, ease: "power1.inOut" }, .4)
          .from(".v3-fork-out i:not(.fk-h)", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .1, ease: "power1.inOut" }, .45)
          .from(".v3-agent", { y: 40, opacity: 0, stagger: .15, duration: .45, ease: "power2.out" }, .8)
@@ -1012,18 +1030,22 @@
          .from(".v3-pr", { y: 16, opacity: 0, stagger: .14, duration: .4, ease: "power2.out" }, 2.45)
          .from(".v3-star", { scale: 1.7, autoAlpha: 0, duration: .45, ease: "back.out(1.8)", stagger: .4 }, 2.9);
       /* the ring keeps working for as long as the card stays stuck: its
-         rotation is tied to the scroll itself, not to a clock */
-      gsap.to(".v3-spin", {
-        rotation: 540, ease: "none",
+         rotation is tied to the scroll itself, not to a clock, and the
+         dashed rim warms to amber and cools back on every revolution */
+      gsap.timeline({
         scrollTrigger: { trigger: "#how-card-3", start: "top 55%", endTrigger: "#how-card-4", end: "top 80%", scrub: 1 },
-      });
+      })
+        .to(".v3-spin", { rotation: 540, ease: "none", duration: 1 }, 0)
+        .to(".v3-spin", { borderColor: "#f5a524", duration: .25, ease: "none" }, 0)
+        .to(".v3-spin", { borderColor: "rgba(255,255,255,.35)", duration: .25, ease: "none" }, .25)
+        .to(".v3-spin", { borderColor: "#f5a524", duration: .25, ease: "none" }, .5)
+        .to(".v3-spin", { borderColor: "rgba(255,255,255,.35)", duration: .25, ease: "none" }, .75);
 
       /* 04 — the gates pop green in sequence, the meters fill, then
          the rehearsed fault flashes and the fallback answers; node 4
          lights, edge 3 fills */
       const tl4 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-4", start: "top 62%" } });
-      tl4.call(() => { rail(4); railEdge(4); }, [], 0)
-         .from(".v4-gate", { scale: .55, opacity: 0, stagger: .15, duration: .38, ease: "back.out(1.8)" }, .05)
+      tl4.from(".v4-gate", { scale: .55, opacity: 0, stagger: .15, duration: .38, ease: "back.out(1.8)" }, .05)
          .to(".v4-dash", { scaleX: 1, stagger: .14, duration: .25, ease: "power1.inOut" }, .35)
          .from(".v4-meter", { opacity: 0, y: 10, stagger: .12, duration: .35, ease: "power2.out" }, .75)
          .from(".v4-fill", { scaleX: 0, duration: .8, stagger: .15, ease: "power1.inOut" }, .95)
@@ -1036,8 +1058,7 @@
       /* 05 — the deploy console streams its rollout log, the usage
          sparkline inks upward; the rail completes — all green */
       const tl5 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-5", start: "top 62%" } });
-      tl5.call(() => { rail(5); railEdge(5); }, [], 0)
-         .from(".v5-term", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, .05)
+      tl5.from(".v5-term", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, .05)
          .from(".v5-l", { opacity: 0, y: 8, stagger: .38, duration: .25, ease: "none" }, .35);
       document.querySelectorAll(".v5-sparkline").forEach((p) => ink(p, tl5, 2.4, .9));
     }

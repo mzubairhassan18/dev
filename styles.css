@@ -568,25 +568,26 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
 .how-gap-end{ height:30vh; } /* trailing room: the last card rests stuck a beat before the pile exits */
 .how-rail{ flex:none; width:200px; position:sticky; top:96px; z-index:10; padding:8px 0; }
 .rail-track{ position:relative; display:flex; flex-direction:column; }
-.rail-track::before{ /* the dashed base line running node → node */
-  content:""; position:absolute; left:50%; margin-left:-1px; top:34px; bottom:34px;
+.rail-edge::before{ /* the dashed base line running node → node; each
+   edge draws its own run so it stops at the circles and never shows
+   through the transparent chips */
+  content:""; position:absolute; left:50%; margin-left:-1px; top:0; bottom:0;
   border-left:2px dashed rgba(255,255,255,.16);
 }
 .rail-node{ position:relative; display:flex; align-items:center; justify-content:center; height:76px; }
-.rail-node i{ /* the node disc — the step word lives inside it */
+.rail-node i{ /* the node chip — a transparent circle with a dashed
+   rounded rim: the section shows through and the word floats free */
   width:76px; height:76px; border-radius:50%;
-  background:#1a1d24; border:2px solid rgba(255,255,255,.22);
-  box-shadow:0 10px 22px rgba(0,0,0,.45), 0 1px 0 rgba(255,255,255,.07) inset;
-  transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  background:transparent; border:2px dashed rgba(255,255,255,.35);
+  transition:border-color .25s ease, box-shadow .25s ease;
 }
 .rail-node b{ /* the word, centred on the disc */
   position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
   text-align:center;
   font:800 10.5px var(--font-b); letter-spacing:.14em; text-transform:uppercase;
-  color:#a6abb4; transition:color .25s ease;
+  color:#fff; transition:color .25s ease;
 }
-.rail-node.on i{ background:var(--amber); border-color:rgba(0,0,0,.28); box-shadow:0 0 0 5px rgba(245,165,36,.16), 0 10px 24px rgba(245,165,36,.28); }
-.rail-node.on b{ color:#231a06; }
+.rail-node.on i{ border-color:var(--amber); box-shadow:0 0 0 5px rgba(245,165,36,.18), 0 10px 24px rgba(245,165,36,.30); }
 .rail-edge{ position:relative; display:flex; align-items:center; height:58px; }
 .rail-edge i{ /* the energized segment drawn over the dashes */
   position:absolute; left:50%; margin-left:-2px; top:5px; bottom:5px; width:4px;
@@ -1043,8 +1044,8 @@ a.leaf-page:hover .leaf-value{ color:#8c6d1f; border-bottom-color:#8c6d1f; }
 .no-anim .v4-dash{ transform:none; }
 .no-anim .v4-gate.on{ border-color:rgba(159,209,143,.6); background:rgba(159,209,143,.10); }
 /* the drill rail and the RFC ticks sign off fully without motion */
-.no-anim .rail-node i{ background:var(--amber); border-color:rgba(0,0,0,.28); box-shadow:0 0 0 5px rgba(245,165,36,.16); }
-.no-anim .rail-node b{ color:#231a06; }
+.no-anim .rail-node i{ border-color:var(--amber); box-shadow:0 0 0 5px rgba(245,165,36,.16); }
+.no-anim .rail-node b{ color:#fff; }
 .no-anim .rail-edge i{ transform:none; }
 .no-anim .rail-edge span{ opacity:1; transform:none; }
 .no-anim .v1-tick{ background:#9fd18f; border-color:#9fd18f; }
