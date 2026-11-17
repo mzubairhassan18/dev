@@ -481,6 +481,12 @@ html:not(.no-anim) .p-list li.lit::before{ opacity:1; }
    ============================================================ */
 #how{
   position:relative; padding:9vh 20px 8vh;
+  /* work fonts: this section is a desk, not a poster — one clean,
+     plain-spoken sans for headings and labels alike, no display
+     flourish. Overriding the two custom fonts here re-skins every
+     var(--font-d)/var(--font-b) rule inside the section at once. */
+  --font-d: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-b: "Inter", "Segoe UI", system-ui, sans-serif;
   /* both edges carry the neighbours' seam color, so the room reads
      continuous with the book above and the contact below */
   background:linear-gradient(180deg, #0d0e13 0%, #0b0c12 50%, #0d0e13 100%);
