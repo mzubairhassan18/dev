@@ -985,13 +985,23 @@
     y: 150, opacity: 0, duration: 1, ease: "power3.out",
     scrollTrigger: { trigger: ".tree-scene", start: "top 88%" },
   });
-  gsap.set("#hang", { rotation: -1.4, transformOrigin: "50% 8px" });
-  const hangIn = gsap.from("#hang", {
-    y: -170, opacity: 0, rotation: 3.5, duration: 1.15, ease: "back.out(1.3)",
+  /* every page drops from its own branch, settles at its resting tilt,
+     then idles on a slow pendulum — phase offset per page so the tree
+     never moves in lockstep */
+  const hangs = gsap.utils.toArray(".hang");
+  const restTilt = [-0.6, -2.5, 2, -2, 1.8];
+  gsap.set(hangs, { rotation: (i) => restTilt[i % restTilt.length], transformOrigin: "50% 8px" });
+  const hangIn = gsap.from(hangs, {
+    y: -170, opacity: 0, rotation: (i) => (i % 2 ? -4.2 : 4.2),
+    duration: 1.15, ease: "back.out(1.3)", stagger: .13,
     transformOrigin: "50% 8px",
     scrollTrigger: { trigger: ".tree-scene", start: "top 58%" },
     onComplete: () => {
-      if (!REDUCED) gsap.to("#hang", { rotation: 1.6, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: -1, transformOrigin: "50% 8px" });
+      if (!REDUCED) hangs.forEach((h, i) => gsap.to(h, {
+        rotation: restTilt[i % restTilt.length] + (i % 2 ? 1.7 : -1.7),
+        duration: 2.5 + (i % 3) * .35, ease: "sine.inOut", yoyo: true, repeat: -1,
+        transformOrigin: "50% 8px",
+      }));
     },
   });
   if (!REDUCED) {

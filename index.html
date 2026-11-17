@@ -313,35 +313,88 @@
   <div class="contact-inner">
     <p class="kicker">Final page — say hi</p>
     <h2 class="contact-title">Let&rsquo;s Get Connected</h2>
-    <p class="contact-sub">An old oak holds my coordinates. The frame is the guestbook — take a pen, leave a message.</p>
+    <p class="contact-sub">An old oak holds my coordinates — every branch carries a page. Pull one down and say hello.</p>
   </div>
 
   <div class="tree-scene">
-    <!-- the old oak: a real photographic cutout — the guestbook frame
-         hangs from the bare bough that leaves the crown fork. The scene
-         box is locked to the image's 1175×1280 aspect, so the wire nail
-         always lands on the branch. Photo: pixabay.com (oak-3587772),
-         Pixabay Content License. -->
+    <!-- the old oak: a real photographic cutout — the guestbook is a
+         set of paper pages, one per branch: the name page hangs from
+         the crown fork at the centre, and email / github / demo /
+         open-to each hang from a different bough. The scene box is
+         locked to the image's 1175×1280 aspect, so every wire nail
+         (--x/--y) lands on its branch at every viewport width.
+         Photo: pixabay.com (oak-3587772), Pixabay Content License. -->
     <img class="tree-img" src="assets/oak-tree.png" alt="" aria-hidden="true">
 
-    <div class="hang" id="hang">
+    <div class="hang hang-main" id="hang-main" style="--x:50%; --y:72.5%; --w:42%; --rot:0deg">
       <svg class="wire" viewBox="0 0 600 74" preserveAspectRatio="none" aria-hidden="true">
         <circle cx="300" cy="8" r="6" fill="#3c3a36"/>
         <circle cx="300" cy="8" r="2.6" fill="#8f8d88"/>
         <path d="M300 8 L34 70 M300 8 L566 70" stroke="#cfc9bc" stroke-width="3" fill="none" stroke-linecap="round"/>
       </svg>
-      <figure class="frame">
-        <div class="frame-matte">
+      <figure class="leaf-page leaf-main">
+        <div class="leaf-body">
           <div class="p-stamp stamp-corner">est. 2018</div>
-          <h3 class="frame-name">Muhammad Zubair ul Hassan</h3>
-          <p class="frame-role">Full Stack Developer — Islamabad, Pakistan</p>
-          <ul class="frame-list">
-            <li><span class="f-label">email</span><a href="mailto:mzubairhassan18@gmail.com">mzubairhassan18@gmail.com</a></li>
-            <li><span class="f-label">github</span><a href="https://github.com/mzubairhassan18" target="_blank" rel="noopener">github.com/mzubairhassan18</a></li>
-            <li><span class="f-label">live demo</span><a href="https://mzubairhassan18.github.io/live/" target="_blank" rel="noopener">mzubairhassan18.github.io/live</a></li>
-            <li><span class="f-label">open to</span><span class="f-value">Senior Frontend / Full-Stack roles</span></li>
-          </ul>
+          <h3 class="leaf-name">Muhammad Zubair ul Hassan</h3>
+          <p class="leaf-role">Full Stack Developer — Islamabad, Pakistan</p>
           <a class="cta cta-ink" href="mailto:mzubairhassan18@gmail.com">Say hello — write me a letter ✍</a>
+        </div>
+      </figure>
+    </div>
+
+    <div class="hang" id="hang-email" style="--x:18%; --y:63%; --w:22%; --rot:-2.5deg">
+      <svg class="wire" viewBox="0 0 600 74" preserveAspectRatio="none" aria-hidden="true">
+        <circle cx="300" cy="8" r="6" fill="#3c3a36"/>
+        <circle cx="300" cy="8" r="2.6" fill="#8f8d88"/>
+        <path d="M300 8 L34 70 M300 8 L566 70" stroke="#cfc9bc" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <a class="leaf-page" href="mailto:mzubairhassan18@gmail.com">
+        <div class="leaf-body">
+          <span class="leaf-label">email</span>
+          <span class="leaf-value">mzubairhassan18@gmail.com</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="hang" id="hang-github" style="--x:81%; --y:60%; --w:21%; --rot:2deg">
+      <svg class="wire" viewBox="0 0 600 74" preserveAspectRatio="none" aria-hidden="true">
+        <circle cx="300" cy="8" r="6" fill="#3c3a36"/>
+        <circle cx="300" cy="8" r="2.6" fill="#8f8d88"/>
+        <path d="M300 8 L34 70 M300 8 L566 70" stroke="#cfc9bc" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <a class="leaf-page" href="https://github.com/mzubairhassan18" target="_blank" rel="noopener">
+        <div class="leaf-body">
+          <img class="leaf-ico" src="assets/icon-github.svg" alt="" aria-hidden="true">
+          <span class="leaf-label">github</span>
+          <span class="leaf-value">github.com/mzubairhassan18</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="hang" id="hang-demo" style="--x:84%; --y:76%; --w:20%; --rot:-2deg">
+      <svg class="wire" viewBox="0 0 600 74" preserveAspectRatio="none" aria-hidden="true">
+        <circle cx="300" cy="8" r="6" fill="#3c3a36"/>
+        <circle cx="300" cy="8" r="2.6" fill="#8f8d88"/>
+        <path d="M300 8 L34 70 M300 8 L566 70" stroke="#cfc9bc" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <a class="leaf-page" href="https://mzubairhassan18.github.io/live/" target="_blank" rel="noopener">
+        <div class="leaf-body">
+          <span class="leaf-label">live demo</span>
+          <span class="leaf-value">mzubairhassan18.github.io/live</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="hang" id="hang-open" style="--x:10%; --y:79%; --w:20%; --rot:1.8deg">
+      <svg class="wire" viewBox="0 0 600 74" preserveAspectRatio="none" aria-hidden="true">
+        <circle cx="300" cy="8" r="6" fill="#3c3a36"/>
+        <circle cx="300" cy="8" r="2.6" fill="#8f8d88"/>
+        <path d="M300 8 L34 70 M300 8 L566 70" stroke="#cfc9bc" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <figure class="leaf-page">
+        <div class="leaf-body">
+          <span class="leaf-label">open to</span>
+          <span class="leaf-value">Senior Frontend / Full-Stack roles</span>
         </div>
       </figure>
     </div>
