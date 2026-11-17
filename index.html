@@ -106,11 +106,11 @@
 </section>
 
 <!-- ============ SCENE 3 · HOW I WORK ============
-     a dark slate sheet pinned over the darker room: a sticky glass
-     masthead keeps the title in view while five stone-white step-cards
-     stack beneath it, and the right-hand rail tracks the drill —
-     the step word written inside each node circle, the hand-off
-     written on each edge. -->
+     a dark slate sheet pinned over the darker room: the wordmark
+     assembles itself on arrival — How flies in from the left, Work
+     from the right, the I's stem drops between them and its dot lands
+     above — then five backgroundless step-cards stack beneath it while
+     the right-hand rail lights node by node. -->
 <section id="how" aria-label="How I work">
   <div class="how-sky">
     <div class="how-skybg" aria-hidden="true">
@@ -119,11 +119,11 @@
     </div>
 
     <header class="how-head">
-      <div class="how-head-in">
-        <p class="kicker">The drill</p>
-        <h2 class="how-title">How I <em>Work</em></h2>
-        <p class="how-tagline">user problem&nbsp;&rarr;&nbsp;production traffic</p>
-      </div>
+      <h2 class="how-mark" aria-label="How I Work">
+        <span class="mk-how">How</span>
+        <span class="mk-i" aria-hidden="true"><i class="mk-dot"></i><i class="mk-stem"></i></span>
+        <span class="mk-work">Work</span>
+      </h2>
     </header>
 
     <div class="how-columns">
@@ -166,16 +166,30 @@
       <div class="how-body">
         <p class="how-line">One agreed RFC becomes tickets sized to land in a day — riskiest first. Anything that smells like two features in one gets split before it touches the board.</p>
         <div class="how-viz viz-2" aria-hidden="true">
-          <div class="v2-board">
-            <span class="v2-sprint">sprint 41 &middot; bookings</span>
-            <ul class="v2-tickets">
-              <li class="v2-tk v2-risk"><b>BK-104</b><span>hold idempotency key</span><i class="v2-flag">risky first</i></li>
-              <li class="v2-tk v2-xl"><b>BK-105</b><span>seats + billing + emails</span><i class="v2-size">XL</i><i class="v2-strike"></i></li>
-              <li class="v2-tk"><b>BK-106</b><span>hold UI + empty state</span><i class="v2-size ok">M</i></li>
-            </ul>
+          <div class="v2-flow">
+            <div class="v2-drop">
+              <i class="fk-ah"></i>
+              <b>agreed RFC</b>
+            </div>
+            <div class="v2-board">
+              <ul class="v2-tickets">
+                <li class="v2-tk"><b>BK-104</b><span>hold idempotency key</span><i class="v2-flag">risky</i></li>
+                <li class="v2-tk"><b>BK-105</b><span>seats + billing + emails</span><i class="v2-size xl">XL</i></li>
+                <li class="v2-tk"><b>BK-106</b><span>hold UI + empty state</span><i class="v2-size">M</i></li>
+              </ul>
+            </div>
             <div class="v2-review">
               <span>&ldquo;BK-105 is two features in a trench coat &mdash; split it.&rdquo;</span>
               <i>&mdash; me, in review</i>
+            </div>
+            <div class="fork v2-fork">
+              <i class="fk-h" style="left:25%; right:25%; top:0;"></i>
+              <i class="fk-ah" style="left:25%; top:0; height:100%;"></i>
+              <i class="fk-ah" style="left:75%; top:0; height:100%;"></i>
+            </div>
+            <div class="v2-tasks">
+              <div class="v2-cell"><div class="v2-tk"><b>BK-105a</b><span>seat lock + retry</span><i class="v2-size">S</i></div></div>
+              <div class="v2-cell"><div class="v2-tk"><b>BK-105b</b><span>emails &rarr; own slice</span><i class="v2-size">S</i></div></div>
             </div>
           </div>
         </div>
@@ -193,31 +207,51 @@
       <div class="how-body">
         <p class="how-line">Cursor and Claude Code type the boilerplate; the data model, API contract and access rules stay mine. Every PR lands small, reviewed and behind a named contract.</p>
         <div class="how-viz viz-3" aria-hidden="true">
-          <div class="v3-editor">
-            <div class="v3-tabs">
-              <img src="assets/icon-cursor.svg" alt="Cursor" class="v3-ico">
-              <img src="assets/icon-claude.svg" alt="Claude Code" class="v3-ico">
-              <span class="v3-file">holds.ts</span>
+          <div class="v3-flow">
+            <div class="v3-plan">
+              <b>plan</b>
+              <span>the slice, the order, the guardrails</span>
             </div>
-            <code class="v3-code">
-              <span class="v3-cl v3-me">+ // mine: the contract</span>
-              <span class="v3-cl">export async function holdSeat(req) {</span>
-              <span class="v3-cl">&nbsp;&nbsp;const key = req.header(&quot;idempotency-key&quot;)</span>
-              <span class="v3-cl">&nbsp;&nbsp;return seats.hold(req, { key })</span>
-              <span class="v3-cl">}</span>
-            </code>
+            <div class="fork v3-fork-out">
+              <i class="fk-v" style="left:50%; top:0; height:24px;"></i>
+              <i class="fk-h" style="left:25%; right:25%; top:24px;"></i>
+              <i class="fk-ah" style="left:25%; top:24px; height:28px;"></i>
+              <i class="fk-ah" style="left:75%; top:24px; height:28px;"></i>
+            </div>
+            <div class="v3-agents">
+              <div class="v3-agent">
+                <div class="a-card">
+                  <img src="assets/icon-cursor.svg" alt="">
+                  <b>Cursor</b>
+                  <span>types the boilerplate</span>
+                </div>
+              </div>
+              <div class="v3-agent">
+                <div class="a-card">
+                  <img src="assets/icon-claude.svg" alt="">
+                  <b>Claude</b>
+                  <span>drafts the tricky parts</span>
+                </div>
+              </div>
+            </div>
+            <div class="fork v3-fork-in">
+              <i class="fk-v" style="left:25%; top:0; height:22px;"></i>
+              <i class="fk-v" style="left:75%; top:0; height:22px;"></i>
+              <i class="fk-h" style="left:25%; right:25%; top:22px;"></i>
+              <i class="fk-ah" style="left:50%; top:22px; height:26px;"></i>
+            </div>
+            <div class="v3-proc"><i class="v3-spin"></i></div>
+            <div class="v3-tail"><i class="fk-ah"></i></div>
+            <div class="v3-prs">
+              <div class="v3-pr"><b>PR 1</b><em class="v3-ok">reviewed</em></div>
+              <div class="v3-pr"><b>PR 2</b><em class="v3-wait">in review</em></div>
+              <div class="v3-pr"><b>PR 3</b><em class="v3-ok">reviewed</em></div>
+              <div class="v3-pr"><b>PR 4</b><em class="v3-wait">in review</em></div>
+            </div>
           </div>
-          <div class="v3-pr">
-            <span class="v3-pr-id">PR #482</span>
-            <span class="v3-pr-meta"><em>+</em>64 <i>&minus;</i>18</span>
-            <span class="v3-pr-state">reviewed &check;</span>
-          </div>
-          <div class="v3-owns">
-            <span class="v3-own-label">I own —</span>
-            <span class="v3-chip">data model</span>
-            <span class="v3-chip">API contract</span>
-            <span class="v3-chip">access rules</span>
-          </div>
+          <div class="v3-star" style="--fx:80%; --fy:10%; --rr:-9deg;">data model</div>
+          <div class="v3-star" style="--fx:2%; --fy:34%; --rr:7deg;">API contract</div>
+          <div class="v3-star" style="--fx:84%; --fy:48%; --rr:-6deg;">access rules</div>
         </div>
       </div>
     </article>

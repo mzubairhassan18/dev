@@ -868,10 +868,11 @@
 
   /* ------------------------------------------------------------
      SCENE 3 — how I work
-     a sunny sheet with a sticky masthead; five darker step-cards
-     stack beneath it and the right-hand rail lights node by node —
-     Scope → Plan → Build → Verify → Ship — each hand-off written
-     on the edge between two nodes
+     the wordmark assembles itself on arrival — How flies in from the
+     left, Work from the right, the I's stem drops between them and
+     the amber dot lands just above it — then five backgroundless
+     step-cards stack beneath it while the right-hand rail lights
+     node by node
      ------------------------------------------------------------ */
   if (document.getElementById("how")) {
     /* rail(k): node k pops amber as card k lands */
@@ -888,19 +889,41 @@
     };
 
     if (REDUCED) {
-      /* no motion: every node, edge, tick, chip and gate sits in its
-         final state immediately */
+      /* no motion: the wordmark sits assembled and every node, edge,
+         tick and gate rests in its final state immediately */
       gsap.utils.toArray("#how .rail-node").forEach((n) => n.classList.add("on"));
       gsap.utils.toArray("#how .rail-edge").forEach((e) => e.classList.add("on"));
       gsap.utils.toArray("#how .v1-row").forEach((r) => r.classList.add("on"));
       gsap.utils.toArray("#how .v4-gate").forEach((g) => g.classList.add("on"));
-      gsap.utils.toArray("#how .v3-chip").forEach((c) => c.classList.add("on"));
-      gsap.set("#how .v2-strike, #how .v4-dash", { scaleX: 1 });
+      gsap.set("#how .v4-dash", { scaleX: 1 });
     } else {
-      gsap.from("#how .how-head-in > *", {
-        y: 30, opacity: 0, stagger: .09, duration: .65, ease: "power3.out",
-        scrollTrigger: { trigger: "#how", start: "top 74%" },
+      /* the wordmark: How flies in from the left, Work from the right,
+         then the I's stem drops from above and fixes between them, the
+         words part to make room for it, and the amber dot lands just
+         above the stem */
+      const intro = gsap.timeline({ scrollTrigger: { trigger: "#how", start: "top 72%" } });
+      intro.from(".mk-how", { x: -140, autoAlpha: 0, duration: .7, ease: "power3.out" })
+           .from(".mk-work", { x: 140, autoAlpha: 0, duration: .7, ease: "power3.out" }, "<.08")
+           .from(".mk-stem", { y: -110, autoAlpha: 0, duration: .5, ease: "power2.in" }, "+=.12")
+           .to(".mk-how", { x: -14, duration: .4, ease: "power2.inOut" }, "+=.05")
+           .to(".mk-work", { x: 14, duration: .4, ease: "power2.inOut" }, "<")
+           .from(".mk-dot", { y: -70, autoAlpha: 0, duration: .55, ease: "bounce.out" }, "+=.05");
+
+      /* typewriter setup: the first card's intro line is typed out char
+         by char — split it once into per-char spans; the aria-label
+         keeps the full sentence readable for assistive tech */
+      document.querySelectorAll("#how-card-1 .how-line").forEach((p) => {
+        const text = p.textContent;
+        p.setAttribute("aria-label", text);
+        p.textContent = "";
+        [...text].forEach((ch) => {
+          const s = document.createElement("span");
+          s.className = "tw-ch";
+          s.textContent = ch;
+          p.appendChild(s);
+        });
       });
+
       /* every card rises the last stretch with a soft settle as it lands */
       document.querySelectorAll(".how-card").forEach((card) => {
         gsap.from(card, {
@@ -916,38 +939,56 @@
         gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
         tl.to(path, { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" }, at);
       };
-      /* 01 — the RFC sheet signs itself: four rows tick off, then the
-         "agreed" pill pops; the rail's first node lights */
+
+      /* 01 — the intro line types itself out, the RFC head appears, then
+         problem → users → non-goals → success tick off in order and the
+         "agreed" pill pops; node 1 lights */
       const tl1 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-1", start: "top 62%" } });
       tl1.call(() => rail(1), [], 0)
-         .from(".v1-rfc", { y: 26, opacity: 0, duration: .5, ease: "power2.out" }, .05)
-         .from(".v1-row", { x: -18, opacity: 0, stagger: .18, duration: .4, ease: "power2.out" }, .4)
-         .from(".v1-agreed", { y: 10, opacity: 0, duration: .4, ease: "back.out(1.7)" }, 1.45);
+         .from("#how-card-1 .tw-ch", { opacity: 0, duration: .01, stagger: .011 }, .05)
+         .from(".v1-rfc-top > *", { y: 14, opacity: 0, stagger: .08, duration: .4, ease: "power2.out" }, 2.0)
+         .from(".v1-row", { x: -22, opacity: 0, stagger: .3, duration: .45, ease: "power2.out" }, 2.3);
       document.querySelectorAll(".v1-row").forEach((r, i) =>
-        tl1.call(() => r.classList.add("on"), [], .55 + i * .18));
+        tl1.call(() => r.classList.add("on"), [], 2.55 + i * .3));
+      tl1.from(".v1-agreed", { y: 10, opacity: 0, duration: .4, ease: "back.out(1.7)" }, 2.3 + 4 * .3);
 
-      /* 02 — the sprint board: tickets land riskiest-first, the XL
-         gets struck and the review bubble says why; node 2, edge 1 */
+      /* 02 — the agreed arrow drops into the board, tickets land, the
+         risky flag and the sizes stamp on, review says why, the fork
+         draws and the two split tickets arrive; node 2, edge 1 */
       const tl2 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-2", start: "top 62%" } });
       tl2.call(() => { rail(2); railEdge(2); }, [], 0)
-         .from(".v2-board", { y: 24, opacity: 0, duration: .45, ease: "power2.out" }, .05)
-         .from(".v2-tk", { y: 14, opacity: 0, stagger: .16, duration: .38, ease: "power2.out" }, .3)
-         .to(".v2-strike", { scaleX: 1, duration: .4, ease: "power2.inOut" }, 1.05)
-         .from(".v2-review", { x: -12, opacity: 0, duration: .4, ease: "power2.out" }, 1.35);
+         .from(".v2-drop > i", { scaleY: 0, transformOrigin: "top center", duration: .45, ease: "power2.out" }, .1)
+         .from(".v2-drop > b", { x: -12, opacity: 0, duration: .35, ease: "power2.out" }, .45)
+         .from(".v2-board", { y: 20, opacity: 0, duration: .45, ease: "power2.out" }, .55)
+         .from(".v2-tickets .v2-tk", { y: 16, opacity: 0, stagger: .14, duration: .4, ease: "power2.out" }, .75)
+         .from(".v2-tickets .v2-flag, .v2-tickets .v2-size", { scale: 1.8, opacity: 0, stagger: .12, duration: .35, ease: "back.out(2)" }, 1.35)
+         .from(".v2-review", { x: -14, opacity: 0, duration: .4, ease: "power2.out" }, 1.7)
+         .from(".v2-fork .fk-h", { scaleX: 0, transformOrigin: "center center", duration: .35, ease: "power1.inOut" }, 2.0)
+         .from(".v2-fork .fk-ah", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .12, ease: "power1.inOut" }, 2.05)
+         .from(".v2-cell .v2-tk", { y: 16, opacity: 0, stagger: .15, duration: .4, ease: "power2.out" }, 2.5);
 
-      /* 03 — the editor lines drop in, the PR bar pops, the chips
-         I own get their pen stroke; node 3 lights, edge 2 fills */
+      /* 03 — the plan drops from above, the agents rise to meet it, the
+         forks draw inward, the ring scales in and turns while it works,
+         the tail drops to the PRs, and the contracts punch on one by
+         one; node 3, edge 2 */
       const tl3 = gsap.timeline({ scrollTrigger: { trigger: "#how-card-3", start: "top 62%" } });
       tl3.call(() => { rail(3); railEdge(3); }, [], 0)
-         .from(".v3-editor", { y: 24, opacity: 0, duration: .5, ease: "power2.out" }, .05)
-         .from(".v3-cl", { opacity: 0, x: -10, stagger: .14, duration: .35 }, .35)
-         .from(".v3-pr", { y: 14, opacity: 0, duration: .42, ease: "back.out(1.6)" }, 1.1)
-         .from(".v3-own-label", { opacity: 0, duration: .3 }, 1.25)
-         .from(".v3-chip", {
-           y: 14, opacity: 0, stagger: .13, duration: .4, ease: "back.out(1.6)",
-           rotation: (i) => (i % 2 ? 2.4 : -2.4),
-         }, 1.35);
-      tl3.call(() => document.querySelectorAll(".v3-chip").forEach((c) => c.classList.add("on")), [], 1.95);
+         .from(".v3-plan", { y: -40, opacity: 0, duration: .5, ease: "power2.out" }, .1)
+         .from(".v3-fork-out .fk-h", { scaleX: 0, transformOrigin: "center center", duration: .35, ease: "power1.inOut" }, .4)
+         .from(".v3-fork-out i:not(.fk-h)", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .1, ease: "power1.inOut" }, .45)
+         .from(".v3-agent", { y: 40, opacity: 0, stagger: .15, duration: .45, ease: "power2.out" }, .8)
+         .from(".v3-fork-in .fk-h", { scaleX: 0, transformOrigin: "center center", duration: .35, ease: "power1.inOut" }, 1.2)
+         .from(".v3-fork-in i:not(.fk-h)", { scaleY: 0, transformOrigin: "top center", duration: .4, stagger: .1, ease: "power1.inOut" }, 1.25)
+         .from(".v3-spin", { scale: 0, opacity: 0, duration: .45, ease: "back.out(1.7)" }, 1.6)
+         .from(".v3-tail > i", { scaleY: 0, transformOrigin: "top center", duration: .4, ease: "power1.inOut" }, 2.1)
+         .from(".v3-pr", { y: 16, opacity: 0, stagger: .14, duration: .4, ease: "power2.out" }, 2.45)
+         .from(".v3-star", { scale: 1.7, autoAlpha: 0, duration: .45, ease: "back.out(1.8)", stagger: .4 }, 2.9);
+      /* the ring keeps working for as long as the card stays stuck: its
+         rotation is tied to the scroll itself, not to a clock */
+      gsap.to(".v3-spin", {
+        rotation: 540, ease: "none",
+        scrollTrigger: { trigger: "#how-card-3", start: "top 55%", endTrigger: "#how-card-4", end: "top 80%", scrub: 1 },
+      });
 
       /* 04 — the gates pop green in sequence, the meters fill, then
          the rehearsed fault flashes and the fallback answers; node 4
