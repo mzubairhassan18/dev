@@ -263,9 +263,18 @@
   const dropHalo = svgEl("circle", { cx: 2350, cy: WORLD.dropEnd, r: 18, class: "halo" }, treeG);
 
   // camera
-  const cam = { x: 800, y: 30, w: 1700 };
   const aspect = () => window.innerWidth / Math.max(1, window.innerHeight);
-  const WF = gsap.utils.clamp(0.68, 1, aspect() / 1.45);
+  /* portrait phones see a much narrower slice of the world: the desktop
+     fit (1700 units wide) shrinks the name and the tree to postage-stamp
+     size. Frame a ~860-unit window instead and scale every keyframe by
+     the same factor, so the journey reads at phone size while the
+     desktop camera stays byte-for-byte what it was. */
+  const NARROW = window.matchMedia("(max-width: 720px)").matches
+              && window.innerHeight > window.innerWidth;
+  const WF = NARROW ? .43 : gsap.utils.clamp(0.68, 1, aspect() / 1.45);
+  const cam = NARROW
+    ? { x: 1600 - 430, y: 508 - (860 / aspect()) / 2, w: 860 }
+    : { x: 800, y: 30, w: 1700 };
   const applyCam = () => {
     const a = aspect(), h = cam.w / a;
     world.setAttribute("viewBox", `${cam.x} ${cam.y} ${cam.w} ${h}`);
@@ -309,6 +318,22 @@
   ]);
 
   fontsReady.then(() => {
+    if (NARROW) {
+      /* one line is 1344 world units — wider than the phone's 860-unit
+         camera window at any readable size. Break the name across two
+         centred lines and let it fade in (the desktop keeps the single-
+         line typewriter verbatim). */
+      nameText.setAttribute("text-anchor", "middle");
+      nameText.innerHTML =
+        '<tspan x="1600" y="466">Muhammad Zubair</tspan>' +
+        '<tspan x="1600" y="528">ul Hassan</tspan>';
+      nameText.style.opacity = 0;
+      subtitle.setAttribute("y", "620");
+      startX = WORLD.nameX;
+      burstX = WORLD.nameX;
+      startDrop();
+      return;
+    }
     nameText.textContent = NAME;
     const w = nameText.getComputedTextLength();
     startX = WORLD.nameX - w / 2;
@@ -391,21 +416,26 @@
        .to(orbBall, { scaleX: 1.28, scaleY: .78, duration: .14, ease: "power1.out" }, .62)
        .to(orb, { scale: 0, duration: .3, ease: "back.in(2.2)", svgOrigin: `${burstX} ${burstY}` }, .78)
        .to("#orb-ring", { opacity: 0, duration: .2 }, .78)
-       .add(() => burst(burstX, burstY), .95)
-       .add(() => {
-         caret.setAttribute("x", startX);
-         gsap.to(caret, { opacity: 1, duration: .1 });
-         gsap.to(caret, { opacity: 0, duration: .32, repeat: -1, yoyo: true, ease: "steps(1)" });
-       }, 1.05)
-       .to(typing, {
-         v: 1, duration: Math.max(1.1, NAME.length * .062), ease: "none",
-         onUpdate: () => {
-           const n = Math.round(typing.v * NAME.length);
-           nameText.textContent = NAME.slice(0, n);
-           const w = n ? nameText.getSubStringLength(0, n) : 0;
-           caret.setAttribute("x", startX + w + 6);
-         },
-       }, 1.15);
+       .add(() => burst(burstX, burstY), .95);
+    if (NARROW) {
+      seq.to(nameText, { opacity: 1, duration: .7, ease: "power2.out" }, 1.15);
+    } else {
+      seq.add(() => {
+        nameText.setAttribute("x", startX);
+        caret.setAttribute("x", startX);
+        gsap.to(caret, { opacity: 1, duration: .1 });
+        gsap.to(caret, { opacity: 0, duration: .32, repeat: -1, yoyo: true, ease: "steps(1)" });
+      }, 1.05)
+      .to(typing, {
+        v: 1, duration: Math.max(1.1, NAME.length * .062), ease: "none",
+        onUpdate: () => {
+          const n = Math.round(typing.v * NAME.length);
+          nameText.textContent = NAME.slice(0, n);
+          const w = n ? nameText.getSubStringLength(0, n) : 0;
+          caret.setAttribute("x", startX + w + 6);
+        },
+      }, 1.15);
+    }
   }
 
   function finishIntro() {
@@ -700,6 +730,12 @@
   ];
 
   const book = document.getElementById("book");
+  /* the FRONT ring strands are a flat sibling that mirrors #book's box and
+     centring. Pin its -50%/-50% centring as GSAP-owned percents BEFORE any
+     timeline writes x/y, otherwise the first transform tween replaces the
+     CSS translate pair and the rings slide into the middle of the open
+     page (visible on phones, where the spread shift is small). */
+  gsap.set(".binding-overlay", { x: 0, y: 0, xPercent: -50, yPercent: -50 });
   const baseEl = book.querySelector(".page.base");
   const pages = COMPANIES.map((c, i) => {
     const p = document.createElement("div");
